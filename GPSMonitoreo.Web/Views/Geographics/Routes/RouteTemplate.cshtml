@@ -1,0 +1,491 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedForm3.cshtml";
+
+}
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+	//layout.onSavedSetEditingId = false;
+
+	layout.addFormInitializer(function(form){
+
+
+		var routeType
+		var direction;
+		var grid;
+		var ruta;
+
+		function assignRowNumbers() {
+
+			
+
+			grid.base.beginUpdate();
+
+			var rownumber = 1;
+
+			var rows = grid.getAllRows();
+			var row;
+
+			for(var x = 0; x < rows.length; x++)
+			{
+				row = rows[x];
+				row.rownumber = rownumber++;
+			}
+
+			grid.base.endUpdate();
+					//grid.base.host.jqxTreeGrid('beginUpdate');
+
+					//updateFaseApplicable(item, item.fase);
+
+					//grid.base.host.jqxTreeGrid('endUpdate');
+
+
+		}
+
+		function cargarRuta(){
+			var routeId = ruta.val();
+			var directionVal = direction.val();
+			var routeTypeVal = routeType.val();
+			grid.base.clearSelection();
+			grid.base.clear();
+			
+
+			if(routeId && directionVal)
+			{
+				
+				App.get('/geographics/routes/routetemplatedata/' + routeId + '/' + routeType + '/' + directionVal, function(response){
+					//layout.grids.cercasfases.setLocalData(response.records);
+					//console.log('asdf');
+					//console.log(grid);
+					grid.base.source._source.localdata = response.records[0].children;
+
+					//console.log(response);
+
+					grid.base.host.jqxTreeGrid('updateBoundData');
+
+					assignRowNumbers();
+
+					//var item = grid.getRows()[0];
+
+					grid.expandAll();
+
+
+					//grid.base.host.jqxTreeGrid('beginUpdate');
+
+					//updateFaseApplicable(item, item.fase);
+
+					//grid.base.host.jqxTreeGrid('endUpdate');
+
+					//grid.base.host.jqxTreeGrid('updating');  
+					//grid.base.host.jqxTreeGrid('endUpdate'); 
+					//grid.base.host.jqxTreeGrid('refresh');
+
+
+					//grid.base.source._source.localData = response.ruta;
+					//grid.base.source.records = response.ruta;
+					//grid.base.source.records = response.ruta;
+					//grid.base.source.dataBind();
+					//grid.base.updateBoundData();
+
+					//grid.base.source._source.localdata = employees;
+
+					//grid.base.updateBoundData();
+					//grid.base.host.jqxTreeGrid('source', grid.base.source);
+					//console.log('----------');
+					//console.log(grid);
+					//console.log(grid.base.source);
+					////grid.base.source.dataBind();
+					////grid.base.updateBoundData();
+					//grid.expandAll();
+					//console.log(response);
+				});
+			}
+			else
+			{
+				//layout.grids.cercasfases.clear();
+			}
+		}
+
+		
+
+		var $form = form.$form;
+
+		var $categoria = $form.find('#@(Model.FormId)_category');
+
+		var $categoria_tree = $form.find('#@(Model.FormId)_category_tree').jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["categories"])});
+	
+		var categoria = form.addDropDownButton($categoria, { width: '100%', dropDownWidth : 300}, $categoria_tree.data('jqxWidget'));
+
+		$categoria.css('width', '100%');
+
+		$categoria_tree.on('select', function (event) {
+			var args = event.args;
+			var item = $categoria_tree.jqxTree('getItem', args.element);
+			var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+			categoria.setContent(dropDownContent);
+			categoria.close();
+		});
+		
+
+		var $routeType = $form.find('#@(Model.FormId)_routeType');
+
+		routeType = form.addRadioButtons($routeType, 
+			{
+				align: 'horizontal',
+				onChecked : function(groupName, evt, value) {
+					cargarRuta();
+				}
+			}, 
+			[
+				{ value: 1, label: 'Ida' },
+				{ value: 2, label: 'Retorno', checked: true }
+			]
+		);
+
+		var $direction = $form.find('#@(Model.FormId)_direction');
+
+		direction = form.addRadioButtons($direction, 
+			{
+				align: 'horizontal',
+				onChecked : function(groupName, evt, value) {
+					cargarRuta();
+				}
+			}, 			
+			[
+				{ value: 1, label: 'Igual' },
+				{ value: 2, label: 'Inverso', checked: true }
+			]
+		);
+
+
+
+		
+		var topGrid;
+
+		
+
+		ruta = form.addPicker('#@(Model.FormId)_route', {}, function(){
+			App.geografico.rutas.windowSearch(function(item){
+				ruta.val({value: item.id, label: item.descripcion});
+				cargarRuta();
+			}, {closeOnSelect: true});
+		});
+
+		//ruta.onChange = function() {
+		//	cargarRuta();
+		//};
+
+		ruta.onClear = function() {
+			//alert('clear');
+			grid.base.clear();
+		};
+
+		var $grid = layout.container.find('#@(Model.FormId)_sections');
+
+		var source = {
+			dataType: 'json',
+			dataFields: [
+				{ name: 'Id', type: 'number' },
+				{ name: 'Description', type: 'string' },
+				//{ name: 'tipo', type: 'number' },
+				//{ name: 'fase', type: 'number'},
+				//{ name: 'fase_descripcion', value: 'fase', values: {source: fases, value: 'value', name: 'label'}},
+				//{ name: 'fase_aplicable', type: 'string'},
+				{ name: 'children', type: 'array' },
+				{ name: 'expanded', type: 'bool' },
+				{ name: 'rownumber', type: 'number'}
+			],
+			hierarchy: {
+				root: 'children'
+			},
+			//id: 'Id',
+			localData: []
+		};
+
+		var dataAdapter = new $.jqx.dataAdapter(source, {
+			loadComplete: function () {
+				
+			}
+		});
+		// create Tree Grid
+		$grid.jqxTreeGrid({
+			width: '100%',
+			height: '500px',
+			source: dataAdapter,
+			editable: true,
+			showtoolbar: true,
+			selectionMode: 'singleRow',
+			editSettings: {
+				saveOnPageChange: true, 
+				saveOnBlur: true, 
+				saveOnSelectionChange: true, 
+				cancelOnEsc: true, 
+				saveOnEnter: true, 
+				editSingleCell: true, 
+				editOnDoubleClick: true, 
+				editOnF2: true
+			},
+			renderToolbar: function($toolbar){
+
+				var $buttonsToolBar = $('<div style="height:100%;padding:3px;"></div>');
+
+				var $remove = $('<webicon class="garbage-1 clickable"></webicon>');
+				
+				$toolbar.append($buttonsToolBar);
+
+				$buttonsToolBar.append($remove);
+				
+				$remove.click(function(){
+					var rows = grid.base.getSelection();
+					//console.log(rows);
+					if(rows.length)
+					{
+						var row = rows[0];
+
+						if(direction.val() == 1) //is same direction
+						{
+							if(row.level > 0)
+							{
+								App.showError('Para rutas del mismo sentido, solo puede eliminar tramos');
+							}
+							else
+							{
+								//console.log(row);
+								grid.deleteRow(row.uid);
+								assignRowNumbers();
+							}
+						}
+						else
+						{
+							grid.deleteRow(row.uid);
+							assignRowNumbers();
+							
+						}
+					};
+					
+				});
+			},
+			columns: [
+
+				
+				
+				{text: 'Descripción', dataField: 'Description', width: 600, cellClassName : function(row, column, value, rowData) {
+						if(rowData.level < 2 && direction.val() == 2)
+						{
+							return 'templateroute-editablecell';
+						}
+						else
+						{
+							return '';
+						}
+						
+
+						//templateroute-editablecell
+					},
+					
+					
+					
+					cellsRenderersss: function(row, column, value, rowData) {
+					var html = '<div style="width:100%;height:100%;';
+
+					
+					
+					if(rowData.level < 2 && direction.val() == 2)
+					{
+						html += 'background-color:green;';
+					}
+
+					html += '">' + value + '</div>';
+
+					return html;
+				}},
+				{text: 'Código', dataField: 'Id', width: 90, editable: false},
+
+				{text: 'Fila #', width: 60, dataField: 'rownumber'}
+				
+				//{text: 'Tipo', dataField: 'tipo', width: 120, editable: false,
+				//	cellsRenderer: function (row, column, value, rowData) {
+				//		switch(value) {
+				//			case 1:
+				//				return 'Ruta';
+				//			case 2:
+				//				return 'Tremo';
+				//			case 3:
+				//				return 'Segmento';
+				//			case 4:
+				//				return 'Cerca';
+				//		}
+
+				//	}
+				//},
+
+				//{text: 'Fase', dataField: 'fase', /*displayField: 'fase_descripcion',*/  width: 150, columnType: 'template', 
+				//	cellsRenderer: function (row, column, value, rowData) {
+				//		var result = $.grep(fases, function(e){ return e.value == value; });
+
+				//		if(result.length)
+				//			return result[0].label;
+
+				//		return '';
+
+				//	},
+				//	createEditor: function(row, value, editor) {
+				//		editor.jqxDropDownList({ source: fases, placeHolder: '', width: '100%', height: '100%', displayMember: 'label', valueMember: 'value'});
+				//		editor.on('select', function(evt){
+				//			if(grid._editing)
+				//			{
+				//				grid.endCellEdit(grid._editingRowKey, 'fase', false);
+				//			}
+								
+				//		});
+				//	},
+				//	initEditor: function (row, cellvalue, editor, celltext, width, height) {
+				//		grid._editing = true;
+				//		var dropDown = editor.data('jqxWidget');
+
+				//		dropDown.selectItem(cellvalue);
+				//		dropDown.open();
+				//	},
+				//	getEditorValue: function (row, cellvalue, editor) {
+				//		return editor.val()*1;
+				//	}
+				//},
+				//{text: 'Fase aplicable', dataField: 'fase_aplicable', width: 200, editable: false }
+			]
+		});
+
+		grid = $grid.data('jqxWidget');
+
+		window.grid = grid;
+
+
+		$grid.on('cellBeginEdit', function(evt) {
+			var args = evt.args;
+			var row = args.row;
+
+			if(row.level > 1 || direction.val() == 1)
+			{
+				grid.endCellEdit(row.uid, 'Description');
+			}
+
+			//grid._editingRowKey = evt.args.key;
+			//grid._editing = true;
+		});
+
+
+		grid.customVal = function () {
+
+			function recur(arr, children, level) {
+				//console.log(item.id + '-' + item.description)
+
+				//if(item.fase)
+				//	arr.push({id: item.id, fase: item.fase, tipo: item.tipo});
+
+				var child;
+
+				var newChild;
+				var newChildChildren;
+
+				for(var x = 0; x < children.length; x++) {
+					child = children[x];
+
+					newChild = {
+						Id: child.Id,
+						Description: child.Description
+					};
+
+					arr.push(newChild);
+
+					if(child.children)
+					{
+						newChildChildren = [];
+
+						switch(level)
+						{
+							case 0:
+								newChild.Segments = newChildChildren;
+								break;
+
+							case 1:
+								newChild.Geofences = newChildChildren;
+								break;
+						}
+
+
+						recur(newChildChildren, child.children, level + 1);
+					}
+				}
+			}
+
+
+			var ret = [];
+			//var parent = this.getRows()[0];
+
+			recur(ret, this.getRows(), 0);
+
+
+			return ret;
+		}
+
+
+
+		form.addWidget(grid);
+
+		//cargarRuta(86, 1);
+	});
+
+
+
+</script>
+
+
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr>
+		<td>Categoria</td>
+		<td>
+			<div id="@(Model.FormId)_category" field_name="CategoryId">
+				<div id="@(Model.FormId)_category_tree" style="border: none;"></div>
+			</div>
+		</td>
+	</tr>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section3">
+	<tr>
+		<td>Tipo Ruta</td>
+		<td><div id="@(Model.FormId)_routeType" field_name="RouteType"></div></td>
+		<td></td>
+		<td>Dirección modelo</td>
+		<td><div id="@(Model.FormId)_direction" field_name="Direction"></div></td>
+	</tr>
+	<tr>
+		<td>Ruta modelo</td>
+		<td colspan="5"><div id="@(Model.FormId)_route" field_name="RouteId"></div></td>
+	</tr>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section4">
+	<table class="table_edit" style="width:100%">
+		<tbody class="tbody_group">
+			<tr>
+				<th>RUTA RETORNO</th>
+			</tr>
+			<tr>
+				<td><div id="@(Model.FormId)_sections" field_name="Sections"></div></td>
+			</tr>
+		</tbody>
+	</table>
+</formsection>
+
+
+@section tabtitles{
+				
+}
+
+@section tabs{
+
+}
+
+
+

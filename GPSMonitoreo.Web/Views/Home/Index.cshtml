@@ -1,0 +1,215 @@
+﻿@using HtmlHelpers
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<title>GPSMonitoreo WEB</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/assets/jqwidgets4.5.2/styles/jqx.base.css" rel="stylesheet" />
+    <link href="~/assets/jqwidgets4.5.2/styles/jqx.metro.css" rel="stylesheet" />
+
+
+	<link href="~/css/icons.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/jqwidgets-fixes.css" rel="stylesheet" asp-append-version="true" />
+	<link href="~/css/jqxgrid-fixes.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/main.css" rel="stylesheet"  asp-append-version="true" />
+	<link href="~/css/jqwidgets-styles.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/googlemaps.css" rel="stylesheet"  asp-append-version="true" />
+	
+	
+
+	<script src="~/assets/jquery/jquery-3.0.0.min.js"></script>
+
+	<script src="~/js/jquery_extensions.js"   asp-append-version="true"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxcore.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxbuttons.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxmenu.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxsplitter.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxwindow.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxnotification.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxpopover.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxdropdownbutton.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxexpander.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxscrollbar.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxlistbox.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxdropdownlist.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxcombobox.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxinput.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxnumberinput.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxtextarea.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxtabs.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxbuttongroup.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxcheckbox.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxradiobutton.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxslider.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxtree.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxpanel.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxgrid.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxgrid.edit.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxgrid.pager.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxgrid.selection.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxgrid.columnsresize.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxgrid.grouping.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxdata.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxdatatable.js"></script>
+	<script src="~/assets/jqwidgets4.5.2/jqxtreegrid.js"></script>
+
+	<script src="~/js/jqwidgets.grid.extensions.js" asp-append-version="true"></script>
+	<script src="~/js/jqwidgets.treegrid.extensions.js" asp-append-version="true"></script>
+    <script src="~/js/jqwidgets_extensions.js" asp-append-version="true"></script>
+
+
+
+
+    <script src="~/js/general.js" asp-append-version="true"></script>
+    <script src="~/js/app.js" asp-append-version="true"></script>
+    <script src="~/js/app-extension.js" asp-append-version="true"></script>
+	
+	<script src="~/js/searchgrid.js" asp-append-version="true"></script>
+	<script src="~/js/objects.js" asp-append-version="true"></script>
+	<script src="~/js/applayouts.js" asp-append-version="true"></script>
+	<script src="~/js/appgrid.js" asp-append-version="true"></script>
+	<script src="~/js/appgrid2.js" asp-append-version="true"></script>
+
+
+	<script src="~/js/estructura.js" asp-append-version="true"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=drawing"></script>
+	<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0cGGHWHY3zWJ91m_8yIgW1HkOOFKtqMk&libraries=drawing"></script>-->
+	<script src="~/assets/googlemaps/BDCCParallelLines.gmap3.js"></script>
+	<script src="~/assets/googlemaps/maplabel.js"></script>
+	@*<script src="~/assets/googlemaps/infobubble-compiled.js"></script>*@
+	<script src="~/assets/googlemaps/infobubble.js"></script>
+    <script src="~/js/googlemaps.js" asp-append-version="true"></script>
+	<script src="~/js/geoutils.js" asp-append-version="true"></script>
+	<script src="~/assets/clipper.js"></script>
+	<script src="~/js/mapas.js" asp-append-version="true"></script>
+
+	<script src="~/js/calendario_operativo.js" asp-append-version="true"></script>
+
+	<script>
+		function initialize() {
+
+
+			//google.maps.event.addListenerOnce(map_cerca, 'idle', function (evt) {
+				
+			//})
+    
+
+
+
+			//google.maps.event.addListener(drawingManager, 'polygoncomplete', function (flightPath) {
+			//	google.maps.event.addListener(flightPath, 'rightclick', function (e) {
+			//		// Check if click was on a vertex control point
+			//		if (e.vertex == undefined) {
+			//			return;
+			//		}
+			//		deleteMenu.open(map, flightPath.getPath(), e.vertex);
+			//	});
+			//});
+
+			//google.maps.event.addListener(flightPath, 'rightclick', function(e) {
+			//  // Check if click was on a vertex control point
+			//  if (e.vertex == undefined) {
+			//    return;
+			//  }
+			//  deleteMenu.open(map, flightPath.getPath(), e.vertex);
+			//});
+
+			//google.maps.event.addListener(map_cerca, 'click', function (event) {
+			//	console.log("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+			//});
+			/*
+	
+			-2.199814872606212 -79.94768142700195
+			-2.1718544279301293  -79.89189147949219
+	*/
+		}
+
+		//google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+    
+	
+	<script type="text/javascript">
+
+
+    $(function () {
+		$.jqx.theme = 'metro';
+		$.jqx.culture = 'es-EC';
+		App.init();
+    });
+    </script>
+
+
+</head>
+<body>
+	<div id="app_body" class="app_body" style="box-sizing:border-box"></div>
+
+	<div class="app_header" style="box-sizing:border-box">
+		<div style="width:50px;height:30px;border:1px solid red">
+
+		</div>
+		
+
+		<div id="app_menu_top" style="display:none;">
+			<ul>
+				<li><a href="#Home">Home</a></li>
+				<li>
+					Ayuda
+					<ul>
+						<li>?????</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="app_splittedBody" style="display:none;border:none;">
+		<div id="app_splittedBody_left"></div>
+		<div id="app_splittedBody_right">
+			<!--NO ABRIR EN BREAKLINES-->
+            <div id='app_tabs' style="position:relative"><ul style='margin-left: 10px;'><li>Home</li></ul><div></div></div>
+		</div>
+	</div>
+	<div id="notification"><div></div></div>
+	<div class="jqx-notification-wrapper" style="z-index: 9999999">
+		<!--
+		<div class="inner_container"  id="notifications_container">
+		</div>
+		-->
+
+
+
+		<div class="inner_container">
+			<div id="notifications_container"></div>
+		</div>
+
+	</div>
+
+	<div id="windowError" style="display:none;">
+		<div>Error</div>
+		<div>Some error</div>
+	</div>
+
+	<div id="windowWarning" style="display:none;">
+		<div>Advertencia!</div>
+		<div></div>
+	</div>
+
+	<div id="windowInfo" style="display:none;">
+		<div></div>
+		<div></div>
+	</div>
+
+	<div id="windowInput" style="display:none;">
+		<div>INPUT</div>
+		<div class="withfooter">
+			<div class="win_content"></div>
+			<input type="text" style="width:100%;height:26px;margin-top:5px" />
+			<div class="footer">
+				<button type="button">Continuar</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

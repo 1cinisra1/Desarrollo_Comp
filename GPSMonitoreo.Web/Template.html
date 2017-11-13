@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title>
+    <style type="text/css">
+       .notifications-table
+		{
+			border: 1px solid black;
+		}
+
+		.notifications-table td, .notifications-table th
+		{
+			font-family: Verdana;
+			font-size: 10px;
+		}
+
+		.notifications-table-log
+		{
+			border-collapse: collapse;
+		}
+
+		.notifications-table-log, .notifications-table-log th, .notifications-table-log td
+		{
+			border: 1px solid black;
+			font-family: Verdana;
+			font-size: 10px;
+		}
+
+		.category
+		{
+			font-weight: bold;
+			font-style: italic;
+		}
+    </style>
+</head>
+
+<body>
+	<table border="0" class="notifications-table" style="width:765px;">
+		<tr>
+			<td colspan="3" style="background-color:#d1d1d1;font-weight:bold">NOTIFICACIÓN CORREO ELECTRÓNICO</td>
+		</tr>
+		<tr>
+			<td style="width:150px">Tipo / Notificación</td>
+			<td style="width:5px">:</td>
+			<td>LOG ALARMAS POR VIAJE</td>
+		</tr>
+		<tr>
+			<td>Fecha/Hora Reporte</td>
+			<td>:</td>
+			<td>{ReportDate}</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="background-color:#d1d1d1;font-weight:bold">Datos Viaje</td>
+		</tr>
+		<tr>
+			<td>No. Orden Viaje</td>
+			<td>:</td>
+			<td>{TripId}</td>
+		</tr>
+		<tr>
+			<td>No. Orden Transporte</td>
+			<td>:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>No. Orden Carga</td>
+			<td>:</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Trayecto</td>
+			<td>:</td>
+			<td>SE - CB - HM - SE</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="background-color:#d1d1d1;font-weight:bold">Datos Equipo / Conductores</td>
+		</tr>
+		<tr>
+			<td>Identificación</td>
+			<td>:</td>
+			<td>{EquipmentAlternateId}</td>
+		</tr>
+		<tr>
+			<td>Equipo</td>
+			<td>:</td>
+			<td>{EquipmentDecription}</td>
+		</tr>
+		<tr>
+			<td>Placa</td>
+			<td>:</td>
+			<td>{EquipmentPlate}</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">Conductores</td>
+			<td valign="top">:</td>
+			<td>
+				<table border="0" class="notifications-table" style="width:100%">
+					<tr>
+						<th style="width:60px;background-color:#d1d1d1">Código</th>
+						<th style="width:90px;background-color:#d1d1d1">Identificación</th>
+						<th style="background-color:#d1d1d1">Nombre</th>
+					</tr>
+					{DriversTableHtml}
+				</table>
+			</td>
+		</tr>
+	</table>
+	<br /><br />
+	<table border="0" class="notifications-table-log" style="width:765px;">
+		<tr>
+			<th rowspan="2">Log Alarmas</th>
+			<th rowspan="2">Fecha</th>
+			<th rowspan="2">Hora</th>
+			<th rowspan="2">Cond.</th>
+			<th colspan="4">Ubicación</th>
+			<th rowspan="2">Unidad</th>
+			<th rowspan="2">Valor<br/>Standard</th>
+			<th rowspan="2">Valor<br/>Actual</th>
+			<th rowspan="2">Exceso</th>
+			<th rowspan="2">Duración<br/>hrs</th>
+		</tr>
+		<tr>
+			<th>Rut</th>
+			<th>Tra</th>
+			<th>Seg</th>
+			<th>Cer</th>
+		</tr>
+		{LogTableHtml}
+	</table>
+</body>
+</html>

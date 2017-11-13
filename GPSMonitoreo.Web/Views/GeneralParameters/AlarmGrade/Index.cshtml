@@ -1,0 +1,66 @@
+﻿@{
+	Layout = "_AppLayoutSearchGrid";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid(this.ViewContext);
+
+	layoutModel.Title = "PARAMETROS::ALARMAS - GRADOS";
+
+	ViewData["layoutModel"] = layoutModel;
+
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addGridInitializer(function() {
+
+		var options = AppGrid2.getDefaultOptions();
+
+		options.searchUrl = '@layoutModel.PostUrl';
+		
+		options.showRowEditButton = true;
+		options.rowEditMethod = function(id) {
+			App.generalparameters.alarmgrade.edit(id);
+		};
+
+		options.showAddButton = true;
+		options.addMethod = function() {
+			App.generalparameters.alarmgrade.editNew();
+		};
+
+		options.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'Description', type: 'string' },
+			{ name: 'Color', type:' string' },
+			{ name: 'Blinking', type: 'bool' }
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Descripción', datafield: 'Description', width: '250px' },
+			{ text: 'Color Html', datafield: 'Color', width: '80px'},
+			{ text: 'Color', width: '80px',
+				cellsrenderer: function (row, columnfield, value, defaulthtml, columnproperties, rowData) {
+					var cssCalss = rowData.Blinking ? 'blinking-alarm' : '';
+					return '<div class="' + cssCalss + '" style="width:100%;height:100%;background-color:' + rowData.Color + '"></div>';
+				}  
+			},
+			{ text: 'Parpadeante', datafield: 'Blinking', width: '80px'}
+		];
+
+		options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Description'
+				})
+			]
+		];
+
+		return options;
+	});
+
+</script>

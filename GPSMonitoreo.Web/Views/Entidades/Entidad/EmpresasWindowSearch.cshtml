@@ -1,0 +1,24 @@
+﻿@{
+	Layout = "WindowSearchLayout";
+}
+
+@section form{
+<form style="padding: 5px">
+	<table class="jqx-wide">
+		<tr>
+			<td>Descripcion</td>
+			<td><input type="text" name="descripcion" maxlength="100" /></td>
+			<td>Razon Social:</td>
+			<td style="width:150px"><input type="text" name="apellidos" maxlength="100"/></td>
+		</tr>
+		<tr>
+			<td>Ruc:</td>
+			<td><input type="text" name="identificacion" maxlength="100" /></td>
+		</tr>
+	</table>
+	<button type="button">Buscar</button>
+</form>
+}
+<script script-manager-add="windowsearch" script-manager-key="form_init">
+	form.add('input:text', 'jqxInput');
+</script>

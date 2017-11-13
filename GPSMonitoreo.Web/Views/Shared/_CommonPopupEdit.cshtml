@@ -1,0 +1,90 @@
+﻿@using Newtonsoft.Json;
+@{ 
+	var formModel = ViewData["formModel"] as GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel;
+	formModel.ForPopupEdit = true;
+	IgnoreBody();
+
+	var data = ViewData["data"];
+
+	string dataJson = null;
+
+	if (data != null)
+	{
+		dataJson = JsonConvert.SerializeObject(data, Formatting.None);
+	}
+
+}
+
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+@if (formModel.ForCats) {<text>
+
+	form.addTreeDropDown('#@(formModel.FormId)_ParentId', {}, @Html.Raw(ViewData["cats"]));
+
+	form.add([f.elements.Order], 'jqxInput');
+</text>}
+</script>
+@if (formModel.ForCats)
+{
+	<formsection form-manager="commonform" form-manager-section="section1">
+		<tr>
+			<td>Padre</td>
+			<td colspan="4"><div id="@(formModel.FormId)_ParentId" field_name="ParentId"></div></td>
+		</tr>
+		<tr>
+			<td>Ordenador</td>
+			<td><input type="text" name="Order" maxlength="5" /></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</formsection>
+}
+
+
+<div>@formModel.Title</div>
+<div>
+	@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.CommonForm3), new { model = formModel })
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+
+
+
+<script script-manager-render="popupEdit">
+App.hookPopupEdit('@Context.Request.Path.Value', function($container, win){
+
+	//script-manager["manager:commonform"]
+
+	var $button = $container.find('button');
+
+
+	form.$errorMessageContainer = $button.parent().find('.input_error');
+
+	$button.form = form;
+
+	$button.click(function(){
+		App.postFormJsonFromButton($button, function(response){
+			form.setWidgetValue('Id', response.id);
+		}, null, {popupErrorMessage: true, resetFormErrors : true});
+	});
+
+	$button.jqxButton({template: 'info'});
+
+@if(dataJson != null)
+{<text>
+	form.fromJson(@Html.Raw(dataJson));
+</text>}
+
+});
+
+
+</script>
+
+
+
+
+
+

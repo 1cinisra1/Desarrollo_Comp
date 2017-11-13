@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script src="~/assets/jquery/jquery-3.0.0.min.js"></script>
+<script src="~/assets/jquery.webicon0.10.7/jquery-webicon.min.js"></script>
+<link href="~/assets/jquery.webicon0.10.7/webicon.css" rel="stylesheet" />
+
+
+<div id="myblock" style="width:200px;height:200px;background-color:red"></div>
+
+<script>
+    $(function() {
+      $(document).webicons({
+        svgSet: {
+          'flat': '/assets/jquery.webicon1.07/flat_color.svg'
+        },
+        alias: {
+          fci: 'flat'
+        }
+      });
+    });
+
+	function add()
+	{
+		var icon = $('<webicon icon="flat:phone_android"></webicon>');
+		$('#myblock').append(icon);
+		icon.webicons();
+	}
+</script>
+<button type="button" onclick="add()">add</button>

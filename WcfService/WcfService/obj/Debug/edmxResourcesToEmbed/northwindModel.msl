@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="northwindModelStoreContainer" CdmEntityContainer="northwindEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="northwindModel.Customers">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="northwindModel.Customers">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="northwindModel.Store.sp_InsertarCustomer">
+            <ScalarProperty Name="CustomerID" ParameterName="CustomerID" />
+            <ScalarProperty Name="Fax" ParameterName="Fax" />
+            <ScalarProperty Name="Phone" ParameterName="Phone" />
+            <ScalarProperty Name="Country" ParameterName="Country" />
+            <ScalarProperty Name="PostalCode" ParameterName="PostalCode" />
+            <ScalarProperty Name="Region" ParameterName="Region" />
+            <ScalarProperty Name="City" ParameterName="City" />
+            <ScalarProperty Name="Address" ParameterName="Address" />
+            <ScalarProperty Name="ContactTitle" ParameterName="ContactTitle" />
+            <ScalarProperty Name="ContactName" ParameterName="ContactName" />
+            <ScalarProperty Name="CompanyName" ParameterName="CompanyName" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="northwindModel.Employees">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+          <ScalarProperty Name="ReportsTo" ColumnName="ReportsTo" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Extension" ColumnName="Extension" />
+          <ScalarProperty Name="HomePhone" ColumnName="HomePhone" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="TitleOfCourtesy" ColumnName="TitleOfCourtesy" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="northwindModel.Employees">
+        <ModificationFunctionMapping>
+          <InsertFunction FunctionName="northwindModel.Store.sp_InsertarEmployees">
+            <ScalarProperty Name="TitleOfCourtesy" ParameterName="TitleOfCourtesy" />
+            <ScalarProperty Name="Title" ParameterName="Title" />
+            <ScalarProperty Name="FirstName" ParameterName="FirstName" />
+            <ScalarProperty Name="LastName" ParameterName="LastName" />
+          </InsertFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

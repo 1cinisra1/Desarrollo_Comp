@@ -1,0 +1,54 @@
+﻿@{
+	Layout = "_CommonPopupEdit";
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel(this.ViewContext);
+	formModel.Title = "PARAMETROS::GRADO ALARMA";
+
+	ViewData["formModel"] = formModel;
+}
+<script script-manager-add="commonform" script-manager-key="form_init">
+	var $color = $(f.elements.Color);
+
+	form.add($color, 'jqxInput');
+
+	form.add('#@(formModel.FormId)_blinking', 'jqxCheckBox');
+
+	var $divColor = $form.find('#@(formModel.FormId)_divColor');
+
+	$color.on('change', function(event) {
+		var args = event.args;
+		if(args)
+		{
+			var color = args.value;
+			if (/^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(color)) 
+			{
+				$divColor.css('background-color', color);
+			}
+			else
+			{
+				$divColor.css('background-color', '');
+			}
+		}
+	});
+
+
+
+</script>
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Color HTML</td>
+		<td><input type="text" name="Color" maxlength="7" /></td>
+		<td>&nbsp;</td>
+		<td>Color</td>
+		<td><div id="@(formModel.FormId)_divColor" style="width:100%;height:26px;"></div></td>
+	</tr>
+	<tr>
+		<td>Parpadeante</td>
+		<td><div id="@(formModel.FormId)_blinking" field_name="Blinking" class="jqx-checkbox-nomargin"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+
+	
+</formsection>

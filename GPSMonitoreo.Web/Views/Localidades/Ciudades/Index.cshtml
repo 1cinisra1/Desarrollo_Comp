@@ -1,0 +1,55 @@
+﻿@model GPSMonitoreo.Web.ViewModels.SearchGridViewModel
+@{
+	Layout = "SearchGridLayout";
+}
+@section form{
+<form id="form_ciudades_search" style="padding: 5px">
+	<table>
+		<tr>
+			<td>Descripcion:</td>
+			<td style="width:150px"><input type="text" name="descripcion" maxlength="100" /></td>
+			<td></td>
+			<td>Países:</td>
+			<td style="width:200px">
+				<div id="form_ciudades_search_paises" field_name="paises">
+					<div style="border: none;"></div>
+				</div>
+			</td>
+			<td>Provincias:</td>
+			<td style="width:200px">
+				<div id="form_ciudades_search_provincias" field_name="provincias">
+					<div style="border: none;"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<button type="button">Buscar</button>
+</form>
+}
+<script script-manager-add="searchgrid" script-manager-key="form_init">
+
+	form.add('input:text', 'jqxInput');
+
+	//var $formulario = $form.find('#form_provincias_search');
+	var $paises_div = $form.find('#form_ciudades_search_paises');
+	var $provincias_div = $form.find('#form_ciudades_search_provincias');
+
+	form.add($paises_div, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["paises"]) });
+	form.add($provincias_div, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["provincias"]) });
+
+	var $paises_lst = $('#jqxDropDownList');
+
+	$paises_lst.on('select', function (event) {
+		var args = event.args;
+		var item = $('#jqxDropDownList').jqxDropDownList('getItem', args.index);
+		$paises_lst.close();
+	});
+
+
+	var edit = function(id)
+	{
+		App.general.localidades.provincias.edit(id);
+	};
+
+</script>
+

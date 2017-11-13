@@ -1,0 +1,101 @@
+﻿@{
+
+	Layout = "_AppLayoutTabbedForm3";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutForm(this.ViewContext);
+
+	layoutModel.Title = "GEOGRAFICO::RUTAS";
+
+	ViewData["layoutModel"] = layoutModel;
+
+
+	var relationalViewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.FormRelationalGridModel()
+		{
+			Title = "TRAMOS",
+			FormId = layoutModel.FormId,
+			FieldName = "Sections",
+			AddMethod = "form.windowSearch(grid)",
+			IncludeAuxiliaryIdColumn = true
+		}
+	};
+
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+	layout.addFormInitializer(function(form){
+		var f = form.formElement;
+		var $form = form.$form;
+
+		var category = form.addTreeDropDown('#@(layoutModel.FormId)_Category', {}, @Html.Raw(ViewData["categories"]));
+
+		form.windowSearch = function(grid) {
+			App.geographics.sections.windowSearch(function(item){
+				grid.addrow(null, {Id: item.Id, AuxiliaryId: item.AuxiliaryId, Description: item.Description});
+			});
+		};
+
+		var $mapContainer = layout.container.find('#mapRoute');
+
+		var appMap = new AppMap({$mapContainer : $mapContainer});
+
+		appMap.initMapaCercas({
+			initEditMenu		: true,
+			flightPathOnClick	: function(event) {
+				console.log('latitud: ' + event.latLng.lat() + ', longitud: ' + event.latLng.lng() + ': ' + event.latLng.lat() + ', ' + event.latLng.lng());
+			}
+		});
+
+		appMap.hookMouseCursor(function(event){
+			console.log('latitud: ' + event.latLng.lat() + ', longitud: ' + event.latLng.lng());
+		});
+
+		layout.tabInitializers[1] = function(){appMap.refresh();};
+
+		layout.onEditStarted = function () {
+			appMap.cargarCercas('/geographics/routes/geofencesformap/' + this.editingId);
+		};
+	});
+
+
+</script>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr>
+		<td>Categoria</td>
+		<td colspan="4">
+			<div id="@(layoutModel.FormId)_Category" field_name="CategoryId"></div>							
+		</td>
+	</tr>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section3">
+
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section4">
+	@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormRelationalGrid2), relationalViewComponentModel)
+</formsection>
+
+
+@section tabtitles{
+	<li>Mapa</li>
+}
+
+@section tabs{
+	<div>
+		<div id="mapRoute" class="map_cerca" style="z-index:4"></div>
+		<div id="mapRoute_flightPathMenu" class="googlemaps_flightpathmenu">
+			<div class="view">Ver detalle</div>
+			<div class="delete_vertex">Eliminar vértice</div>
+			<div class="edit">Editar trazo</div>
+			<div class="save">Guardar</div>
+			<div class="cancel">Cancelar</div>
+		</div>
+	</div>
+}

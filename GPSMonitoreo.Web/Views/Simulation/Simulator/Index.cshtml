@@ -1,0 +1,327 @@
+﻿@using GPSMonitoreoServer.Reports.Enums
+@{
+
+	Layout = "_AppLayout";
+
+	var gpsList = ViewData["gpsList"] as IEnumerable<object>;
+
+	var gpsListJson = gpsList.ToJsonString();
+
+}
+<div class="splitted_panel">
+	<div class="left" style="padding:2px">
+		<div class="panel withfooter">
+			<div class="body">
+				<form id="form_simulador" action="/simulation/simulator/datos">
+					<input type="hidden" name="evento_valor" />
+
+					<table style="width:100%;" class="table_edit jqx-wide">
+						<tbody>
+							<tr>
+								<td style="width:90px;"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Ruta</td>
+								<td><div id="form_simulador_ruta" field_name="ruta"></div></td>
+							</tr>
+							<tr>
+								<td>Equipo</td>
+								<td><div id="form_simulador_gps" field_name="gps"></div></td>
+							</tr>
+							<tr>
+								<td>Latitud</td>
+								<td><div id="form_simulador_lat" field_name="lat"></div></td>
+							</tr>
+							<tr>
+								<td>Longitud</td>
+								<td><div id="form_simulador_lng" field_name="lng"></div></td>
+							</tr>
+							<tr>
+								<td>Velocidad</td>
+								<td><div id="form_simulador_velocidad" field_name="velocidad"></div></td>
+							</tr>
+							<tr>
+								<td>Tipo reporte</td>
+								<td><div id="form_simulador_tipo" field_name="tipo"></div></td>
+							</tr>
+							<tr>
+								<td>Estado Movim.</td>
+								<td><div id="form_simulador_movimiento" field_name="movimiento"></div></td>
+							</tr>
+						</tbody>
+						<tbody class="tbody_group">
+							<tr>
+								<th colspan="2">REPORTE FRECUENCIA</th>
+							</tr>
+							<tr>
+								<td colspan="2"><div id="form_simulador_frecuencia_tipo" field_name="frecuencia_tipo"></div></td>
+							</tr>
+						</tbody>
+						<tbody class="tbody_group">
+							<tr>
+								<th colspan="2">REPORTE ALARMA</th>
+							</tr>
+							<tr>
+								<td colspan="2"><div id="form_simulador_alarma_tipo" field_name="alarma_tipo"></div></td>
+							</tr>
+						</tbody>
+						<tbody class="tbody_group" id="form_simulador_evento_tipo" field_name="evento_tipo">
+							<tr>
+								<th colspan="2">REPORTE EVENTO</th>
+							</tr>
+							<tr>
+								<td><div class="evento"></div></td>
+								<td><div class="evento_valor" style="margin-left: 6px"></div></td>
+							</tr>
+							<tr>
+								<td><div class="evento"></div></td>
+								<td><div class="evento_valor" style="margin-left: 6px"></div></td>
+							</tr>
+							<tr>
+								<td><div class="evento"></div></td>
+								<td><div class="evento_valor" style="margin-left: 6px"></div></td>
+							</tr>
+							<tr>
+								<td><div class="evento"></div></td>
+								<td><div class="evento_valor" style="margin-left: 6px"></div></td>
+							</tr>
+							<tr>
+								<td><div class="evento"></div></td>
+								<td><div class="evento_valor" style="margin-left: 6px"></div></td>
+							</tr>
+						</tbody>
+						@*<tbody class="tbody_group" id="form_simulador_evento_tipo" field_name="evento_tipo">
+							<tr>
+								<th colspan="2">STATUS MONITOREO</th>
+							</tr>
+							<tr>
+								<td>Estado</td>
+								<td id="status_monitoreo_estado"></td>
+							</tr>
+							<tr>
+								<td>Cerca</td>
+								<td id="status_monitoreo_cerca"></td>
+							</tr>
+							<tr>
+								<td>Capa</td>
+								<td id="status_monitoreo_cerca_capa"></td>
+							</tr>
+							<tr>
+								<td>Alarma</td>
+								<td id="status_monitoreo_alarma"></td>
+							</tr>
+							<tr>
+								<td>Valor alrma</td>
+								<td id="status_monitoreo_alarma_valor"></td>
+							</tr>
+						</tbody>*@
+					</table>
+				</form>
+			</div>
+			<div class="footer">
+				<button type="button">Enviar datos</button>
+			</div>
+		</div>
+	</div>
+	<div class="right"><div id="simulador_map" style="width:100%;height:100%"></div></div>
+</div>
+
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	var $panel_left = layout.container.find('div.panel.withfooter');
+
+	var $form = $panel_left.find('#form_simulador').jqxForm();
+	var form = $form.instance;
+	var f = form.formElement;
+
+	form.addFormElement(f.elements.evento_valor);
+
+	var appMap = new AppMap({$mapContainer: layout.container.find('#simulador_map')});
+
+	var ruta = form.addPicker('#form_simulador_ruta', {}, function(){
+		App.geographics.routes.windowSearch(function(item){
+			ruta.val({value: item.Id, label: item.Description});
+
+			appMap.cargarCercas('/geographics/routes/geofencesformap/' + item.Id);
+
+		}, {closeOnSelect: true});
+	});
+
+	form.add('#form_simulador_gps', 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(gpsListJson)});
+	form.add('#form_simulador_lat, #form_simulador_lng', 'jqxNumberInput', {inputMode: 'simple', spinButtons: false, digits: 4, decimalDigits: 8, textAlign: 'left'});
+	form.add('#form_simulador_velocidad', 'jqxNumberInput', {inputMode: 'simple', spinButtons: true, digits: 3, decimalDigits: 0, textAlign: 'left'});
+
+
+	var sourceMovimiento = [
+		{value: @((int)MotionStatus.IgnitionOnMotion), label: 'Encendido + movimiento'},
+		{value: @((int)MotionStatus.IgnitionOnRest), label: 'Encendido + parado'},
+		{value: @((int)MotionStatus.IgnitionOffMotion), label: 'Apagado + movimiento'},
+		{value: @((int)MotionStatus.IgnitionOffRest), label: 'Apagado + parado'}
+	];
+
+	form.add('#form_simulador_movimiento', 'jqxDropDownList', {placeHolder: '', source: sourceMovimiento});
+
+
+
+	var lat = form.widgets.lat;
+	var lng = form.widgets.lng;
+
+
+	form.add('#form_simulador_tipo', 'jqxDropDownList', {placeHolder: '', source: [{value: @((int)ReportType.Frequency), label: 'FRECUENCIA'}, {value: @((int)ReportType.Alarm), label: 'ALARMA'}, {value: @((int)ReportType.Event), label: 'EVENTO'}]});
+
+	var $form_simulador_evento_tipo = $form.find('#form_simulador_evento_tipo');
+	$eventos = $form_simulador_evento_tipo.find('div.evento');
+
+	var eventos_arr = [
+		{value: @((int)EventReportType.Ignition), label: 'Arranque'},
+		{value: @((int)EventReportType.Power), label: 'Poder'},
+		{value: @((int)EventReportType.MainPowerSupply), label: 'Poder princ.'},
+		{value: @((int)EventReportType.BatteryCharging), label: 'Carga bat.'},
+		{value: @((int)EventReportType.Motion), label: 'Movimiento'}
+	];
+	//{value: @((int)EventReportType.Idling), label: 'Idling'}
+
+	var eventos = form.addRadioButtons($form_simulador_evento_tipo, {elements: $eventos}, eventos_arr);
+
+
+
+	var $eventos_valor = $form_simulador_evento_tipo.find('div.evento_valor');
+
+
+	var $evento_valor;
+
+	var eventos_dict = {};
+
+	var groupName;
+
+	var eventoStatus = [
+		{value: @((int)EventStatus.On), label: 'on'},
+		{value: @((int)EventStatus.Off), label: 'off'}
+	];
+
+	//var onChecked = function(groupName, evt) {
+	//	console.log(groupName, evt);
+
+	//};
+
+
+	//todos menos para Movimiento: caso especial
+	for(var x = 0; x < eventos_arr.length - 1; x++)
+	{
+		//console.log(eventos_arr[x]);
+
+		$evento_valor = $($eventos_valor[x]);
+
+		groupName = 'evento_' + eventos_arr[x].value;
+
+		eventos_dict[groupName] = new jqxRadioButtons($evento_valor, {groupName: groupName, align: 'horizontal'}, eventoStatus);
+
+		//$evento_valor.jqxRadioButton({groupName: id});
+	}
+
+
+	form.addRadioButtons('#form_simulador_frecuencia_tipo', {align: 'vertical'}, [
+		{value: @((int)FrequencyReportType.Timing), label: 'Tiempo'}
+
+		@*,{value: @((int)FrequencyReportType.DISTANCE), label: 'Distancia'},
+		{value: @((int)FrequencyReportType.MILEAGE), label: 'Recorrido'},
+		{value: @((int)FrequencyReportType.TIMINGANDMILEAGE), label: 'Tiempo y Recorrido'},
+		{value: @((int)FrequencyReportType.TIMINGORMILEAGE), label: 'Tiempo o Recorrido'}*@
+	]);
+
+	form.addRadioButtons('#form_simulador_alarma_tipo', {align: 'vertical'}, [
+		{value: @((int)AlarmReportType.Panic), label: 'Panico'},
+		{value: @((int)AlarmReportType.LowBattery), label: 'Bat. baja'},
+		{value: @((int)AlarmReportType.ExternalPowerSupply), label: 'Sumin. poder'},
+		{value: @((int)AlarmReportType.HarshAcceleration), label: 'Aceleración brusca'},
+		{value: @((int)AlarmReportType.HarshBraking), label: 'Frenada brusca'}
+	]);
+
+
+	var $button = $panel_left.find('> div.footer  > button');
+
+	$button.form = form;
+
+	$button.click(function(){
+		var val = eventos.val();
+
+		console.log(val);
+
+		if(val === null || val == 9 /*si es movimiento*/)
+			f.elements.evento_valor.value = 0;
+		else
+			f.elements.evento_valor.value = eventos_dict['evento_' + val].val();
+
+		App.postFormJsonFromButton($button, function(response){
+			console.log(response);
+		});
+	});
+
+	$button.jqxButton({template: 'info'});
+
+	//$container.find('#form_simulador_gpspower').find('> div').jqxRadioButton();
+	//window.gpspower = gpspower;
+	//window.$gpspower = $gpspower;
+
+	//$container.find('#form_simulador_idling').find('div').jqxRadioButton();
+
+
+
+	appMap.initMapaCercas();
+
+
+	appMap.map.setOptions({draggableCursor:'crosshair'});
+
+	appMap.hookMouseCursor(function(event){
+		lat.val(event.latLng.lat());
+		lng.val(event.latLng.lng());
+	});
+
+
+	//position: new google.maps.LatLng(-122.5,47.5),
+
+	var marker = new google.maps.Marker({
+		icon: {
+			path: google.maps.SymbolPath.CIRCLE,
+			fillOpacity: 1,
+			fillColor: 'green',
+			//strokeOpacity: 1.0,
+			//strokeColor: '#fff000',
+			strokeWeight: 0,
+			scale: 10 //pixels
+		},
+		map: appMap.map
+	});
+
+	var statusMonitoreo = function(){
+		App.get('/simulacion/simulador/statusmonitoreo', function(response){
+			//console.log(response);
+			$('#status_monitoreo_estado').html(response.monitoreo_estado);
+			$('#status_monitoreo_cerca').html(response.cerca);
+			$('#status_monitoreo_cerca_capa').html(response.cerca_capa);
+			$('#status_monitoreo_alarma').html(response.alarma);
+			$('#status_monitoreo_alarma_valor').html(response.alarma_valor);
+
+			console.log(response.monitoreo_estado == 'OK' ? 'green' : 'red');
+
+			marker.setOptions({
+				position: new google.maps.LatLng(response.lat, response.lng),
+				icon: {
+					path: google.maps.SymbolPath.CIRCLE,
+					fillOpacity: 1,
+					fillColor: response.monitoreo_estado == 'OK' ? 'green' : 'red',
+					strokeWeight: 0,
+					scale: 10
+				}
+			})
+
+			setTimeout(statusMonitoreo, 1000);
+		}, {async: true});
+	};
+
+	//statusMonitoreo();
+
+
+</script>

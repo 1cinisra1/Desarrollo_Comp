@@ -1,0 +1,41 @@
+﻿@model GPSMonitoreo.Web.ViewModels.PopupEdit
+@{
+	Layout = "_PopupEdit";
+}
+<script script-manager-add="popupEdit" script-manager-key="form_init">
+	form.addFormElement([f.elements.entidad, f.elements.direccion, f.elements.ubicacion]);
+	form.add('#@(Model.FormId)_tipo', 'jqxDropDownList', {source: @Html.Raw(ViewData["tipos"]), placeHolder: ''});
+	form.add('#@(Model.FormId)_codigo_pais', 'jqxNumberInput', {inputMode: 'simple', spinButtons: false, digits: 3, decimalDigits: 0, textAlign: 'left'});
+	form.add('#@(Model.FormId)_codigo_area', 'jqxNumberInput', {inputMode: 'simple', spinButtons: false, digits: 3, decimalDigits: 0, textAlign: 'left'});
+	form.add(f.elements.telefono, 'jqxInput');
+
+	var data = @Html.Raw(ViewData["data"]);
+
+	if(data)
+		form.fromJson(data);
+</script>
+
+<formsection form-manager="popupEditForm" form-manager-section="section_top">
+		<input type="hidden" name="entidad" value="@ViewData["entidadId"]" />
+		<input type="hidden" name="direccion" value="@ViewData["direccionId"]" />
+		<input type="hidden" name="ubicacion" value="@ViewData["ubicacionId"]" />
+</formsection>
+
+<formsection form-manager="popupEditForm" form-manager-section="section_fields">
+		<tr>
+			<td>Tipo</td>
+			<td><div id="@(Model.FormId)_tipo" field_name="tipo"></div></td>
+		</tr>
+		<tr>
+			<td>Código Pais</td>
+			<td><div id="@(Model.FormId)_codigo_pais" field_name="codigo_pais"></div></td>
+		</tr>
+		<tr>
+			<td>Código Area</td>
+			<td><div id="@(Model.FormId)_codigo_area" field_name="codigo_area"></div></td>
+		</tr>
+		<tr>
+			<td>Telefono</td>
+			<td><input type="text" name="telefono" /></td>
+		</tr>
+</formsection>

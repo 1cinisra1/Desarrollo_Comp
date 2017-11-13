@@ -1,0 +1,17 @@
+﻿@font-face {
+  font-family: 'icon8';
+
+  src: url('icons8-color-icons.svg'); /* IE9 Compat Modes */
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+		url('icons8-color-icons.svg#svgFontName') format('svg'), /* Legacy iOS */
+       url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('webfont.ttf')  format('truetype'); /* Safari, Android, iOS */
+       
+}
+
+.myfont
+{
+	font-family: icon8;
+	color:red;
+}

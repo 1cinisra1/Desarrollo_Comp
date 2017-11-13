@@ -1,0 +1,60 @@
+﻿@{
+	Layout = "_AppLayoutSearchGrid";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid(this.ViewContext);
+
+	layoutModel.Title = "PARAMETROS::CAPACIDAD EQUIPOS";
+
+	ViewData["layoutModel"] = layoutModel;
+
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addGridInitializer(function() {
+
+		var options = AppGrid2.getDefaultOptions();
+
+		options.searchUrl = '@layoutModel.PostUrl';
+		
+		options.showRowEditButton = true;
+		options.rowEditMethod = function(id) {
+			App.generalparameters.equipmentcapability.edit(id);
+		};
+
+		options.showAddButton = true;
+		options.addMethod = function() {
+			App.generalparameters.equipmentcapability.editNew();
+		};
+
+		options.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'Description', type: 'string' },
+			{ name: 'MeasureUnitDescription', type:' string' },
+			{ name: 'Hierarchy', type: 'string' }
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Descripción', datafield: 'Description', width: '250px' },
+			{ text: 'Unidad', datafield: 'MeasureUnitDescription', width: '150px' },
+			{ text: 'Jerarquía', datafield: 'Hierarchy', width: '250px' }
+		];
+
+		options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Description'
+				})
+			]
+		];
+
+		return options;
+	});
+
+</script>

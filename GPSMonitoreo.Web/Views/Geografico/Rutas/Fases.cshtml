@@ -1,0 +1,449 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutFreeForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedFreeForm.cshtml";
+
+}
+<script script-manager-add="form" script-manager-key="form_init">
+	@*var $categoria = $form.find('#form_rutas_categoria');
+
+	var $categoria_tree = $form.find('#form_rutas_categoria_tree').jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["categorias"])});
+	
+	var categoria = form.addDropDownButton($categoria, { width: '100%', dropDownWidth : 300}, $categoria_tree.data('jqxWidget'));
+
+	$categoria.css('width', '100%');
+
+    $categoria_tree.on('select', function (event) {
+		var args = event.args;
+		var item = $categoria_tree.jqxTree('getItem', args.element);
+		var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+		categoria.setContent(dropDownContent);
+		categoria.close();
+	});
+
+	function windowSearch(grid){
+		App.geografico.tramos.windowSearch(function(item){
+			grid.addrow(null, {id: item.id, descripcion: item.descripcion});
+		});
+	}*@
+
+	//alert/(1);
+
+	layout.onSavedSetEditingId = false;
+
+	layout.addFormInitializer(function(form){
+		var grid;
+		var topGrid;
+		var fases = @Html.Raw(ViewData["fases"]);
+
+		//function cargarCercas(rutaId, entidadId){
+		//	if(rutaId && entidadId)
+		//	{
+		//		App.get('/geografico/rutas/cercasfases/' + rutaId + '/' + entidadId, function(response){
+		//			layout.grids.cercasfases.setLocalData(response.records);
+
+		//		});
+		//	}
+		//	else
+		//	{
+		//		layout.grids.cercasfases.clear();
+		//	}
+		//}
+
+		function cargarRuta(rutaId, entidadId){
+			if(rutaId && entidadId)
+			{
+				App.get('/geografico/rutas/rutafases/' + rutaId + '/' + entidadId, function(response){
+					//layout.grids.cercasfases.setLocalData(response.records);
+					//console.log('asdf');
+					//console.log(grid);
+					grid.base.source._source.localdata = response.records;
+
+					grid.base.host.jqxTreeGrid('updateBoundData');
+
+					;
+
+					var item = grid.getRows()[0];
+
+
+					grid.base.host.jqxTreeGrid('beginUpdate');
+
+					updateFaseApplicable(item, item.fase);
+
+					grid.base.host.jqxTreeGrid('endUpdate');
+
+					//grid.base.host.jqxTreeGrid('updating');  
+					//grid.base.host.jqxTreeGrid('endUpdate'); 
+					//grid.base.host.jqxTreeGrid('refresh');
+
+
+					//grid.base.source._source.localData = response.ruta;
+					//grid.base.source.records = response.ruta;
+					//grid.base.source.records = response.ruta;
+					//grid.base.source.dataBind();
+					//grid.base.updateBoundData();
+
+					//grid.base.source._source.localdata = employees;
+
+					//grid.base.updateBoundData();
+					//grid.base.host.jqxTreeGrid('source', grid.base.source);
+					//console.log('----------');
+					//console.log(grid);
+					//console.log(grid.base.source);
+					////grid.base.source.dataBind();
+					////grid.base.updateBoundData();
+					//grid.expandAll();
+					//console.log(response);
+				});
+			}
+			else
+			{
+				//layout.grids.cercasfases.clear();
+			}
+		}
+
+		var ruta = form.addPicker('#@(Model.FormId)_ruta', {}, function(){
+			App.geographics.routes.windowSearch(function(item){
+				ruta.val({value: item.Id, label: item.Description});
+				//cargarCercas();
+			}, {closeOnSelect: true});
+		});
+
+		var entidad = form.addPicker('#@(Model.FormId)_entidad', {}, function(){
+			App.openWindowSearch('/entidades/entidad/empresaswindowsearch', function(item){
+				entidad.val({value: item.id, label: item.descripcion});
+				//cargarCercas();
+			}, {closeOnSelect: true});
+		});
+
+		ruta.onChange = function() {
+			cargarRuta(ruta.val(), entidad.val());
+
+		};
+
+		entidad.onChange = function() {
+			cargarRuta(ruta.val(), entidad.val());
+		};
+
+		var $grid = layout.container.find('#@(Model.FormId)_fases');
+
+		var source = {
+			dataType: 'json',
+			dataFields: [
+				{ name: 'id', type: 'number' },
+				{ name: 'description', type: 'string' },
+				{ name: 'tipo', type: 'number' },
+				{ name: 'fase', type: 'number'},
+				//{ name: 'fase_descripcion', value: 'fase', values: {source: fases, value: 'value', name: 'label'}},
+				{ name: 'fase_aplicable', type: 'string'},
+				{ name: 'children', type: 'array' },
+				{ name: 'expanded', type: 'bool' }
+			],
+			hierarchy: {
+				root: 'children'
+			},
+			//id: 'id',
+			localData: []
+		};
+
+		var dataAdapter = new $.jqx.dataAdapter(source, {
+			loadComplete: function () {
+				
+			}
+		});
+		// create Tree Grid
+		$grid.jqxTreeGrid({
+			width: '100%',
+			height: '500px',
+			source: dataAdapter,
+			editable: true,
+			editSettings: {
+				saveOnPageChange: true, 
+				saveOnBlur: true, 
+				saveOnSelectionChange: true, 
+				cancelOnEsc: true, 
+				saveOnEnter: true, 
+				editSingleCell: true, 
+				editOnDoubleClick: true, 
+				editOnF2: true
+			},
+			columns: [
+				{text: 'Descripción', dataField: 'description', width: 600, editable: false },
+				{text: 'Código', dataField: 'id', width: 90, editable: false },
+				{text: 'Tipo', dataField: 'tipo', width: 120, editable: false,
+					cellsRenderer: function (row, column, value, rowData) {
+						switch(value) {
+							case 1:
+								return 'Ruta';
+							case 2:
+								return 'Tremo';
+							case 3:
+								return 'Segmento';
+							case 4:
+								return 'Cerca';
+						}
+
+					}
+				},
+
+				{text: 'Fase', dataField: 'fase', /*displayField: 'fase_descripcion',*/  width: 150, columnType: 'template', 
+					cellsRenderer: function (row, column, value, rowData) {
+						var result = $.grep(fases, function(e){ return e.value == value; });
+
+						if(result.length)
+							return result[0].label;
+
+						return '';
+
+					},
+					createEditor: function(row, value, editor) {
+
+						editor.jqxDropDownList({ source: fases, placeHolder: '', width: '100%', height: '100%', displayMember: 'label', valueMember: 'value'});
+						editor.on('select', function(evt){
+							if(grid._editing)
+							{
+								grid.endCellEdit(grid._editingRowKey, 'fase', false);
+							}
+								
+						});
+					},
+					initEditor: function (row, cellvalue, editor, celltext, width, height) {
+						grid._editing = true;
+						var dropDown = editor.data('jqxWidget');
+
+						dropDown.selectItem(cellvalue);
+						dropDown.open();
+					},
+					getEditorValue: function (row, cellvalue, editor) {
+						return editor.val()*1;
+					}
+				},
+				{text: 'Fase aplicable', dataField: 'fase_aplicable', width: 200, editable: false }
+			]
+		});
+
+		grid = $grid.data('jqxWidget');
+
+
+		$grid.on('cellBeginEdit', function(evt) {
+			grid._editingRowKey = evt.args.key;
+			//grid._editing = true;
+		});
+
+		function getFaseLabel(id) {
+			var result = $.grep(fases, function(e){ return e.value == id; });
+			if(result.length)
+			{
+				return result[0].label;
+			}
+		};
+
+		function updateFaseApplicable(item, currentFaseId) {
+
+						
+
+			var applicableFaseId;
+
+			//if(item.fase != '0' && item.fase)
+			if(item.fase)
+				applicableFaseId = item.fase;
+			else
+				applicableFaseId = currentFaseId;
+						
+			//grid.updateRow(item.uid, {id: item.id, description: item.description, tipo: item.tipo, fase_aplicable: getFaseLabel(applicableFaseId)});
+
+			grid.setCellValue(item.uid, 'fase_aplicable', getFaseLabel(applicableFaseId));
+
+
+			var children = item.children;
+			if(children)
+			{
+				var child;
+				
+				for(var x = 0; x < children.length; x++)
+				{
+					child = children[x];
+
+
+					
+
+					//console.log(applicableFaseId);
+					
+					updateFaseApplicable(child, applicableFaseId);
+				}
+			}
+		};
+
+		$grid.on('cellEndEdit', function(evt) {
+			grid._editing = false;
+			//console.log(evt.args);
+			//console.log(evt.args.row);
+			//console.log('cell updatged');
+
+			var item = evt.args.row;
+
+			var currentFaseId = item.fase;
+
+			//console.log(item);
+
+			//if(currentFaseId == '0' || !currentFaseId)
+			if(!currentFaseId)
+			{
+				var parent = item.parent;
+
+				while(parent)
+				{
+					//if(parent.fase != '0' && parent.fase)
+					if(parent.fase)
+					{
+						currentFaseId = parent.fase;
+						//console.log('parent fase; ' + parent.fase);
+						break;
+					}
+
+					parent = parent.parent;
+				}
+
+			}
+
+			updateFaseApplicable(item, currentFaseId);
+		});
+
+		//cargarRuta(86,1);
+
+		grid.base.customVal = function () {
+			var ret = [];
+			var parent = this.getRows()[0];
+
+			recur(ret, parent);
+			return ret;
+		}
+
+		function recur(arr, item) {
+			//console.log(item.id + '-' + item.description)
+
+			if(item.fase)
+				arr.push({id: item.id, fase: item.fase, tipo: item.tipo});
+
+			var children = item.children;
+			if(children)
+				for(var x = 0; x < children.length; x++) {
+					recur(arr, children[x]);
+				}
+		}
+
+		form.addWidget(grid.base);
+
+		//cargarRuta(86, 1);
+	});
+
+
+	@*layout.addGridInitializer(function(){
+		var options = AppGrid.getDefaultOptions();
+		
+		options.elementId		= '#@(Model.FormId)_cercasfases';
+		options.editable = true;
+		options.addToLayoutForm = true;
+		options.showtoolbar		= true;
+		options.showAddButton = true;
+		options.postableFields = ['cerca', 'fase'];
+		options.height = '500px';
+
+		options.events.cellbeginedit = function(evt) {
+			console.log('begin cellendedit');
+			var grid = evt.owner;
+			grid._editingRowIndex = evt.args.rowindex;
+			//grid._editing = true;
+		}
+
+		options.events.cellendedit = function(evt) {
+			console.log('event cellendedit');
+			var grid = evt.owner;
+			grid._editing = false;
+		}
+
+
+		//options.addToForm = form;
+		//options.showReloadButton= true;
+		//options.reloadMethod	= 	function(){
+		//	var grid = this;
+
+		//	App.get('/entidades/direccion/ubicaciones/' + layout.editingId, function(response){
+		//		grid.clearSelection();
+		//		grid.grid.refreshLocalData(response.records);
+		//	}, {async: false})
+
+		//};
+
+
+		var fases = @Html.Raw(ViewData["fases"]);
+
+
+
+		options.datafields = [
+			{ name: 'cerca', type: 'number' },
+			{ name: 'cerca_descripcion', type:'string'},
+			{ name: 'fase', type: 'number'},
+			{ name: 'fase_descripcion', value: 'fase', values: {source: fases, value: 'value', name: 'label'}},
+		];
+
+		options.columns = [
+			{text: 'Cód. Int.', datafield: 'cerca', width: '70px', editable: false},
+			{text: 'Descripción', datafield: 'cerca_descripcion', width: '280px', editable: false},
+			{text: 'Fase', datafield: 'fase', displayfield: 'fase_descripcion', width: 150, columntype: 'dropdownlist', 
+				createeditor: function(row, value, editor) {
+					var grid = this.owner;
+					//console.log(arguments);
+					editor.jqxDropDownList({ source: fases, placeHolder: ''});
+					editor.on('select', function(evt){
+						if(grid._editing)
+							grid.endcelledit(grid._editingRowIndex, 'fase', false);
+					});
+				},
+				initeditor: function (row, cellvalue, editor, celltext, pressedChar) {
+					var grid = this.owner;
+					grid._editing = true;
+				//	//console.log(row);
+				}
+			}
+		];
+
+		return options;
+	});*@
+
+
+</script>
+
+<formsection form-manager="form" form-manager-section="section_table">
+	<tr>
+		<td style="width:120px;">Ruta</td>
+		<td style="width:450px;"><div id="@(Model.FormId)_ruta" field_name="ruta"></div></td>
+	</tr>
+	<tr>
+		<td>Cliente</td>
+		<td><div id="@(Model.FormId)_entidad" field_name="entidad"></div></td>
+	</tr>
+</formsection>
+<formsection form-manager="form" form-manager-section="section_bottom">
+	<table class="table_edit" style="width:100%">
+		<tbody class="tbody_group">
+			<tr>
+				<th>CERCAS + FASE</th>
+			</tr>
+			<tr>
+				<td><div id="@(Model.FormId)_fases" field_name="fases"></div></td>
+			</tr>
+		</tbody>
+	</table>
+</formsection>
+
+@section tabtitles{
+				
+}
+
+@section tabs{
+
+}
+
+
+

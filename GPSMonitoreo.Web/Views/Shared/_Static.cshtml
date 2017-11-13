@@ -1,0 +1,41 @@
+﻿@using HtmlHelpers
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<title>GPSMonitoreo WEB</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="~/assets/jqwidgets4.4.0/styles/jqx.base.css" rel="stylesheet" />
+	<link href="~/assets/jqwidgets4.4.0/styles/jqx.metro.css" rel="stylesheet" />
+
+
+	<link href="~/css/jqwidgets-fixes.css" rel="stylesheet" asp-append-version="true" />
+	<link href="~/css/jqxgrid-fixes.css" rel="stylesheet" asp-append-version="true" />
+	<link href="~/css/main.css" rel="stylesheet" asp-append-version="true" />
+
+
+	<script src="~/assets/jquery/jquery-3.0.0.min.js"></script>
+
+	<script src="~/js/jquery_extensions.js" asp-append-version="true"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxcore.js"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxexpander.js"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxbuttons.js"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxscrollbar.js"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxdropdownlist.js"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxinput.js"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxpasswordinput.js"></script>
+	<script src="~/assets/jqwidgets4.4.0/jqxnumberinput.js"></script>
+	<script src="~/js/jqwidgets_extensions.js" asp-append-version="true"></script>
+
+	<script>
+    $(function () {
+		$.jqx.theme = 'metro';
+		$.jqx.culture = 'es-EC';
+    });
+	</script>
+</head>
+<body>
+@RenderBody()
+</body>
+</html>

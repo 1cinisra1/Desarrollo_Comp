@@ -1,0 +1,178 @@
+.jqx-checkbox-nomargin > div
+{
+	margin: 0;
+}
+
+.jqx-widget-content, .jqx-fill-state-normal
+{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.jqx-notification-wrapper
+{
+	position:fixed;
+	width:100%;
+	top:0;
+}
+
+.jqx-notification-wrapper > div
+{
+
+}
+
+.jqx-notification-wrapper > div > div
+{
+	position:absolute;
+	margin-top: 90px;
+	right: 0;
+}
+
+.jqx-window .jqx-window-content.withfooter
+{
+	margin-bottom: 35px;
+}
+
+.jqx-window .jqx-window-content .footer
+{
+	position:absolute;
+	width:100%;
+	left:0;
+	bottom:0;
+	height:35px;
+	border-top:1px solid #e5e5e5;
+	padding:0 5px;
+}
+
+.jqx-window .jqx-window-content .footer.alignright
+{
+	text-align: right;
+}
+
+.jqx-window .jqx-window-content .footer > button
+{
+	margin-top: 5px;
+}
+
+.jqx-window-centered
+{
+	display:none;
+	position:fixed !important;
+	/*
+	left:50% !important;
+	top:50% !important;
+	*/
+	margin: auto !important;
+	top: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+}
+
+
+
+.jqx-text-area textarea
+{
+	height: 100% !important;
+}
+
+.jqx-button
+{
+	cursor: pointer;
+}
+
+
+
+
+.jqx-dropdownlist-state-normal
+{
+	height: 26px !important;
+}
+
+.jqx-dropdownlist-content
+{
+	line-height: 25px;
+}
+
+.jqx-picker
+{
+	cursor: default;
+}
+
+.jqx-picker > div.content
+{
+	position: absolute;
+	height: 100%;
+	white-space:nowrap;
+	line-height: 25px;
+	padding-left: 3px;
+}
+
+.jqx-picker > .buttons
+{
+	position: absolute;
+	background-color:white;
+	width: 45px;
+	height: 100%;
+	top: 0;
+	right: 0;
+}
+
+.jqx-picker > .buttons > div
+{
+	position: absolute;
+	width: 20px;
+	height: 100%;
+	top: 0;
+	cursor: pointer;
+}
+
+.jqx-picker > .buttons > div.search
+{
+	right: 20px;
+	background: url('/assets/jqwidgets4.5.2/styles/images/search.png') center center no-repeat;
+}
+
+.jqx-picker > .buttons > div.clear
+{
+	right: 0;
+	background: url('/assets/jqwidgets4.5.2/styles/images/close_black.png') center center no-repeat;
+}
+
+.jqx-popover-relative-centered
+{
+	left: 0 !important;
+	right: 0 !important;
+	top: 0 !important;
+	margin-top: 45px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.jqx-numberinput > input
+{
+	height: 100% !important;
+	width: 100% !important;
+	padding: 4px 3px !important;
+}
+
+/*
+.jqx-numberinput
+{
+	position: relative;
+}
+
+
+*/
+/*
+
+.jqx-numberinput > div
+{
+	position: absolute !important;
+	top: 0;
+	right: 0;
+	float:none !important;
+	width: 19px !important;
+}
+	*/

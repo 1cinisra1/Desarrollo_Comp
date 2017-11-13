@@ -1,0 +1,409 @@
+﻿@using GPSMonitoreo.Core.Authorization;
+@model GPSMonitoreo.Web.ViewModels.AppLayoutFreeForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedFreeForm.cshtml";
+
+}
+<script script-manager-add="form" script-manager-key="form_init">
+
+	layout.onSavedSetEditingId = false;
+
+	layout.addFormInitializer(function(form){
+
+		var alarms =  @Html.Raw(ViewData["alarmsJson"]);
+		var roles = @Html.Raw(ViewData["roles"]);
+		var actions = @Html.Raw(ViewData["actions"]);
+
+		var currentRequiredPermissions = @Html.Raw(ViewData["currentRequiredPermissions"]);
+
+		var $requiredPermissionsGrid = this.container.find('#@(Model.FormId)_requiredPermissionsGrid');
+		var requiredPermissionsGrid;
+
+
+		var dataFields = [
+			{ name: 'Id', type: 'string' },
+			{ name: 'Description', type: 'string' },
+			{ name: 'children', type: 'array' },
+			{ name: 'expanded', type: 'bool' }
+		];
+
+		for(var x = 0; x < roles.length; x++)
+		{
+			dataFields.push({ name: 'role_' + roles[x].Id, type: 'bool'});
+		}
+
+		for(var x = 0; x < actions.length; x++)
+		{
+			dataFields.push({ name: 'action_' + actions[x].Id, type: 'bool'});
+		}
+
+		var $headerContainer;
+
+
+		var columns = [
+			/*{text: 'Id', dataField: 'Id', width: 80, editable: false },*/
+			{text: 'Descripción', dataField: 'Description', width: 600, editable: false, pinned: true,
+				rendered: function (element, align, height) {
+					$headerContainer = element.parent().parent().parent();
+				}
+			}
+		];
+
+
+		for(var x = 0; x < roles.length; x++)
+		{
+			columns.push({ text: roles[x].Description, className: 'rotate_text',  dataField: 'role_' + roles[x].Id, columngroup: 'roles', editable: false, width: 30 });
+		}
+
+		for(var x = 0; x < actions.length; x++)
+		{
+			columns.push({ text: actions[x].Description, className: 'rotate_text',  dataField: 'action_' + actions[x].Id, columngroup: 'actions', editable: false, width: 80});
+		}
+
+		for(var x = 1; x < columns.length; x++)
+		{
+			columns[x].cellsRenderer = function (row, column, value, rowData) {
+				//console.log(column);
+				//console.log('rendering: ' + row + ":" + column);
+				return '<div style="width:100%;cursor:pointer;text-align:center"><input style="cursor:pointer;" type="checkbox"' + (rowData[column] ? ' checked="checked"' : '') + ' onclick="return false;"/></div>';
+			}
+		}
+
+		var source = {
+			dataType: 'json',
+			dataFields: dataFields,
+			hierarchy: {
+				root: 'children'
+			},
+			id: 'Id',
+			localData: alarms
+		};
+
+		var dataAdapter = new $.jqx.dataAdapter(source, {
+			loadComplete: function () {
+				
+			}
+		});
+
+
+
+		$requiredPermissionsGrid.jqxTreeGrid({
+			width: '100%',
+			height: '100%',
+			source: dataAdapter,
+			columnsHeight: 100,
+			editable: true,
+			editSettings: {
+				saveOnPageChange: true, 
+				saveOnBlur: true, 
+				saveOnSelectionChange: true, 
+				cancelOnEsc: true, 
+				saveOnEnter: true, 
+				editSingleCell: true, 
+				editOnDoubleClick: true, 
+				editOnF2: true
+			},
+			columns: columns,
+			columnGroups : [
+				{ text: 'Roles Requeridos', align: 'center', name: 'roles' },
+				{ text: 'Permisos Requeridos', align: 'center', name: 'actions' }
+			]
+		});
+
+		$requiredPermissionsGrid.on('rowClick', function (event) {
+
+			//console.log(event);
+
+			var args = event.args;
+
+			var rowData = args.row;
+
+			var originalEvent = args.originalEvent;
+
+			var target = originalEvent.target;
+
+			var rowId = args.key;
+
+
+			var dataField = args.dataField;
+
+			//console.log(target.tagName);
+
+			if(dataField.startsWith('role_') || dataField.startsWith('action_'))
+			{
+				var checkBox = target.tagName == 'DIV' ? target.firstChild : target;
+				checkBox.checked = !checkBox.checked;
+				rowData[dataField] = checkBox.checked;
+			}
+		});
+
+
+		requiredPermissionsGrid = $requiredPermissionsGrid.data('jqxWidget');
+
+		function fixColumnHeights() {
+			var $headerChildren = $headerContainer.children();
+			var header;
+
+			for(var x = 1; x < $headerChildren.length - 2; x++)
+			{
+				header = $headerChildren[x];
+				header.style.height = '170px';
+			}
+
+
+			for(var x = $headerChildren.length -2; x < $headerChildren.length; x++)
+			{
+				header = $headerChildren[x];
+				header.style.height = '30px';
+				header.firstChild.style.margin = '5px';
+			}
+		};
+
+		//fixColumnHeights();
+
+		var oldArrange = requiredPermissionsGrid.base._arrange;
+
+		requiredPermissionsGrid.base._arrange = function() {
+			oldArrange.call(this);
+			fixColumnHeights();
+		};
+
+
+		requiredPermissionsGrid.expandAll();
+
+
+		requiredPermissionsGrid.customVal = function(data) {
+			
+			var row;
+
+			var newRows = [];
+			var roles;
+			var actions;
+
+			var rows = this.getAllRows();
+
+			var dataField;
+
+			var elementType;
+			var elementId;
+
+			//console.log(rows);
+			//console.log(data);
+
+			var elementTypeAlarmCategory = @PermissionElementType.AlarmFiltersCategories.ToString("D");
+			var elementTypeAlarm = @PermissionElementType.AlarmFiltersAlarms.ToString("D");
+
+			
+
+			if(data !== undefined)
+			{
+				var permission;
+				var partialRowData;
+				var matchedPermission;
+
+				var rowKey = '';
+
+				//getRowByKey
+
+				for(var y = 0; y < data.length; y++) 
+				{
+					permission = data[y];
+					//console.log(permission);
+
+					rowKey = null;
+
+					if(permission.ElementType == elementTypeAlarmCategory)
+					{
+						rowKey = 'A' + permission.ElementId;
+					}
+					else if(permission.ElementType == elementTypeAlarm)
+					{
+						rowKey = 'B' + permission.ElementId;
+					}
+
+					if(rowKey)
+					{
+						row = this.getRowByKey(rowKey);
+
+						if(row) 
+						{
+							partialRowData = {};
+
+							for(var z = 4; z < dataFields.length; z++)
+							{
+								dataField = dataFields[z];
+
+								if(dataField.name.startsWith('role_') && permission.Roles.indexOf(parseInt(dataField.name.substr(5))) > -1)
+								{
+									partialRowData[dataField.name] = true;
+								}
+								else if(dataField.name.startsWith('action_') && permission.Actions.indexOf(parseInt(dataField.name.substr(7))) > -1)
+								{
+									partialRowData[dataField.name] = true;
+								}
+								else
+								{
+									partialRowData[dataField.name] = false;
+								}
+							}
+							this.partialUpdateRow(rowKey, partialRowData);
+
+
+						}
+
+					}
+				}
+
+
+				@*for(var x = 0; x < rows.length; x++) 
+				{
+					row = rows[x];
+					matchedPermission = null;
+
+
+					elementId = parseInt(row.Id.substr(1));
+
+					if(row.Id.startsWith("A"))
+					{
+						elementType = @PermissionElementType.AlarmFiltersCategories.ToString("D");
+					}
+					else
+					{
+						elementType = @PermissionElementType.AlarmFiltersAlarms.ToString("D");
+					}
+
+
+
+					for(var y = 0; y < data.length; y++) 
+					{
+						permission = data[y];
+						//console.log(permission);
+						
+						if(elementType == permission.ElementType && elementId == permission.ElementId)
+						{
+							matchedPermission = permission;
+							break;
+						}
+					}
+
+					partialRowData = {};
+
+					if(matchedPermission)
+					{
+						roles = matchedPermission.Roles;
+						actions = matchedPermission.Actions;
+					}
+					else
+					{
+						roles = null;
+						actions = null;
+
+					}
+
+					for(var z = 4; z < dataFields.length; z++)
+					{
+						dataField = dataFields[z];
+
+						if(dataField.name.startsWith('role_') && roles && roles.indexOf(parseInt(dataField.name.substr(5))) > -1)
+						{
+							partialRowData[dataField.name] = true;
+						}
+						else if(dataField.name.startsWith('action_') && actions && actions.indexOf(parseInt(dataField.name.substr(7))) > -1)
+						{
+							partialRowData[dataField.name] = true;
+						}
+						else
+						{
+							partialRowData[dataField.name] = false;
+						}
+
+					}
+
+					this.partialUpdateRow(row.uid, partialRowData);
+				}*@
+			}
+			else
+			{
+
+
+
+				for(var x = 0; x < rows.length; x++)
+				{
+					row = rows[x];
+
+					roles = [];
+					actions = [];
+
+					for(z = 4; z < dataFields.length; z++)
+					{
+						dataField = dataFields[z];
+
+						if(row[dataField.name])
+						{
+							if(dataField.name.startsWith('role_'))
+							{
+								roles.push(parseInt(dataField.name.substr(5)));
+							}
+							else if(dataField.name.startsWith('action_'))
+							{
+								actions.push(parseInt(dataField.name.substr(7)));
+							}
+						}
+					}
+
+					if(roles.length || actions.length)
+					{
+						elementId = parseInt(row.Id.substr(1));
+
+						if(row.Id.startsWith("A"))
+						{
+							elementType = @PermissionElementType.AlarmFiltersCategories.ToString("D");
+						}
+						else
+						{
+							elementType = @PermissionElementType.AlarmFiltersAlarms.ToString("D");
+						}
+
+
+						newRows.push({
+							ElementType: elementType,
+							ElementId: elementId,
+							//ElementDescription: row.Description,
+							Roles: roles,
+							Actions: actions
+						});
+					}
+				}
+
+				return newRows;
+			}
+		};
+
+
+		form.addWidget(requiredPermissionsGrid);
+		window.requiredPermissionsGrid = requiredPermissionsGrid;
+
+		//console.log(requiredPermissionsGrid);
+
+		requiredPermissionsGrid.customVal(currentRequiredPermissions);
+
+	});
+
+
+</script>
+
+<formsection form-manager="form" form-manager-section="section_top">
+	<div id="@(Model.FormId)_requiredPermissionsGrid" field_name="RequiredPermissions"></div>
+</formsection>
+
+@section tabtitles{
+
+}
+
+@section tabs{
+
+}
+
+
+

@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<div class="panel_input">
+	<div class="header layout_header">
+		<span class="layout_title">ENTIDADES::ENTIDAD::UBICACIONES EDIT</span><span class="layout_subtitle"></span>
+	</div>
+	<div class="body">
+		<div>
+			<ul>
+				<li>Principal</li>
+				 
+	<div>Telefonos</div>
+
+			</ul>
+			<div style="padding:5px">
+				
+
+
+
+<form method="post" action="/entidades/ubicacion/save" id="form_ubicacion">
+	
+	<input type="hidden" name="entidad" value="1"/>
+	<input type="hidden" name="direccion" value="1"/>
+	<input type="hidden" name="ubicacion" value="0"/>
+
+	<table class="table_edit jqx-wide">
+		<tbody>
+			<tr>
+				<td style="width:120px;">Código Interno</td>
+				<td style="width:150px;"><input type="text" readonly="readonly" name="id" class="input_label_readonly" /></td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Código Auxiliar</td>
+				<td style="width:150px;"><input type="text" name="codigo" maxlength="10" /></td>
+			</tr>
+			
+			<tr>
+				<td>Fecha creación</td>
+				<td><span class="input_label_readonly">10/10/2016 18:35</span></td>
+				<td></td>
+				<td>Fecha modificación</td>
+				<td><div class="input_label_readonly">10/10/2016 18:35</div></td>
+			</tr>
+			<tr>
+				<td>Usuario creación</td>
+				<td><span class="input_label_readonly">jjjj</span></td>
+				<td></td>
+				<td>Usuario modificación</td>
+				<td><div class="input_label_readonly">xxx</div></td>
+			</tr>
+			<tr>
+				<td>Descripción larga</td>
+				<td colspan="4"><input type="text" name="descripcion_larga" maxlength="52" /></td>
+			</tr>
+			<tr>
+				<td>Descripción mediana</td>
+				<td colspan="4"><input type="text" name="descripcion_mediana" maxlength="30" style="width:250px" /></td>
+			</tr>
+			<tr>
+				<td>Descripción corta</td>
+				<td colspan="4"><input type="text" name="descripcion_corta" maxlength="15" style="width:150px" /></td>
+			</tr>
+			<tr>
+				<td>Abreviacion</td>
+				<td colspan="4"><input type="text" name="abreviacion" maxlength="5" style="width:50px" /></td>
+			</tr>
+			<tr>
+				<td>Observaciones</td>
+				<td colspan="4"><div id="form_ubicacion_observaciones" field_name="observaciones" style="height:50px"></div></td>
+			</tr>
+			<tr>
+				<td>Activo</td>
+				<td colspan="4"><div id="form_ubicacion_estado" field_name="estado" class="jqx-checkbox-nomargin"></div></td>
+			</tr>
+			
+	<tr>
+		<td>Tipo</td>
+		<td colspan="4">
+			<div id="form_ubicacion_tipos" field_name="tipos"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>Cerca</td>
+		<td colspan="4">
+			<div id="form_ubicacion_cerca" field_name="cerca"></div>
+		</td>
+	</tr>
+
+			<tr>
+				<td colspan="5">&nbsp;</td>
+			</tr>
+		</tbody>
+		
+	</table>
+	
+</form>
+
+				<br/><br/>
+			</div>
+			
+	<div></div>
+
+		</div>
+	</div>
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+
+</body>
+</html>

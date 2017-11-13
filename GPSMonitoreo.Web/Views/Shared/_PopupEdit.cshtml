@@ -1,0 +1,70 @@
+﻿@model GPSMonitoreo.Web.ViewModels.PopupEdit
+@{ 
+	IgnoreBody();
+}
+
+<div>
+	@Model.Title
+</div>
+<div>
+	<form method="post" action="@Model.PostUrl" id="@Model.FormId"  form-manager="popupEditForm">
+		<formsection form-manager="popupEditForm" form-manager-rendersection="section_top"></formsection>
+		<table class="table_edit jqx-wide" style="width:100%">
+			<tbody>
+				<tr>
+					<td style="width:120px;">Código Interno</td>
+					<td><input type="text" readonly="readonly" name="id" class="input_label_readonly" /></td>
+				</tr>
+				<formsection form-manager="popupEditForm" form-manager-rendersection="section_fields"></formsection>
+			</tbody>
+			<formsection form-manager="popupEditForm" form-manager-rendersection="section_tbodies"></formsection>
+		</table>
+		<formsection form-manager="popupEditForm" form-manager-rendersection="section_bottom"></formsection>
+	</form>
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+
+
+
+<script script-manager-render="popupEdit">
+App.hookPopupEdit('@Context.Request.Path.Value', function($container, win){
+	var $form = $container.find('#@Model.FormId').jqxForm();
+	var form = $form.instance;
+
+	var f = form.formElement;
+
+	form.add([f.elements.id], 'jqxInput');
+
+	window.popupEditForm = form;
+
+	//script-manager["form_init"]
+
+	var $button = $container.find('button');
+
+
+	form.$errorMessageContainer = $button.parent().find('.input_error');
+
+	$button.form = form;
+
+	$button.click(function(){
+		App.postFormJsonFromButton($button, function(response){
+			form.setWidgetValue('id', response.id);
+			if(win.onSaved)
+				win.onSaved();
+		}, null, {popupErrorMessage: true, resetFormErrors : true});
+	});
+
+	$button.jqxButton({template: 'info'});
+});
+
+
+</script>
+
+
+
+
+
+

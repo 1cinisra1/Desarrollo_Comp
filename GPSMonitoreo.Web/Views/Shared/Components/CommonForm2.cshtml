@@ -1,0 +1,79 @@
+﻿@model GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel
+@{ 
+
+
+}
+
+
+<script script-manager-add="commonform">
+	layout.addFormInitializer(function(form){
+		var f = form.$form[0];
+		form.add([f.elements.id, f.elements.codigo, f.elements.descripcion_larga, f.elements.descripcion_mediana, f.elements.descripcion_corta, f.elements.abreviacion], 'jqxInput');
+		form.add('#@(Model.FormId)_observaciones', 'jqxTextArea');
+		form.add('#@(Model.FormId)_estado', 'jqxCheckBox');
+	});
+
+	//script-manager["form_init"]
+
+	//script-manager["form_init2"]
+</script>
+
+<form method="post" action="@Model.Action" id="@Model.FormId" form-manager="commonform">
+	<formsection form-manager="commonform" form-manager-rendersection="section_top"></formsection>
+	<table class="table_edit jqx-wide">
+		<tbody>
+			<tr>
+				<td style="width:120px;">Código Interno</td>
+				<td style="width:150px;"><input type="text" readonly="readonly" name="id" class="input_label_readonly" /></td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Código Auxiliar</td>
+				<td style="width:150px;"><input type="text" name="codigo" maxlength="10" /></td>
+			</tr>
+			<formsection form-manager="commonform" form-manager-rendersection="section1"></formsection>
+			<tr>
+				<td>Fecha creación</td>
+				<td><span class="input_label_readonly">10/10/2016 18:35</span></td>
+				<td></td>
+				<td>Fecha modificación</td>
+				<td><div class="input_label_readonly">10/10/2016 18:35</div></td>
+			</tr>
+			<tr>
+				<td>Usuario creación</td>
+				<td><span class="input_label_readonly">jjjj</span></td>
+				<td></td>
+				<td>Usuario modificación</td>
+				<td><div class="input_label_readonly">xxx</div></td>
+			</tr>
+			<tr>
+				<td>Descripción larga</td>
+				<td colspan="4"><input type="text" name="descripcion_larga" maxlength="52" /></td>
+			</tr>
+			<tr>
+				<td>Descripción mediana</td>
+				<td colspan="4"><input type="text" name="descripcion_mediana" maxlength="30" style="width:250px" /></td>
+			</tr>
+			<tr>
+				<td>Descripción corta</td>
+				<td colspan="4"><input type="text" name="descripcion_corta" maxlength="15" style="width:150px" /></td>
+			</tr>
+			<tr>
+				<td>Abreviacion</td>
+				<td colspan="4"><input type="text" name="abreviacion" maxlength="5" style="width:50px" /></td>
+			</tr>
+			<tr>
+				<td>Observaciones</td>
+				<td colspan="4"><div id="@(Model.FormId)_observaciones" field_name="observaciones" style="height:50px"></div></td>
+			</tr>
+			<tr>
+				<td>Activo</td>
+				<td colspan="4"><div id="@(Model.FormId)_estado" field_name="estado" class="jqx-checkbox-nomargin"></div></td>
+			</tr>
+			<formsection form-manager="commonform" form-manager-rendersection="section2"></formsection>
+			<tr>
+				<td colspan="5">&nbsp;</td>
+			</tr>
+		</tbody>
+		<formsection form-manager="commonform" form-manager-rendersection="section3"></formsection>
+	</table>
+	<formsection form-manager="commonform" form-manager-rendersection="section4"></formsection>
+</form>

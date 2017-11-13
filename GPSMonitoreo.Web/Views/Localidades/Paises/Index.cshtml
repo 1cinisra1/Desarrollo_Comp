@@ -1,0 +1,29 @@
+﻿@model GPSMonitoreo.Web.ViewModels.SearchGridViewModel
+@{
+	Layout = "SearchGridLayout";
+}
+@section form{
+<form id="form_paises_search" style="padding: 5px">
+	<table>
+		<tr>
+			<td>Descripcion:</td>
+			<td style="width:150px"><input type="text" name="descripcion" maxlength="100" /></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<button type="button">Buscar</button>
+</form>
+}
+<script script-manager-add="searchgrid" script-manager-key="form_init">
+
+	form.add('input:text', 'jqxInput');
+
+	var edit = function(id)
+	{
+		App.general.localidades.paises.edit(id);
+	};
+
+</script>
+

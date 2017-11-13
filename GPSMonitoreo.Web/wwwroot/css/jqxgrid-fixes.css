@@ -1,0 +1,30 @@
+
+.jqx-grid div, .jqx-grid .jqx-widget-content
+{
+	box-sizing: content-box;
+}
+
+.jqx-grid-content .jqx-grid-cell > input.jqx-input
+{
+	margin-top: -2px;
+}
+
+.jqx-grid-content .jqx-numberinput > input
+{
+	padding: 0 !important;
+}
+
+
+
+/*
+.jqx-wide .jqx-grid-content .jqx-dropdownlist-state-normal
+{
+	width:auto !important;
+	background-color: green;
+}
+	*/
+
+.jqx-grid-cell-metro
+{
+	color: inherit !important;
+}

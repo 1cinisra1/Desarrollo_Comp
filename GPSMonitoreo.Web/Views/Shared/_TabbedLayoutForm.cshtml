@@ -1,0 +1,86 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{ 
+	//public var xx = "afdddasf";
+
+	var urlArr = Context.Request.Path.Value.Split('/');
+	var postUrl = string.Join("/", urlArr.Take(urlArr.Length - (Model.UrlIndludesId ? 2 : 1))) + "/save";
+	IgnoreBody();
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel() { FormId = Model.FormId, Action = postUrl };
+
+
+}
+<div class="panel_input">
+	<div class="header">
+		@Model.Title
+	</div>
+	<div class="body">
+		<div>
+			<ul>
+				<li>Principal</li>
+				 @RenderSection("tabtitles", false)
+			</ul>
+			<div style="padding:5px">
+				@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.CommonForm), new { model = formModel })
+				<br/><br/>
+			</div>
+			@RenderSection("tabs", false)
+		</div>
+	</div>
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+<script script-manager-render="tabbed_layout_form">
+App.hookTab('@Context.Request.Path.Value', function($container, tabIndex, tabs){
+	//var tabInitialized = function(tab){};
+
+	var tabInitializers = {};
+	var innerTabs;
+
+
+	//script-manager["manager:commonform"]
+
+	var $button = $container.find('>div >div button');
+
+
+	form.$errorMessageContainer = $button.parent().find('.input_error');
+
+
+	$button.form = form;
+
+	$button.click(function(){
+		App.postFormJsonFromButton($button, function(response){
+			form.setWidgetValue('id', response.id);
+		}, null, {popupErrorMessage: true, resetFormErrors : true});
+	});
+
+	$button.jqxButton({template: 'info'});
+	
+
+	innerTabs = $container.find('> div > div.body > div').jqxTabs({
+		width: '100%', height: '100%',
+		initTabContent: function (tab) {
+				if (tabInitializers[tab])
+					tabInitializers[tab](this);
+
+		}
+	}).data('jqxWidget');
+
+	$container.innerTabs = innerTabs;
+
+	//innerTabs.initTabContent = function (tab) {
+	//	alert(tab);
+	//	if (tabInitializers[tab])
+	//		tabInitializers[tab](innerTabs);
+
+	//}
+
+	window.$container = $container;
+
+
+});
+	
+
+</script>

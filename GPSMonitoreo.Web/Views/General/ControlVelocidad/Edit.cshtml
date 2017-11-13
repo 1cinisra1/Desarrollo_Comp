@@ -1,0 +1,400 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_TabbedLayoutForm.cshtml";
+
+
+	var viewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.FormEditableGridModel()
+		{
+			FormId = Model.FormId,
+			FieldName = "reglas",
+			TabIndex = 1,
+		}
+	};
+}
+
+
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+	$form.css('width', '100%');
+	$form.css('height', '400px');
+	var $div_header_0 = $('#form_control_velocidad_reglas > div');
+	console.log('----------------------------------------------');
+	console.log('----------------------------------------------');
+
+
+	function windowSearch(grid){
+		App.general.controlvelocidad.windowSearch(function(item){
+			grid.addrow(null
+						,	{
+								id: item.id
+								, descripcion_larga: item.descripcion_larga
+								, descripcion_media: item.descripcion_media
+								, descripcion_corta: item.descripcion_corta
+								, abreviacion: item.abreviacion
+							}
+						);
+		});
+	}
+
+</script>
+
+<script script-manager-add="formgrid" script-manager-key="init">
+
+	var entidades = @Html.Raw(ViewData["lista_entidades"]);
+	var productos_cats = @Html.Raw(ViewData["lista_categoria_productos"]);
+	var productos =  @Html.Raw(ViewData["lista_productos"]);
+
+	console.log(entidades);
+	console.log(productos_cats);
+	console.log(productos);
+
+	datafields = [
+		{ name: 'entidad', type: 'number' },
+		{ name: 'entidad_descripcion', type: 'string'},
+		{ name: 'categoria', type: 'number' },
+		{ name: 'categoria_descripcion', type: 'string'},
+		{ name: 'producto', type: 'number' },
+		{ name: 'producto_descripcion', type: 'string'},
+		{ name: 'tipo_volumen', type: 'number' },
+		{ name: 'tipo_volumen_descripcion', type: 'string'},
+		{ name: 'tipo_direccion', type: 'number' },
+		{ name: 'tipo_direccion_descripcion', type: 'string'},
+		{ name: 'tiempo', type: 'number' },
+		{ name: 'velocidad', type: 'number' }
+
+	];
+
+	window.editors = [];
+	var current_row;
+	var valorTiempo = '';
+	var valorVelocidad = '';
+	var entidad;
+	var categoria;
+	var producto;
+	var tipo_volumen;
+
+	var $entidad_tree = $('<div>');
+	var entidad_tree = $entidad_tree.jqxTree({width: '172px', height: '200px', source: entidades}).data('jqxWidget');
+
+	var $categoria_tree = $('<div>');
+	var categoria_tree = $categoria_tree.jqxTree({width: '172px', height: '200px', source: productos_cats}).data('jqxWidget');
+
+	var $producto_tree = $('<div>');
+	var producto_tree = $producto_tree.jqxTree({width: '172px', height: '200px', source: productos}).data('jqxWidget');
+
+	var sourceTipoVolumen = [
+		{value:1, label:"Vacio"},
+		{value:2, label:"Cargado"}
+	];
+	var $tipo_volumen_list = $('<div>');
+	var tipo_volumen_list = $tipo_volumen_list.jqxTree({ width: '172px', height: '200px', source: sourceTipoVolumen}).data('jqxWidget');
+
+	var sourceTipoDireccion = [
+		{value:1, label:"Bajada"},
+		{value:2, label:"Subida"}
+	];
+	var $tipo_direccion_list = $('<div>');
+	var tipo_direccion_list = $tipo_direccion_list.jqxTree({ width: '172px', height: '200px', source: sourceTipoDireccion}).data('jqxWidget');
+
+	var dropDownContentFormatter = function(item)
+	{
+		if(item)
+			return '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+		else
+			return '';
+	}
+
+	var clientePicker;
+	var productoPicker;
+
+	columns = [
+		{ text: 'Cliente',  width: '15%',  columntype: 'template', datafield: 'entidad_descripcion', 
+			createeditor: function (row, cellvalue, $editor, cellText, width, height) {
+				var $clientePicker = $('<div>');
+				$editor.append($clientePicker);
+
+				clientePicker = new jqxPicker($clientePicker, null, function(){
+					////App.geografico.cercas.windowSearch(function(item){
+					App.entidades.entidad.windowSearch(function(item){
+						clientePicker.val({value: item.id, label: item.descripcion});
+						grid.partialupdaterow(clientePicker._row, {entidad: item.id, entidad_descripcion: item.descripcion});
+						grid.endcelledit(clientePicker._row, 'entidad_descripcion');
+					}, {closeOnSelect: true});
+				});
+			},
+			initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+				clientePicker._row = row;
+				var rowData = grid.getrowdata(row);
+				clientePicker.val({value: rowData.entidad, label: rowData.entidad_descripcion});
+			},
+			geteditorvalue: function (row, cellvalue, editor) {
+				return clientePicker.getContent();
+			}
+		}
+		, { text: 'Categoria Producto',  width: '15%',  columntype: 'template', datafield: 'categoria_descripcion',
+			createeditor: function (row, value, editor) {
+				editor.append($categoria_tree);
+				categoria = editor.jqxDropDownButton({}).data('jqxWidget');
+
+				$categoria_tree.on('select', function (event) {
+					var args = event.args;
+					var item = categoria_tree.getItem(args.element);
+					
+					var dropDownContent = '<div style="position:relative; margin-left:3px;" value="' + item.value + '" name="categoria">' + item.label + '</div>';
+					grid.source.records[current_row].categoria = item.value;
+					categoria.setContent(dropDownContent);
+					categoria.close();
+
+					grid.partialupdaterow(current_row, {categoria: item.value, categoria_descripcion: item.label});
+					grid.endcelledit(current_row, 'categoria_descripcion');
+
+				});
+			},
+			initeditor: function (row, cellvalue, editor, celltext, pressedChar) {
+				var value = grid.source.records[row].categoria;
+				var item = categoria_tree.getItemByValue(value);
+				categoria_tree.val(item);
+				categoria_tree.selectItem(item);
+			}
+		}
+		, { text: 'Producto', width: '15%', columntype: 'template', datafield: 'producto_descripcion'
+			, createeditor: function (row, cellvalue, $editor, cellText, width, height) {
+				var $productoPicker = $('<div>');
+				$editor.append($productoPicker);
+
+				productoPicker = new jqxPicker($productoPicker, null, function(){
+					App.productos.productos.windowSearch(function(item){
+					////App.geografico.cercas.windowSearch(function(item){
+						productoPicker.val({value: item.id, label: item.descripcion});
+						grid.partialupdaterow(productoPicker._row, {producto: item.id, producto_descripcion: item.descripcion});
+						grid.endcelledit(productoPicker._row, 'producto_descripcion');
+					}, {closeOnSelect: true});
+				});
+			},
+			initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+				productoPicker._row = row;
+				var rowData = grid.getrowdata(row);
+				productoPicker.val({value: rowData.producto, label: rowData.producto_descripcion});
+			},
+			geteditorvalue: function (row, cellvalue, editor) {
+				return productoPicker.getContent();
+			}
+		}
+		, {
+			text: 'Volumen', width: '15%', columntype: 'template', datafield: 'tipo_volumen_descripcion'
+			,  createeditor: function (row, value, editor)
+			{
+				editor.append($tipo_volumen_list);
+				tipo_volumen = editor.jqxDropDownButton({}).data('jqxWidget');
+
+				$tipo_volumen_list.on('select', function (event) {
+					var args = event.args;
+					var item = tipo_volumen_list.getItem(args.element);
+
+					var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+					grid.source.records[current_row].tipo_volumen = item.value;
+					
+					tipo_volumen.setContent(dropDownContentFormatter(item));
+					tipo_volumen.close();
+
+					grid.partialupdaterow(current_row, {tipo_volumen: item.value, tipo_volumen_descripcion: item.label});
+					grid.endcelledit(current_row, 'tipo_volumen_descripcion');
+					
+				});
+			}
+			,  initeditor: function (row, cellvalue, editor, celltext, pressedChar)
+			{
+				var value = grid.source.records[row].tipo_volumen;
+				console.log(value);
+				var item = tipo_volumen_list.getItemByValue(value);
+				
+				tipo_volumen_list.val(item);
+				tipo_volumen_list.selectItem(item);
+				tipo_volumen.setContent(dropDownContentFormatter(item));
+			}
+		}
+		, {
+			text: 'Dirección', width: '15%', columntype: 'template', datafield: 'tipo_direccion_descripcion'
+			,  createeditor: function (row, value, editor)
+			{
+				editor.append($tipo_direccion_list);
+				tipo_direccion = editor.jqxDropDownButton({}).data('jqxWidget');
+
+				$tipo_direccion_list.on('select', function (event) {
+					var args = event.args;
+					var item = tipo_direccion_list.getItem(args.element);
+
+					var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+					grid.source.records[current_row].tipo_direccion = item.value;
+					
+					tipo_direccion.setContent(dropDownContentFormatter(item));
+					tipo_direccion.close();
+
+					grid.partialupdaterow(current_row, {tipo_direccion: item.value, tipo_direccion_descripcion: item.label});
+					grid.endcelledit(current_row, 'tipo_direccion_descripcion');
+					
+				});
+			}
+			,  initeditor: function (row, cellvalue, editor, celltext, pressedChar)
+			{
+				var value = grid.source.records[row].tipo_direccion;
+				console.log(value);
+				var item = tipo_direccion_list.getItemByValue(value);
+				
+				tipo_direccion_list.val(item);
+				tipo_direccion_list.selectItem(item);
+				tipo_direccion.setContent(dropDownContentFormatter(item));
+			}
+		}
+		, { text: 'Tiempo', datafield: 'tiempo', width: '10%', cellsalign: 'left', columntype: 'numberinput', createeditor : function (row, cellvalue, editor)
+			{
+				editor.jqxNumberInput({ decimalDigits: 2, digits: 6, spinButtons: false, min: 0});
+				grid.endcelledit(current_row, 'tiempo');
+			}
+		}
+		, { text: 'Velocidad', datafield: 'velocidad', width: '10%', cellsalign: 'left', columntype: 'numberinput', createeditor : function (row, cellvalue, editor)
+			{
+				editor.jqxNumberInput({ decimalDigits: 2, digits: 6, spinButtons: false, min: 0});
+				grid.endcelledit(current_row, 'velocidad');
+			}
+		   }
+
+	];
+
+
+
+	customVal = function(value)
+	{
+		if(value === undefined)
+		{
+			var records = this.source.records;
+			var item;
+			var ret = [];
+			var newItem;
+			for(var x = 0; x < records.length; x++)
+			{
+				item = records[x];
+				ret.push(
+							{
+								entidad:records[x].entidad
+								, categoria:records[x].categoria
+								, producto:records[x].producto
+								, tipo_volumen:records[x].tipo_volumen
+								, tipo_direccion:records[x].tipo_direccion
+								, tiempo:records[x].tiempo
+								, velocidad:records[x].velocidad
+							}
+						);
+			}
+			return ret;
+		}
+		else
+		{
+
+			var item;
+			var entidad_item;
+			var categoria_item;
+			var producto_item;
+			var tipo_volumen_item;
+			var tipo_direccion_item;
+			//grid.clear();
+
+			for(var x = 0; x < value.length; x++)
+			{
+				item = value[x];
+
+				entidad_item = entidad_tree.getItemByValue(item.entidad);
+				categoria_item = categoria_tree.getItemByValue(item.categoria);
+				producto_item = producto_tree.getItemByValue(item.producto);
+				tipo_volumen_item = tipo_volumen_list.getItemByValue(item.tipo_volumen);
+				tipo_direccion_item = tipo_direccion_list.getItemByValue(item.tipo_direccion);
+
+
+				grid.addrow(null, {
+									entidad: item.entidad
+									, entidad_descripcion: entidad_item.label
+									, categoria: item.categoria
+									, categoria_descripcion: categoria_item.label
+									, producto: item.producto
+									, producto_descripcion: producto_item.label
+									, tipo_volumen: item.tipo_volumen
+									, tipo_volumen_descripcion: tipo_volumen_item.label
+									, tipo_direccion: item.tipo_direccion
+									, tipo_direccion_descripcion: tipo_direccion_item.label
+									, tiempo: item.tiempo
+									, velocidad: item.velocidad
+									}
+							);
+			}
+		}
+	};
+
+	////function obtenerIdUnidad(arreglo, idCapacidad)
+	////{
+
+	////	var idUnidad = 0;
+	////	$.each(arreglo, function(key, obj) {
+
+	////		if(obj.Key == idCapacidad)
+	////		{
+	////			idUnidad = obj.Value;
+	////			////console.log(obj);
+	////			return idUnidad;
+	////		}
+	////	});
+
+	////	return idUnidad;
+
+	////}
+
+	////function obtenerLabelUnidad(arreglo, idUnidad)
+	////{
+
+	////	var lblUnidad = '';
+
+	////	$.each(arreglo, function(key, obj) {
+	////		if(obj.Key == idUnidad)
+	////		{
+	////			lblUnidad = obj.Value;
+	////			////console.log(obj);
+	////			return lblUnidad;
+	////		}
+	////	});
+
+	////	return lblUnidad;
+
+	////}
+
+</script>
+
+
+
+@*<formsection form-manager="commonform" form-manager-section="section1">
+
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+
+</formsection>*@
+
+<formsection form-manager="commonform" form-manager-section="section4">
+	@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormEditableGrid), viewComponentModel)
+</formsection>
+
+@*@section tabtitles{
+	<li>Reglas Evaluaci&oacute;n Velocidad</li>
+}*@
+
+@*@section tabs{
+	<div>@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormEditableGrid), viewComponentModel)</div>
+}*@
+
+
+
+
+
+

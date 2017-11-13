@@ -1,0 +1,186 @@
+﻿@model GPSMonitoreo.Web.ViewModels.SearchGridViewModel
+@using Newtonsoft.Json
+@{ 
+	var url = Context.Request.Path.Value;
+}
+<script script-manager-render="searchgrid">
+App.hookTab('@url', function($container, tabIndex, tabs){
+	var searchgrid = new SearchGrid();
+
+
+	var $form = $container.find('.form > form').jqxForm();
+	var form = $form.instance;
+	var $grid = $container.find('.grid > div');
+
+	
+
+	searchgrid.form = form;
+	
+
+	$button = $form.find('> button:first');
+
+	$button.jqxButton({template: 'info'});
+
+	$button.click(function(){
+		searchgrid.search();
+	});
+
+	//script-manager["form_init"]
+
+	var source =  {
+		/*localdata: [],*/
+		datafields: @Html.Raw(JsonConvert.SerializeObject(Model.Grid.Fields)),
+		datatype: 'json',
+		url: '@Model.SearchUrl',
+		type: 'POST',
+		data: {},
+		beforeprocessing: function(data)
+		{
+			alert('before processing');
+			searchgrid.adapter._source.data.recordcount = data.recordcount;
+			//ComprobantesRecibidos._searchadapter._source.data.recordcount = data.recordcount;
+			source.totalrecords = data.recordcount;
+		},
+		cache: false
+	};
+
+	var adapterSettings = {
+		contentType : 'application/json',
+		processData : function(data){
+		},
+		formatData : function(data)
+		{
+			console.log('formatData');
+			console.log(data);
+
+			var keys = Object.keys(form.widgets);
+
+			console.log(keys);
+
+			var newData = Object.create(null);
+			var key;
+			for(var x = 0; x < keys.length; x++)
+			{
+				key = keys[x];
+				newData[key] = data[key];
+				console.log(key);
+			}
+
+			newData.Page = data.pagenum;
+			newData.PageSize = data.pagesize;
+			newData.RecordCount = data.recordcount;
+
+			return JSON.stringify(newData);
+		},
+		autoBind : false
+	};
+
+
+	var rendergridrows = function (params) {
+		return params.data;
+	};
+
+
+	searchgrid.adapter = new $.jqx.dataAdapter(source, adapterSettings);
+
+	var columns = @Html.Raw(Model.Grid.RenderColumns());
+
+	@if (Model.EditButton || Model.QuickViewButton) {<text>
+
+	var createwidget = function (row, column, value, htmlElement) {
+
+		//var $button_edit = $('<button type="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button>');
+		//$button_edit.jqxButton({template: 'primary'});
+
+
+		var $element = $(htmlElement);
+		$element.css('padding', '3px');
+
+
+	@if (Model.EditButton) { <text>
+		$editButton = $('<webicon class="file-4 clickable" style="margin-right:5px"></webicon>');
+
+		$element.append($editButton);
+
+		$editButton.on('click', function(){
+			var row = searchgrid.grid.getboundrowfrombutton(this);
+			edit(row.id, row);
+		});
+	</text>}
+
+	@if (Model.QuickViewButton) { <text>
+		$viewButton = $('<webicon class="binoculars clickable" style="margin-right:5px"></webicon>');
+
+
+		$element.append($viewButton);
+
+		$viewButton.on('click', function(){
+			var row = searchgrid.grid.getboundrowfrombutton(this);
+			quickview(row.id, row);
+			//alert(row.bounddata.id);
+		});
+	</text>}
+	}
+
+
+	var initwidget = function(row, column, value, cellElement){
+		
+	};
+
+	columns.push({ text: '', width: 100, createwidget: createwidget, initwidget: initwidget});
+		
+
+</text>}
+
+
+	
+
+	var options = {
+		width: '100%',
+		height:'100%',
+		columnsresize: true,
+		selectionmode: 'singlecell',
+		virtualmode: true,
+		pageable: true,
+		rendergridrows: rendergridrows,
+		//localization: gridLocalizationES,
+		columns: columns
+	};
+
+
+	@if (Model.AddButton){<text>
+		options.showtoolbar = true;
+		options.rendertoolbar = function($toolbar) {
+			$add = $('<webicon class="clipboard-33 clickable" style="width:28px;height:28px"></webicon>');
+			
+
+			$toolbar_container = $('<div style="height:100%;padding:3px"></div>');
+			$toolbar_container.append($add);
+			
+			$toolbar.append($toolbar_container);
+
+			$add.click(function(){
+				@Model.AddMethod;
+			});
+		}
+
+	</text>}
+
+
+	searchgrid.grid = $grid.jqxGrid(options).data('jqxWidget');
+});
+</script>
+
+
+<div class="panel_search">
+    <div class="header">@Model.Title</div>
+    <div class="form jqx-wide">
+        @RenderSection("form", false)
+    </div>
+	@*<div class="grid" style="margin-top:150px">*@
+	<div class="grid">
+		<div></div>
+	</div>
+</div>
+
+

@@ -1,0 +1,41 @@
+﻿@{
+	Layout = "WindowSearchLayout";
+}
+
+@section form{
+<form style="padding: 5px">
+	<table class="table_edit jqx-wide">
+		<tr>
+			<td>Descripcion</td>
+			<td style="width:150px"><input type="text" name="descripcion" maxlength="100" /></td>
+			<td></td>
+			<td>Categoria</td>
+			<td style="width:200px">
+				<div id="form_productos_search_categoria" field_name="categoria">
+					<div style="border: none;"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<button type="button">Buscar</button>
+</form>
+}
+<script script-manager-add="windowsearch" script-manager-key="form_init">
+	form.add('input:text', 'jqxInput');
+
+	var $categoria = $form.find('#form_productos_search_categoria');
+	var $categoria_tree = $categoria.find('> div').jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["categorias"])});
+	var categoria_tree = $categoria_tree.data('jqxWidget');
+	
+	var categoria = form.addDropDownButton($categoria, { dropDownWidth : 300}, categoria_tree);
+
+
+	$categoria_tree.on('select', function (event) {
+		var args = event.args;
+		var item = categoria_tree.getItem(args.element);
+		var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+		categoria.setContent(dropDownContent);
+		categoria.close();
+	});
+
+</script>

@@ -1,0 +1,38 @@
+﻿@model GPSMonitoreo.Web.ViewModels.SearchGridViewModel
+@{
+	Layout = "SearchGridLayout";
+}
+@section form{
+<form style="padding: 5px">
+	<table>
+		<tr>
+			<td>Descripción</td>
+			<td style="width:150px"><input type="text" name="descripcion" maxlength="100" /></td>
+			<td></td>
+			<td>Gps marca</td>
+			<td style="width:200px">
+				<div id="form_gps_marca" field_name="marca">
+				</div>
+			</td>
+		</tr>
+	</table>
+	<button type="button">Buscar</button>
+</form>
+}
+<script script-manager-add="searchgrid" script-manager-key="form_init">
+
+	form.add('input:text', 'jqxInput');
+
+	var $gps_marca = $form.find('#form_gps_marca');
+	form.add($gps_marca, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_gps_marca"])});
+	$gps_marca.css('width', '100%');
+
+
+	var edit = function(id)
+	{
+		App.equipos.gps.edit(id);
+	};
+
+
+</script>
+

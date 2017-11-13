@@ -1,0 +1,83 @@
+﻿@{
+	Layout = "_AppLayoutSearchGrid";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid(this.ViewContext);
+
+	layoutModel.Title = "EQUIPOS::EQUIPO";
+
+	ViewData["layoutModel"] = layoutModel;
+
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addGridInitializer(function() {
+
+		var options = AppGrid2.getDefaultOptions();
+
+		options.searchUrl = '@layoutModel.PostUrl';
+		
+		options.showRowEditButton = true;
+		options.rowEditMethod = function(id) {
+			App.equipments.equipment.edit(id);
+		};
+
+		options.showAddButton = true;
+		options.addMethod = function() {
+			App.equipments.equipment.editNew();
+		};
+
+		options.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'AlternateId', type: 'string' },
+			{ name: 'Description', type: 'string' },
+			{ name: 'OperationalStatusDescription', type:' string' },
+			{ name: 'GroupDescription', type: 'string' },
+			{ name: 'CategoryDescription', type: 'string' },
+			{ name: 'Plate', type: 'string' },
+			{ name: 'SerialNumber', type: 'string' },
+			{ name: 'BrandDescription', type: 'string' },
+			{ name: 'ModelDescription', type: 'string' },
+			{ name: 'ManufactureYear', type: 'string' }
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Cód. Alterno.', datafield: 'AlternateId', width: '60px' },
+			{ text: 'Descripción', datafield: 'Description', width: '250px' },
+			{ text: 'Estado Oper.', datafield: 'OperationalStatusDescription', width: '100px' },
+			{ text: 'Grupo', datafield: 'GroupDescription', width: '80px' },
+			{ text: 'Categoria', datafield: 'CategoryDescription', width: '150px' },
+			{ text: 'Plate', datafield: 'Plate', width: '60px' },
+			{ text: 'SerialNumber', datafield: 'SerialNumber', width: '120px' },
+			{ text: 'Marca', datafield: 'BrandDescription', width: '100px' },
+			{ text: 'Modelo', datafield: 'ModelDescription', width: '100px' },
+			{ text: 'Año', datafield: 'ManufactureYear', width: '80px' },
+		];
+
+		options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Description'
+				}),
+				new AppGridFilterInitializer({
+					label		: 'Categoria',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'CategoryId',
+					initialize	: function($element, form) {
+						form.addTreeDropDown($element, {}, @Html.Raw(ViewData["categories"]));
+					}
+				})
+			]
+		];
+
+		return options;
+	});
+
+</script>

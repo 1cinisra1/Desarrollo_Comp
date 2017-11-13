@@ -1,0 +1,387 @@
+﻿@using GPSMonitoreo.Dtos.Base.AlarmGrades;
+
+@model GPSMonitoreo.Web.ViewModels.AppLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedForm3.cshtml";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutForm(this.ViewContext)
+	{
+		Title = "PARAMETROS::ALARMAS - LIMITE VELOCIDAD"
+	};
+
+	ViewData["layoutModel"] = layoutModel;
+
+	var alarmGrades = ViewData["alarmGrades"] as List<AlarmGradeListDto>;
+
+	var alarmGradesDict = alarmGrades.ToDictionary(x => x.Id);
+
+	//var timeRanges = new List<Tuple<int, int>>
+	//{
+	//	new Tuple<int, int>(0, 14),
+	//	new Tuple<int, int>(15, 29),
+	//	new Tuple<int, int>(30, 59),
+	//	new Tuple<int, int>(60, 89),
+	//	new Tuple<int, int>(90, -1)
+	//};
+
+
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+	
+	layout.addFormInitializer(function(form){
+		var f = form.formElement;
+		var $form = form.$form;
+
+		var speedLimitIds = [
+			'#@(layoutModel.FormId)_SpeedLimitRoad',
+			'#@(layoutModel.FormId)_SpeedLimitRoadRestricted',
+			'#@(layoutModel.FormId)_SpeedLimitStandard',
+			'#@(layoutModel.FormId)_SpeedLimitAudible'
+		];
+
+		console.log(speedLimitIds);
+
+		form.add(speedLimitIds.join(', '), 'jqxNumberInput', {inputMode: 'simple', spinButtons: false, spinButtonsStep: 0, digits: 3, decimalDigits: 0, textAlign: 'left'});
+
+
+		form.add('#@(layoutModel.FormId)_SpeedLimitTolerance', 'jqxNumberInput', {inputMode: 'simple', spinButtons: false, spinButtonsStep: 0, digits: 1, decimalDigits: 0, textAlign: 'left'});
+
+
+
+		var timeRanges = [
+			[0, 14],
+			[15, 29],
+			[30, 59],
+			[60, 89],
+			[90, 0]
+		];
+
+		var alarmGradesDict = @Html.Raw(alarmGradesDict.ToJsonString());
+
+		var alarmGradeSource =
+		{
+			datatype: 'array',
+			datafields: [
+				{ name: 'label', type: 'string' },
+				{ name: 'value', type: 'string' }
+			],
+			localdata: @Html.Raw(alarmGrades.ToJqwidgets().ToJsonString())
+		};
+
+		var alarmGradeAdapter = new $.jqx.dataAdapter(alarmGradeSource, {
+			autoBind: true
+		});
+
+		
+
+		var $lowSpeedGrid = this.container.find('#@(layoutModel.FormId)_LowSpeed');
+		var $hiSpeedGrid = this.container.find('#@(layoutModel.FormId)_HiSpeed');
+
+
+
+		function initializeGrid($element) {
+
+			var grid;
+
+		
+			var gridOptions = AppGrid2.getDefaultOptions();
+
+			gridOptions.$element = $element;
+
+			gridOptions.mode = 'edit';
+
+			gridOptions.showToolBar = true;
+
+			gridOptions.showAddButton = true;
+
+			var dataFields = [
+				{ name: 'From', type: 'number' },
+				{ name: 'To', type: 'number' }
+			];
+
+			gridOptions.showRemoveButton = true;
+			gridOptions.selectionMode = 'checkbox';
+
+			var columns = [
+				{ text: 'Desde', datafield: 'From', width: '80px', columntype: 'numberinput',
+					createeditor: function (row, cellvalue, editor) {
+						editor.jqxNumberInput({ digits: 4, inputMode: 'simple', spinButtons: false, spinButtonsStep: 0 });
+					}				
+				},
+				{ text: 'Hasta', datafield: 'To', width: '80px', columntype: 'numberinput',
+					createeditor: function (row, cellvalue, editor) {
+						editor.jqxNumberInput({ digits: 4, inputMode: 'simple', spinButtons: false, spinButtonsStep: 0 });
+					}			
+				}
+			];
+
+			var columnGroups = [
+				{ text: 'Configuración por rango de Tiempo (segundos)', align: 'center', name: 'ranges' }
+			];
+
+			var timeRange;
+
+			for(var x = 0; x < timeRanges.length; x++)
+			{
+				timeRange = timeRanges[x];
+
+				columnGroups.push({ text: timeRange[0] + (timeRange[1] ? ' - ' + timeRange[1] : ' - >'), parentgroup: 'ranges', align: 'center', name: 'range' + x });
+
+				dataFields.push({ name: 'range' + x + '_Points', type: 'number' });
+
+				dataFields.push({ name: 'range' + x + '_GradeId', type: 'number' });
+				dataFields.push({ name: 'range' + x + '_Grade', value: 'range' + x + '_GradeId', values: { source: alarmGradeAdapter.records, value: 'value', name: 'label' }   });
+
+				dataFields.push({ name: 'range' + x + '_Blinking', type: 'bool' });
+				dataFields.push({ name: 'range' + x + '_Audible', type: 'bool' });
+
+				columns.push({ text: 'Punt.', datafield: 'range' + x + '_Points', width: '35px', columngroup: 'range' + x, columntype: 'numberinput',
+					createeditor: function (row, cellvalue, editor) {
+						editor.jqxNumberInput({ digits: 4, inputMode: 'simple', spinButtons: false, spinButtonsStep: 0 });
+					}			
+				});
+
+				columns.push({ text: 'Grado', datafield: 'range' + x + '_GradeId', displayfield: 'range' + x + '_Grade', width: '80px', columngroup: 'range' + x, columntype: 'dropdownlist',
+					createeditor: function (row, value, editor) {
+					
+						editor.jqxDropDownList({ source: alarmGradeAdapter, valueMember: 'value', displayMember: 'label', placeHolder: '' });
+
+						editor.on('select', function(event) {
+							grid.endcelledit(grid._editingRowIndex, grid._editingDataField, false);
+						});
+					}				
+				});
+
+				columns.push({ text: 'Color', width: '20px', columngroup: 'range' + x, 
+					cellsrenderer: function (row, datafield, value, defaulthtml, columnproperties, rowData) {
+						//console.log(rowData);
+						//console.log('datafield: ' + datafield);
+						//console.log('value: ' + value);
+						var gradeIdDataField = grid._columns[parseInt(datafield) - 1].datafield;
+
+						var gradeId = rowData[gradeIdDataField];
+
+						if(gradeId)
+						{
+							var grade = alarmGradesDict[gradeId];
+							if(grade)
+							{
+								var cssCalss = grade.Blinking ? 'blinking-alarm' : '';
+								return '<div class="' + cssCalss + '" style="width:100%;height:100%;background-color:' + grade.Color + '"></div>';
+							}
+						}
+						return '';
+					}   			
+				});
+
+				columns.push({ text: 'Parpad?', datafield: 'range' + x + '_Blinking', width: '55px', columngroup: 'range' + x, columntype: 'checkbox' });
+				columns.push({ text: 'Audible?', datafield: 'range' + x + '_Audible', width: '55px', columngroup: 'range' + x, columntype: 'checkbox' });
+			}
+
+			gridOptions.dataFields = dataFields;
+
+			gridOptions.columns = columns;
+
+			gridOptions.columnGroups = columnGroups;
+
+
+			gridOptions.customVal = function(value) {
+
+				if(value === undefined)
+				{
+					var rows = this.getrows();
+					var row;
+
+					var newRows = [];
+
+					var newRow;
+					var timeRangeSettings;
+					var timeRangeSetting;
+					var timeRange;
+
+					for(var x = 0; x < rows.length; x++)
+					{
+						row = rows[x];
+
+
+						timeRangeSettings = [];
+
+						for(var y = 0; y < timeRanges.length; y++)
+						{
+							timeRange = timeRanges[y];
+
+							timeRangeSetting = {
+								From: timeRange[0],
+								To: timeRange[1],
+								Points: row['range' + y + '_Points'], 
+								GradeId: row['range' + y + '_GradeId'],
+								Blinking: row['range' + y + '_Blinking'],
+								Audible: row['range' + y + '_Audible']
+							};
+
+							timeRangeSettings.push(timeRangeSetting);
+						}
+
+
+
+						newRow = { From: row.From, To: row.To, TimeRangeSettings: timeRangeSettings };
+
+						newRows.push(newRow);
+					}
+
+					return newRows;
+				}
+				else
+				{
+					var rows = value;
+					var row;
+					var newRow;
+					var newRows = [];
+					var timeRangeSettings;
+					var timeRangeSetting;
+
+					for(var x = 0; x < rows.length; x++)
+					{
+						row = rows[x];
+						newRow = { From: row.From, To: row.To };
+
+						timeRangeSettings = row.TimeRangeSettings;
+
+						//console.log(row);
+
+						for(var y = 0; y < timeRanges.length; y++)
+						{
+							timeRange = timeRanges[y];
+
+							for(var z = 0; z < timeRangeSettings.length; z++ )
+							{
+								timeRangeSetting = timeRangeSettings[z];
+
+								if(timeRangeSetting.From >= timeRange[0] && timeRangeSetting.To <= timeRange[1])
+								{
+									newRow['range' + y + '_Points'] = timeRangeSetting.Points;
+									newRow['range' + y + '_GradeId'] = timeRangeSetting.GradeId;
+									newRow['range' + y + '_Blinking'] = timeRangeSetting.Blinking;
+									newRow['range' + y + '_Audible'] = timeRangeSetting.Audible;
+
+									break;
+								}
+							}
+						}
+
+						newRows.push(newRow);
+					}
+
+					this.refreshLocalData(newRows);
+				}
+			}
+
+			grid = new AppGrid2(gridOptions).grid;
+
+
+			//$lowSpeedGrid.on('cellvaluechanged', function (event) 
+			//{
+			//	var args = event.args;
+			//	var datafield = args.datafield;
+
+			
+
+			//	if(datafield.endsWith('_ColorId'))
+			//	{
+			//		var grid = event.owner;
+			//		var rowBoundIndex = args.rowindex;
+			//		var value = args.newvalue;
+
+			//		//grid.setcellvalue(0, "firstname", "New Value"
+
+			//		//console.log(this);
+
+			//	}
+
+			
+
+			//});
+
+
+			form.addWidget(grid);
+
+
+		}
+
+		initializeGrid($lowSpeedGrid);
+		initializeGrid($hiSpeedGrid);
+
+
+		
+
+	});
+</script>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Velocidad Mop</td>
+		<td><div id="@(layoutModel.FormId)_SpeedLimitRoad" field_name="SpeedLimitRoad"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Velocidad Mop Rest</td>
+		<td><div id="@(layoutModel.FormId)_SpeedLimitRoadRestricted" field_name="SpeedLimitRoadRestricted"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Velocidad Estandar</td>
+		<td><div id="@(layoutModel.FormId)_SpeedLimitStandard" field_name="SpeedLimitStandard"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Velocidad Audible</td>
+		<td><div id="@(layoutModel.FormId)_SpeedLimitAudible" field_name="SpeedLimitAudible"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Tolerancia</td>
+		<td><div id="@(layoutModel.FormId)_SpeedLimitTolerance" field_name="SpeedLimitTolerance"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section3">
+
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section4">
+	
+</formsection>
+
+
+@section tabtitles{
+	<div>Insuficiencia Velocidad</div>
+	<div>Exceso Velocidad</div>
+}
+
+@section tabs{
+	<div>
+		<div id="@(layoutModel.FormId)_LowSpeed" field_name="LowSpeed"></div>
+	</div>	
+	<div>
+		<div id="@(layoutModel.FormId)_HiSpeed" field_name="HiSpeed"></div>
+	</div>
+
+}

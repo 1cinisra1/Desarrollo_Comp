@@ -1,0 +1,69 @@
+﻿@{
+	Layout = "_AppLayoutSearchGrid";
+
+	//var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid(this.ViewContext);
+
+	//layoutModel.Title = "PARAMETROS::ALARMAS - GRADOS";
+
+	//ViewData["layoutModel"] = layoutModel;
+
+	var layoutModel = ViewData["layoutModel"] as GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid;
+
+	var folderName = layoutModel.ControllerFolderName.ToLower();
+	var controllerName = layoutModel.ControllerName.ToLower();
+
+	var isForCategories = (bool?)ViewData["isForCategories"];
+
+	IgnoreBody();
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addGridInitializer(function() {
+
+		var options = AppGrid2.getDefaultOptions();
+
+		options.searchUrl = '@layoutModel.PostUrl';
+		
+		options.showRowEditButton = true;
+		options.rowEditMethod = function(id) {
+			App.@(folderName).@(controllerName).edit(id);
+		};
+
+		options.showAddButton = true;
+		options.addMethod = function() {
+			App.@(folderName).@(controllerName).editNew();
+		};
+
+		options.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'Description', type: 'string' }
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Descripción', datafield: 'Description', width: '250px' }
+		];
+
+	@if (isForCategories.HasValue && isForCategories.Value)
+	{<text>
+		options.dataFields.push({ name: 'Hierarchy', type: 'string' });
+		options.columns.push({ text: 'Jerarquia', datafield: 'Hierarchy', width: '350px' });
+	</text>}
+
+		options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Description'
+				})
+			]
+		];
+
+		return options;
+	});
+
+</script>

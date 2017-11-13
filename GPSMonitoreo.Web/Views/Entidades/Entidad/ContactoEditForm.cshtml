@@ -1,0 +1,102 @@
+﻿@model GPSMonitoreo.Web.ViewModels.PopupEdit
+@{
+	Layout = "_PopupEdit";
+}
+<script script-manager-add="popupEdit" script-manager-key="form_init">
+	form.addFormElement([f.elements.empresa]);
+	form.add([f.elements.funcion], 'jqxInput');
+	form.add('#@(Model.FormId)_observaciones', 'jqxTextArea');
+	form.add('#@(Model.FormId)_cargo', 'jqxDropDownList', {source: @Html.Raw(ViewData["cargos"]), placeHolder: ''});
+	form.add('#@(Model.FormId)_area', 'jqxDropDownList', {source: @Html.Raw(ViewData["areas"]), placeHolder: ''});
+
+	var persona = form.addPicker('#@(Model.FormId)_persona', {}, function(){
+		App.entities.entity.personWindowSearch(function(item){
+			persona.val({value: item.Id, label: item.Description});
+		}, {closeOnSelect: true});
+	});
+
+
+
+
+
+
+
+
+	var gridOptions = AppGrid.getDefaultOptions();
+	gridOptions.height = '300px';
+	gridOptions.addToForm = form;
+	gridOptions.$element = $form.find('#form_contacto_direcciones');
+	gridOptions.selectionmode = 'checkbox';
+	//gridOptions.showtoolbar = true;
+	//gridOptions.showRemoveButton = true;
+	//gridOptions.showReloadButton = true;
+	/*gridOptions.editable = true;*/
+	
+	
+	
+	gridOptions.datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'descripcion', type: 'string'},
+		{ name: 'ciudad', type: 'string'},
+		{ name: 'calle_principal', type: 'string'},
+		{ name: 'ciudadela', type: 'string'}
+	];
+
+
+	gridOptions.columns =  [
+		{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+		{text: 'Descripción', datafield: 'descripcion', width: '150px'},
+		{text: 'Ciudad', datafield: 'ciudad', width: '120px'},
+		{text: 'Calle Principal', datafield: 'calle_principal', width: '150px'},
+		{text: 'Ciudadela', datafield: 'ciudadela', width: '120px'}
+	];
+
+	gridOptions.customVal = function(direcciones) {
+		if(direcciones === undefined)
+			return this.getselecteddatavalues('id');
+		else
+			this.selectbyvalues('id', direcciones);
+	};
+
+	var grid = new AppGrid(gridOptions);
+
+	grid.setLocalData(@Html.Raw(ViewData["direcciones"]));
+
+
+	var data = @Html.Raw(ViewData["data"]);
+
+	if(data)
+		form.fromJson(data);
+</script>
+<formsection form-manager="popupEditForm" form-manager-section="section_top">
+	<input type="hidden" name="empresa" value="@ViewData["empresa"]" />
+</formsection>
+
+<formsection form-manager="popupEditForm" form-manager-section="section_fields">
+	<tr>
+		<td>Persona</td>
+		<td><div id="@(Model.FormId)_persona" field_name="persona"></div></td>
+	</tr>
+	<tr>
+		<td>Cargo</td>
+		<td><div id="@(Model.FormId)_cargo" field_name="cargo"></div></td>
+	</tr>
+	<tr>
+		<td>Area</td>
+		<td><div id="@(Model.FormId)_area" field_name="area"></div></td>
+	</tr>
+	<tr>
+		<td>Función</td>
+		<td><input type="text" name="funcion" /></td>
+	</tr>
+	<tr>
+		<td>Observaciones</td>
+		<td><div id="@(Model.FormId)_observaciones" field_name="observaciones" style="height:70px"></div></td>
+	</tr>
+	<tr>
+		<td colspan="2">Relaciones con direcciones</td>
+	</tr>
+	<tr>
+		<td colspan="2"><div id="@(Model.FormId)_direcciones" field_name="direcciones"></div></td>
+	</tr>
+</formsection>

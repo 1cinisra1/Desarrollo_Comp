@@ -1,0 +1,30 @@
+﻿@model GPSMonitoreo.Web.ViewComponents.Models.FormModel
+@{ 
+
+
+}
+
+
+<script script-manager-add="form">
+	layout.addFormInitializer(function(form){
+		var f = form.$form[0];
+	});
+
+	//script-manager["form_init"]
+
+	//script-manager["form_init2"]
+</script>
+
+<form method="post" action="@Model.Action" id="@Model.FormId" style="@Model.Style" form-manager="form">
+	<formsection form-manager="form" form-manager-rendersection="section_top"></formsection>
+	@if (Model.UseTable)
+	{
+	<table class="table_edit jqx-wide">
+		<tbody>
+			<formsection form-manager="form" form-manager-rendersection="section_table"></formsection>
+		</tbody>
+		<formsection form-manager="form" form-manager-rendersection="section_table_end"></formsection>
+	</table>
+	}
+	<formsection form-manager="form" form-manager-rendersection="section_bottom"></formsection>
+</form>

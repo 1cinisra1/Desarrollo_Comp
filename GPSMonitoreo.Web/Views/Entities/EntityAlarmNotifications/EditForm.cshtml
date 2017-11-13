@@ -1,0 +1,407 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutForm
+@{
+	Layout = "~/Views/Shared/_AppLayoutTabbedFreeForm.cshtml";
+
+	var places = ViewData["places"] as IEnumerable<object>;
+
+	var placesJson = places.ToJsonString();
+
+	var roles = ViewData["roles"] as IEnumerable<CommonBaseSimpleListDto<Int16>>;
+
+	var rolesJson = roles.ToJqwidgets().AddBlankItem().ToJsonString();
+
+
+}
+@section tabtitles{
+				
+}
+
+@section tabs{
+
+}
+<script script-manager-add="form" script-manager-key="form_init">
+
+	//layout.onSavedSetEditingId = false;
+
+	@*var alarmsList =  @Html.Raw(ViewData["alarmsJson"]);*@
+
+	var places = @Html.Raw(placesJson);
+
+	
+
+	layout.addFormInitializer(function(form){
+		var f = form.formElement;
+		var emailsGrid;
+		var placesGrid;
+
+		form.add([f.elements.Id, f.elements.EntityId], 'jqxInput');
+
+		form.add('#@(Model.FormId)_AlarmsRoleId', 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(rolesJson)});
+
+		//var emails = form.addSingle('#@(Model.FormId)_Emails', 'jqxListBox', {checkboxes: true, height: 100});
+
+
+		var $emailsGrid = form.$form.find('#@(Model.FormId)_Emails');
+		var $placesGrid = form.$form.find('#@(Model.FormId)_Places');
+
+		
+		var emailsGridOptions = AppGrid2.getDefaultOptions();
+
+		emailsGridOptions.$element = $emailsGrid;
+
+		emailsGridOptions.mode = 'read';
+
+		emailsGridOptions.height = 150;
+
+		emailsGridOptions.selectionMode = 'checkbox';
+
+		emailsGridOptions.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'Email', type: 'string' },
+			{ name: 'EmailTypeDescription', type: 'string' },
+			{ name: 'EmailPurposes', type: 'string' }
+		];
+
+		emailsGridOptions.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Email', datafield: 'Email', width: '200px' },
+			{ text: 'Tipo Email', datafield: 'EmailTypeDescription', width: '200px' },
+			{ text: 'Propósito Email', datafield: 'EmailPurposes', width: '300px' }
+		];
+
+		emailsGridOptions.customVal = function(val) {
+			if(val == undefined)
+			{
+				return this.getselecteddatavalues('Id');
+			}
+			else
+			{
+				//this.selectbyvalues('Id', val);
+			}
+		};
+
+		emailsGrid = new AppGrid2(emailsGridOptions);
+
+		form.addWidget(emailsGrid.grid);
+
+		layout.grids.EmailIds = emailsGrid.grid;
+
+
+
+
+		var placesGridOptions = AppGrid2.getDefaultOptions();
+
+		placesGridOptions.$element = $placesGrid;
+
+		placesGridOptions.mode = 'read';
+
+		//placesGridOptions.editable = false;
+
+		placesGridOptions.height = 200;
+
+		placesGridOptions.selectionMode = 'checkbox';
+
+		placesGridOptions.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'Description', type: 'string' },
+			{ name: 'EntityAddressTypes', type: 'string' },
+			{ name: 'CountryDescription', type: 'string' },
+			{ name: 'CityDescription', type: 'string' },
+			{ name: 'Neighborhood', type: 'string' },
+			{ name: 'Street1', type: 'string' },
+			{ name: 'GeofenceDescription', type: 'string' },
+		];
+
+		placesGridOptions.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Descripción', datafield: 'Description', width: '200px' },
+			{ text: 'Tipos', datafield: 'EntityAddressTypes', width: '200px' },
+			{ text: 'País', datafield: 'CountryDescription', width: '100px' },
+			{ text: 'Ciudad', datafield: 'CityDescription', width: '100px' },
+			{ text: 'Ciudadela', datafield: 'Neighborhood', width: '100px' },
+			{ text: 'Calle principal', datafield: 'Street1', width: '200px' },
+			{ text: 'Cerca', datafield: 'GeofenceDescription', width: '200px' }
+		];
+
+
+		placesGridOptions.customVal = function(val) {
+			if(val == undefined)
+			{
+				return this.getselecteddatavalues('Id');
+			}
+			else
+			{
+				this.selectbyvalues('Id', val);
+			}
+		};
+
+		placesGrid = new AppGrid2(placesGridOptions);
+
+		placesGrid.setLocalData(places);
+
+		form.addWidget(placesGrid.grid);
+
+		layout.grids.PlaceIds = placesGrid.grid;
+
+
+		@*var $alarmsGrid = layout.container.find('#@(Model.FormId)_Alarms');
+
+		var alarmsGrid;
+
+		
+
+		var source = {
+			dataType: 'json',
+			dataFields: [
+				{ name: 'Id', type: 'string' },
+				{ name: 'Description', type: 'string' },
+
+
+				{ name: 'children', type: 'array' },
+				{ name: 'expanded', type: 'bool' },
+				{ name: 'PermissionView', type: 'bool' }
+			],
+			hierarchy: {
+				root: 'children'
+			},
+			id: 'Id',
+			localData: alarmsList
+		};
+
+		var dataAdapter = new $.jqx.dataAdapter(source, {
+			loadComplete: function () {
+				
+			}
+		});
+
+		$alarmsGrid.jqxTreeGrid({
+			width: '100%',
+			height: '300px',
+			/*height: '100%',*/
+			source: dataAdapter,
+			editable: true,
+			editSettings: {
+				saveOnPageChange: true, 
+				saveOnBlur: true, 
+				saveOnSelectionChange: true, 
+				cancelOnEsc: true, 
+				saveOnEnter: true, 
+				editSingleCell: true, 
+				editOnDoubleClick: true, 
+				editOnF2: true
+			},
+			rendered: function () {
+			},
+			columns: [
+				{text: 'Descripción', dataField: 'Description', width: 600, editable: false },
+				{text: 'Ver', dataField: 'PermissionView', width: 90, editable: false, cellsalign: 'center',
+					cellsRenderer : function (row, column, value, rowData) {
+						return '<input type="checkbox"' + (rowData.PermissionView ? ' checked="checked"' : '') + ' onclick="console.log(\'check click\');return false;"/>';
+					},
+					
+					columnType: 'template',
+					createEditor: function (row, cellValue, editor, cellText, width, height) {
+						
+					},
+					initEditor: function (row, cellValue, editor, cellText, width, height) {
+						
+					}
+				}
+			]
+		});
+
+		alarmsGrid = $alarmsGrid.data('jqxWidget');
+
+		//form.addWidget(alarmsGrid);
+
+		//layout.grids.AlarmIds = alarmsGrid;
+
+
+		$alarmsGrid.on('rowClick', function (event) {
+
+			var args = event.args;
+
+			var rowData = args.row;
+
+			var originalEvent = args.originalEvent;
+
+			var target = originalEvent.target;
+
+			var rowId = args.key;
+
+			switch(args.dataField)
+			{
+				case 'PermissionView':
+					var checkBox = target.tagName == 'TD' ? target.firstChild : target;
+					checkBox.checked = !checkBox.checked;
+					rowData.PermissionView = checkBox.checked;
+					break;
+			}
+		});
+
+
+		alarmsGrid.customVal = function(data) {
+			
+			var row;
+
+			var newRows = [];
+			var actions;
+
+			var rows = this.getAllRows();
+
+			if(data !== undefined)
+			{
+				var permission;
+				var partialRowData;
+				var matchedPermission;
+
+				for(var x = 0; x < rows.length; x++) 
+				{
+					row = rows[x];
+					matchedPermission = null;
+					for(var y = 0; y < data.length; y++) 
+					{
+						permission = data[y];
+						
+						if(row.Id == permission.ElementId)
+						{
+							matchedPermission = permission;
+							break;
+						}
+					}
+
+					if(matchedPermission && matchedPermission.Actions.length > 0)
+					{
+						actions = matchedPermission.Actions;
+						partialRowData = {
+							PermissionView: actions && actions.indexOf(@((int)PermissionAction.View)) > -1
+						};
+					}
+					else
+					{
+						partialRowData = {
+							PermissionView: false,
+						};
+					}
+
+					if(partialRowData.PermissionView)
+						console.log('si hay match');
+					else
+						console.log('no hay match');
+
+					this.partialUpdateRow(row.uid, partialRowData);
+				}
+			}
+			else
+			{
+				var alarmIds = [];
+				for(var x = 0; x < rows.length; x++)
+				{
+					row = rows[x];
+
+					if(row.PermissionView && row.Id.startsWith('B'))
+					{
+						alarmIds.push(parseInt(row.Id.substr(1)));
+					}
+				}
+				return alarmIds;
+			}
+		};*@
+
+
+		var recipient = form.addPicker('#@(Model.FormId)_RecipientId', { 
+			descriptionKey: 'RecipientDescription', 
+			useFormToJson: false,
+
+			onClick: function() {
+				var self = this;
+
+				App.entities.entity.personWindowSearch(function(item) {
+					self.val({value: item.Id, label: item.Description});
+
+					App.get('/entities/entity/emaillist/' + item.Id, function(response) {
+						emailsGrid.grid.clearselection();
+						emailsGrid.setLocalData(response.records);
+						//emails.host.jqxListBox({ source: response.records, valueMember: 'Id', displayMember: 'Email' });
+					}, {async: true});
+				}, {closeOnSelect: true});
+			},
+
+			onClear: function () {
+				layout.grids.EmailIds.reset();
+			}
+		});
+
+
+		//form.resetHooks.push(function() {
+		//	var rows = alarmsGrid.getAllRows();
+		//	var row;
+
+		//	for(var x = 0; x < rows.length; x++)
+		//	{
+		//		row = rows[x];
+		//		alarmsGrid.partialUpdateRow(row.uid, { PermissionView: false });
+		//	}
+		//});
+
+		form.toJsonHooks.push(function(data){
+			//data.AlarmIds = alarmsGrid.customVal();
+			//data.PlaceIds = placesGrid.grid.customVal();
+			//data.EmailIds = emailsGrid.grid.customVal();
+		});
+
+		form.fromJsonHooks.push(function(data) {
+			App.get('/entities/entity/emaillist/' + data.RecipientId, function(response) {
+				emailsGrid.setLocalData(response.records);
+				emailsGrid.grid.selectbyvalues('Id', data.EmailIds);
+				//emails.host.jqxListBox({ source: response.records, valueMember: 'Id', displayMember: 'Email' });
+			}, {async: true});
+
+		});
+
+		form.resetHooks.push(function(){
+			placesGrid.grid.refreshLocalData(places);
+		});
+	});
+	
+
+	
+
+</script>
+<formsection form-manager="form" form-manager-section="section_top">
+	<input type="hidden" name="EntityId" value="@(ViewData["entityId"])" />
+</formsection>
+
+<formsection form-manager="form" form-manager-section="section_table">
+	<tr>
+		<td style="width:120px;">Código Interno</td>
+		<td style="width:300px;"><input type="text" readonly="readonly" name="Id" class="input_label_readonly" /></td>
+		<td style="width:300px;"></td>
+		<td style="width:300px;"></td>
+	</tr>
+	<tr>
+		<td>Persona</td>
+		<td><div id="@(Model.FormId)_RecipientId" field_name="RecipientId"></div></td>
+	</tr>
+	<tr>
+		<td>Rol Filtro Alarmas</td>
+		<td><div id="@(Model.FormId)_AlarmsRoleId" field_name="AlarmsRoleId"></div></td>
+	</tr>
+	<tr>
+		<td valign="top">Correos para Notificaciones</td>
+		<td colspan="3"><div id="@(Model.FormId)_Emails" field_name="EmailIds" class="jqx-grid-no-selection-background"></div></td>
+	</tr>
+	<tr>
+		<td valign="top">Lugares</td>
+		<td colspan="3"><div id="@(Model.FormId)_Places" field_name="PlaceIds" class="jqx-grid-no-selection-background"></div></td>
+	</tr>
+	@*<tr>
+		<td valign="top">Alarmas</td>
+		<td colspan="3"><div id="@(Model.FormId)_Alarms" field_name="AlarmIds" class="jqx-grid-no-selection-background"></div></td>
+	</tr>*@
+
+</formsection>
+
+
+
+

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6593aeff538f427f9bae805abdba9b30" Name="Entidades" ZoomLevel="70">
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CATS" Width="3.125" PointX="11.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_IDENT_TIPOS" Width="3" PointX="0.875" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_RELS" Width="2.75" PointX="1" PointY="3.875" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_TIPOS" Width="2.875" PointX="8.25" PointY="0.5" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CATS" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES" Width="2.25" PointX="4.375" PointY="1.375" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CATS_REL" Width="2.875" PointX="7.625" PointY="4.5" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CATS_REL" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CATS_REL_0" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_RELS_REL" Width="2.25" PointX="4.125" PointY="9.375" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_RELS_REL" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_RELS_REL_0" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS" Width="2.5" PointX="7.625" PointY="6.75" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS_TIPOS_REL" Width="3" PointX="10.875" PointY="8.75" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS_TIPOS_REL" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_AREAS" Width="2.375" PointX="14.875" PointY="13.875" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CTOS" Width="2.375" PointX="16.125" PointY="6.625" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_TELFS" Width="2.375" PointX="8.875" PointY="16.125" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CTOS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CTOS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_TELFS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CTOS_2" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CARGOS" Width="2.5" PointX="19.75" PointY="6.875" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CTOS_1" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS_CTOS_REL" Width="2.25" PointX="19.25" PointY="10.875" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS_CTOS_REL_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS_CTOS_REL" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_PERSONA" Width="2.875" PointX="7.375" PointY="20" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_PERSONA_1" />
+        <EntityTypeShape EntityType="EntitiesModel.PERSONA_PROFESIONES" Width="2.375" PointX="13.75" PointY="22.75" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_PERSONA_0" />
+        <EntityTypeShape EntityType="EntitiesModel.PERSONA_SALUDOS" Width="2.375" PointX="13.75" PointY="20.125" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_PERSONA" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_EMAILS" Width="2.125" PointX="4.875" PointY="23.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_EMAILS_PROPS" Width="2.125" PointX="8.125" PointY="24" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_EMAILS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_EMAILS_PROPS" />
+        <EntityTypeShape EntityType="EntitiesModel.EMAIL_PROPS" Width="2.25" PointX="11.375" PointY="24" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_EMAILS_PROP0" />
+        <EntityTypeShape EntityType="EntitiesModel.EMAIL_TIPOS" Width="2.25" PointX="8.125" PointY="26.875" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_EMAILS_0" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS_UBICAS" Width="3.125" PointX="15.875" PointY="1.125" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS_UBICAS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS_UBICAS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS_UBICAS_2" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS_UBICAS_TIPOS" Width="2.625" PointX="24.125" PointY="3.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS_UBICAS_TIPOSREL" Width="3.125" PointX="19.75" PointY="3.625" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DI_UB_TIPOSREL" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DI_UB_TIPOSREL2" />
+        <EntityTypeShape EntityType="EntitiesModel.TELEFONO_TIPOS" Width="2.375" PointX="12.875" PointY="16.75" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_TELFS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_TELFS_1" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_TELFS_2" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_NOTIF_ALARMAS" Width="1.5" PointX="7.375" PointY="30.625" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS_0" />
+      </Diagram>
+      <Diagram DiagramId="fda2af6e830046518a4a11b07e18ba5f" Name="Geografico" ZoomLevel="69" DisplayType="true" >
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_CAPAS" Width="2" PointX="0.5" PointY="4.875" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_CATS" Width="1.5" PointX="3" PointY="4.75" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_CATS" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_CATS_0" />
+        <EntityTypeShape EntityType="EntitiesModel.REGIONES" Width="1.5" PointX="3" PointY="8.625" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_CALZADAS" Width="1.5" PointX="0.875" PointY="18.25" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_CURVAS_GRADO" Width="1.5" PointX="1" PointY="15.625" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_CURVAS_TIPOS" Width="1.5" PointX="0.875" PointY="12.625" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_TRAZADO_VIA" Width="1.5" PointX="0.875" PointY="9.875" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_CALZADAS_ESTADOS" Width="1.5" PointX="0.875" PointY="20.625" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_PENDIENTES" Width="2" PointX="11" PointY="13" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_PENDIENTES_GRADO" Width="2.5" PointX="11" PointY="15.75" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_TRAFICO" Width="2.125" PointX="11" PointY="10.375" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_FORMAS" Width="2.125" PointX="2.375" PointY="1.75" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS" Width="2.5" PointX="5.5" PointY="1.25" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_2" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_3" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_4" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_PUNTOS" Width="1.5" PointX="8.25" PointY="5.25" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_PUNTOS" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS_ENRUTA" Width="3" PointX="5.25" PointY="11.875" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_9" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_0" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_1" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_4" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_3" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_2" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_5" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_6" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_7" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_ENRUTA_8" />
+        <EntityTypeShape EntityType="EntitiesModel.SEGMENTOS" Width="2.375" PointX="10.75" PointY="4.125" />
+        <EntityTypeShape EntityType="EntitiesModel.SEGMENTOS_CATS" Width="2.25" PointX="15.375" PointY="0.5" />
+        <AssociationConnector Association="EntitiesModel.FK_SEGMENTOS" />
+        <AssociationConnector Association="EntitiesModel.SEGMENTOS_CERCAS_OTRAS" />
+        <AssociationConnector Association="EntitiesModel.FK_SEGMENTOS_CATS" />
+        <AssociationConnector Association="EntitiesModel.SEGMENTOS_CERCAS_OTRAS1" />
+        <EntityTypeShape EntityType="EntitiesModel.TRAMOS" Width="1.5" PointX="8.75" PointY="0.5" />
+        <EntityTypeShape EntityType="EntitiesModel.TRAMOS_CATS" Width="1.5" PointX="9.125" PointY="8.625" />
+        <EntityTypeShape EntityType="EntitiesModel.TRAMOS_SEGMENTOS" Width="2.125" PointX="10.75" PointY="0.5" />
+        <AssociationConnector Association="EntitiesModel.FK_TRAMOS_SEGMENTOS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_TRAMOS" />
+        <AssociationConnector Association="EntitiesModel.FK_TRAMOS_SEGMENTOS" />
+        <AssociationConnector Association="EntitiesModel.FK_TRAMOS_CATS" />
+        <EntityTypeShape EntityType="EntitiesModel.RUTAS" Width="1.875" PointX="21.625" PointY="11.625" />
+        <EntityTypeShape EntityType="EntitiesModel.RUTAS_CATS" Width="1.5" PointX="25.375" PointY="10" />
+        <AssociationConnector Association="EntitiesModel.FK_RUTAS" />
+        <AssociationConnector Association="EntitiesModel.FK_RUTAS_CATS" />
+        <EntityTypeShape EntityType="EntitiesModel.RUTAS_TRAMOS" Width="2.5" PointX="24.875" PointY="15.25" />
+        <AssociationConnector Association="EntitiesModel.FK_RUTAS_TRAMOS" />
+        <AssociationConnector Association="EntitiesModel.FK_RUTAS_TRAMOS_0" />
+        <EntityTypeShape EntityType="EntitiesModel.SEGMENTOS_CERCAS" Width="2.875" PointX="14.25" PointY="4.125" />
+        <AssociationConnector Association="EntitiesModel.FK_SEGMENTOS_CERCAS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_SEGMENTOS_CERCAS" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_1" />
+        <EntityTypeShape EntityType="EntitiesModel.RUTAS_FASES" Width="2.75" PointX="17.5" PointY="9.75" />
+        <EntityTypeShape EntityType="EntitiesModel.RUTAS_FASES_REL" Width="2.375" PointX="27.375" PointY="11.625" />
+        <AssociationConnector Association="EntitiesModel.FK_RUTAS_FASES_REL" />
+        <AssociationConnector Association="EntitiesModel.FK_RUTAS_FASES_REL_1" />
+        <EntityTypeShape EntityType="EntitiesModel.TRAYECTOS" Width="2.5" PointX="14.125" PointY="14.75" />
+        <EntityTypeShape EntityType="EntitiesModel.TRAYECTOS_RUTAS" Width="2.125" PointX="18.75" PointY="16.875" />
+        <AssociationConnector Association="EntitiesModel.FK_TRAYECTOS_RUTAS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_TRAYECTOS_RUTAS" />
+        </Diagram>
+      <Diagram DiagramId="a4b74458d60546bca7579ad90204e244" Name="Equipos" ZoomLevel="65" >
+        <EntityTypeShape EntityType="EntitiesModel.EQUIPOS_GRUPOS" Width="2" PointX="0.625" PointY="0.5" />
+        <EntityTypeShape EntityType="EntitiesModel.EQUIPOS_CATS" Width="2.125" PointX="0.625" PointY="8.75" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_CATS" />
+        <EntityTypeShape EntityType="EntitiesModel.GPS" Width="1.5" PointX="9" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesModel.EQUIPOS_ESTADOS_OPERA" Width="2.125" PointX="0.625" PointY="3.125" />
+        <EntityTypeShape EntityType="EntitiesModel.EQUIPOS_CAPS" Width="3" PointX="14.625" PointY="8.75" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_CAPS_0" />
+        <EntityTypeShape EntityType="EntitiesModel.EQUIPOS_CAPS_REL" Width="2.75" PointX="14.75" PointY="5.875" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_CAPS_REL_0" />
+        <EntityTypeShape EntityType="EntitiesModel.EQUIPOS" Width="1.5" PointX="5.5" PointY="1" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_1" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_CAPS_REL_1" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS" />
+        <EntityTypeShape EntityType="EntitiesModel.MARCAS" Width="1.5" PointX="7.875" PointY="6.5" />
+        <EntityTypeShape EntityType="EntitiesModel.MARCAS_CATS" Width="1.5" PointX="6" PointY="10.875" />
+        <EntityTypeShape EntityType="EntitiesModel.MODELOS" Width="1.5" PointX="10.75" PointY="6.625" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_2" />
+        <AssociationConnector Association="EntitiesModel.FK_EQUIPOS_3" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_1" />
+        <AssociationConnector Association="EntitiesModel.FK_MARCAS" />
+        <AssociationConnector Association="EntitiesModel.FK_MODELOS" />
+        <AssociationConnector Association="EntitiesModel.FK_MARCAS_CATS" />
+        </Diagram>
+      <Diagram DiagramId="397f600b3ec844fba50a14c6e35bf412" Name="Persona" ZoomLevel="86" >
+        <EntityTypeShape EntityType="EntitiesModel.EMAIL_PROPS" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesModel.EMAIL_TIPOS" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="EntitiesModel.PERSONA_PROFESIONES" Width="2.125" PointX="3.125" PointY="1.25" />
+        <EntityTypeShape EntityType="EntitiesModel.PERSONA_SALUDOS" Width="2.125" PointX="3.125" PointY="3.375" />
+        <EntityTypeShape EntityType="EntitiesModel.TELEFONO_TIPOS" Width="2" PointX="8.5" PointY="0.75" />
+      </Diagram>
+      <Diagram DiagramId="43b3ffa538ec4a5ca5d99639f3a90497" Name="Productos" ZoomLevel="85" >
+        <EntityTypeShape EntityType="EntitiesModel.PRODUCTOS_CATS" Width="2.625" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="EntitiesModel.FK_PRODUCTOS_CATS" />
+      </Diagram>
+      <Diagram DiagramId="b88f0905777b45538e65eebdb67f5769" Name="Otros" >
+        <EntityTypeShape EntityType="EntitiesModel.UNIDADES" Width="2.25" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="EntitiesModel.FK_UNIDADES" />
+      </Diagram>
+      <Diagram DiagramId="9c29cce6762e40d99e6e5551d52304b9" Name="Ubicaciones" >
+        <EntityTypeShape EntityType="EntitiesModel.CIUDADES" Width="1.5" PointX="6.75" PointY="2.5" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS_TIPOS" Width="2.25" PointX="4.125" PointY="5.75" />
+        <EntityTypeShape EntityType="EntitiesModel.PAISES" Width="1.5" PointX="2.25" PointY="2.625" />
+        <EntityTypeShape EntityType="EntitiesModel.PROVINCIAS" Width="1.5" PointX="4.5" PointY="2.5" />
+        <AssociationConnector Association="EntitiesModel.FK_CIUDADES" />
+        <AssociationConnector Association="EntitiesModel.FK_CIUDADES_0" />
+        <AssociationConnector Association="EntitiesModel.FK_PROVINCIAS" />
+      </Diagram>
+      <Diagram DiagramId="86740fbed66a43cfbab982b6a7297d59" Name="Alarmas" ZoomLevel="65" >
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_NIVELES" Width="2" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_PERMANS" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_PERMANS_RESETS" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_UNIDADES" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_CATS" Width="1.875" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_CATS" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS" Width="2.625" PointX="8" PointY="1.5" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_1" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_2" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_NIVELES_REL" Width="1.5" PointX="11.375" PointY="2.375" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_NIVELES_REL" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_NIVELES_REL_0" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_GRADOS" Width="2.375" PointX="17.125" PointY="13.875" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_VELOCIDAD" Width="2.125" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_VELOCIDAD_RANG" Width="2.5" PointX="9.625" PointY="8.5" />
+        <EntityTypeShape EntityType="EntitiesModel.ALARMAS_VELOCIDAD_RANG_TIEM" Width="2.5" PointX="13.875" PointY="10.375" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_VELOCIDAD_RANG_TI2" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_VELOCIDAD_RANG" />
+        <AssociationConnector Association="EntitiesModel.FK_ALARMAS_VELOCIDAD_RANG_TI" />
+      </Diagram>
+      <Diagram DiagramId="69439ee407384a8bb97dd2d0da19e284" Name="Viaje" ZoomLevel="81" >
+        <EntityTypeShape EntityType="EntitiesModel.RUTAS_OPERAS" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="EntitiesModel.RUTAS" Width="1.5" PointX="6.5" PointY="1.625" />
+        <EntityTypeShape EntityType="EntitiesModel.EQUIPOS" Width="1.5" PointX="21.25" PointY="3.875" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES" Width="1.5" PointX="9.5" PointY="1.25" />
+        <EntityTypeShape EntityType="EntitiesModel.PRODUCTOS" Width="1.5" PointX="15.5" PointY="3.375" />
+        <EntityTypeShape EntityType="EntitiesModel.FRENTES" Width="1.5" PointX="11.75" PointY="2.75" />
+        <AssociationConnector Association="EntitiesModel.FK_FRENTES_0" />
+        <AssociationConnector Association="EntitiesModel.FK_FRENTES" />
+        <EntityTypeShape EntityType="EntitiesModel.VIAJES_ESTADO" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="EntitiesModel.VIAJES" Width="1.5" PointX="17.75" PointY="3.625" />
+        <EntityTypeShape EntityType="EntitiesModel.VIAJES_CONDUCTORES" Width="1.5" PointX="23" PointY="1.5" />
+        <EntityTypeShape EntityType="EntitiesModel.VIAJES_RUTAS" Width="1.5" PointX="20" PointY="0.75" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_CONDUCTORES_0" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_FRENTES" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_3" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_RUTAS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_0" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_CONDUCTORES" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_RUTAS" />
+        <AssociationConnector Association="EntitiesModel.VIAJES_EQUIPOS" />
+        <EntityTypeShape EntityType="EntitiesModel.VIAJES_CONTACTOS" Width="2.125" PointX="16" PointY="13.375" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_CONTACTOS" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CTOS" Width="2.25" PointX="19" PointY="14.75" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CTOS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CTOS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_VIAJES_CONTACTOS_0" />
+      </Diagram>
+      <Diagram DiagramId="b9e2c7811dde4a4986295f61bad6462e" Name="Monitoreo" ZoomLevel="81" >
+        <EntityTypeShape EntityType="EntitiesModel.GPS" Width="2" PointX="4.875" PointY="0.75" />
+        <EntityTypeShape EntityType="EntitiesModel.EVENTOS" Width="2" PointX="11.875" PointY="12.375" />
+        <EntityTypeShape EntityType="EntitiesModel.GPS_MONI_ESTADO" Width="2.5" PointX="0.875" PointY="1.125" />
+        <EntityTypeShape EntityType="EntitiesModel.GPS_REPORTES" Width="1.875" PointX="5.125" PointY="6.25" />
+        <EntityTypeShape EntityType="EntitiesModel.VW_ALARMAS_LOG" Width="2.25" PointX="0.625" PointY="10.25" />
+        <EntityTypeShape EntityType="EntitiesModel.CERCAS" Width="2.25" PointX="15.875" PointY="7.125" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_2" />
+        <AssociationConnector Association="EntitiesModel.FK_CERCAS_1" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_MONI_ESTADO_1" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_MONI_ESTADO" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_MONI_ESTADO_0" />
+        <EntityTypeShape EntityType="EntitiesModel.GPS_ALARMAS" Width="1.5" PointX="9.375" PointY="7.5" />
+        <EntityTypeShape EntityType="EntitiesModel.GPS_EVENTOS" Width="1.5" PointX="9.375" PointY="12.375" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_ALARMAS_2" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_EVENTOS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_EVENTOS_1" />
+        <EntityTypeShape EntityType="EntitiesModel.GPS_ALARMAS_OCURRS" Width="2.25" PointX="8.125" PointY="1.375" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_ALARMAS_OCURRS" />
+        <EntityTypeShape EntityType="EntitiesModel.VW_ALARMAS_SUMARIO" Width="1.5" PointX="11.5" PointY="2.25" />
+        <EntityTypeShape EntityType="EntitiesModel.VIAJES" Width="2.25" PointX="2.125" PointY="5.75" />
+        <AssociationConnector Association="EntitiesModel.FK_GPS_MONI_ESTADO_2" />
+      </Diagram>
+      <Diagram DiagramId="debec3ab72de43a387d866a7b0e4c225" Name="Entidades Calendarios" >
+        <EntityTypeShape EntityType="EntitiesModel.DIAS_TIPOS" Width="2.375" PointX="11" PointY="4.5" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CALENDS" Width="2.375" PointX="1.625" PointY="1.625" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CALENDS_DIA_HRS" Width="2.625" PointX="9.25" PointY="8.5" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CALENDS_DIAS" Width="2.5" PointX="5.875" PointY="5.25" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_CALENDS_HRS" Width="2.875" PointX="5.75" PointY="1.5" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CALENDS_DIAS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CALENDS_HRS_0" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CALENDS_DIAS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CALENDS_HRS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_CALENDS_HORARIOS" />
+      </Diagram>
+      <Diagram DiagramId="121b94d76f0347288182a53c2a886cad" Name="Usuarios" ZoomLevel="86" >
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES" Width="1.5" PointX="5" PointY="4" />
+        <EntityTypeShape EntityType="EntitiesModel.USUARIOS" Width="1.5" PointX="2.875" PointY="2.5" />
+        <AssociationConnector Association="EntitiesModel.FK_USUARIOS" />
+        <EntityTypeShape EntityType="EntitiesModel.ROLES" Width="1.5" PointX="7.75" PointY="3.5" />
+        <EntityTypeShape EntityType="EntitiesModel.ROLES_PERMISOS" Width="2.125" PointX="11.25" PointY="6.375" />
+        <AssociationConnector Association="EntitiesModel.FK_ROLES_PERMISOS" />
+        <AssociationConnector Association="EntitiesModel.FK_USUARIOS_0" />
+        <EntityTypeShape EntityType="EntitiesModel.PERMISOS_REQUERIDOS" Width="2.875" PointX="4.25" PointY="12.75" />
+        <EntityTypeShape EntityType="EntitiesModel.PERMISOS_REQUERIDOS_ACCS" Width="2.875" PointX="9.625" PointY="10" />
+        <EntityTypeShape EntityType="EntitiesModel.PERMISOS_REQUERIDOS_ROLES" Width="2.875" PointX="9.625" PointY="12.875" />
+        <AssociationConnector Association="EntitiesModel.FK_PERMISOS_REQUERIDOS_ACCS" />
+        <AssociationConnector Association="EntitiesModel.FK_PERMISOS_REQUERIDOS_ROLES" />
+        </Diagram>
+      <Diagram DiagramId="bc543be2cdab4b66b2d3ff5adbbbbebb" Name="Entidades Notificaciones" ZoomLevel="86" >
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_NOTIF_ALARMAS" Width="2.375" PointX="0.625" PointY="0.875" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_NOTIF_ALARMAS_DIRS" Width="2.75" PointX="4.125" PointY="0.5" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_NOTIF_ALARMAS_EMS" Width="1.5" PointX="4.25" PointY="5.25" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS_D1" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS_EM" />
+        <EntityTypeShape EntityType="EntitiesModel.ROLES" Width="2.375" PointX="0.625" PointY="4.5" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS_1" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES" Width="1.5" PointX="10" PointY="1.625" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS_0" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_EMAILS" Width="3.25" PointX="12.125" PointY="1.5" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_EMAILS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS_E2" />
+        <EntityTypeShape EntityType="EntitiesModel.ENTIDADES_DIRS" Width="1.5" PointX="6.375" PointY="3.125" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_DIRS" />
+        <AssociationConnector Association="EntitiesModel.FK_ENTIDADES_NOTIF_ALARMAS_D2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

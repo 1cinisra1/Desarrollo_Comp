@@ -1,0 +1,9 @@
+﻿[
+	{
+		"outputFileName": "wwwroot/js/all.js",
+					"inputFiles": [
+						"wwwroot/js/app.js",
+						"wwwroot/js/app-extension.js"
+					]
+	}
+]

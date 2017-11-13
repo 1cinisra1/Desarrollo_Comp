@@ -1,0 +1,64 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_TabbedLayoutForm.cshtml";
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+	
+	var $paises_div = $('#@(Model.FormId)_edit_paises');
+	var $provincias_div = $('#@(Model.FormId)_edit_provincias');
+	
+	//DEBUG METHOD:
+	$paises_div.on('select', function(event){
+		var args = event.args;
+		var item = $($paises_div).jqxDropDownList('getItem', args.index);
+		console.log(item.value);
+	});
+	
+	//Agregar los widgets al formulario haciendo uso del elemento customizado en (wwwroot/js/jqwidgets_extensions.js) y su método add
+	//Obtener el jqWidget creado:
+	var paises_widget = form.addSingle($paises_div, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["paises"]) });
+	var provincias_widget = form.addSingle($provincias_div, 'jqxDropDownList', {placeHolder: '' });
+
+	console.log(paises_widget);
+	console.log(provincias_widget);
+
+	function windowSearch(grid){
+		App.localidades.ciudades.windowSearch(function(item){
+			grid.addrow(null, {id: item.id, descripcion: item.descripcion});
+		});
+	}
+
+	//Llamada al controlador de paises para obtener los valores de provincias en relación al país seleccionado:
+	$paises_div.on('change', function(evt){
+		var id = evt.args.item.value;
+
+		//Si está seleccionado algún elemento de la lista de países:
+		if(id)
+		{
+			Ajax.get('/localidades/paises/provincias/' + id, function(response){
+			//Ajax.get('/general/paises/provincias/' + id, function(response){
+				$provincias_div.jqxDropDownList({source: response.records});
+			});
+		}		
+		else
+			provincias_widget.clear();
+	});
+
+</script>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr>
+		<td>País</td>
+		<td>
+			<div id="@(Model.FormId)_edit_paises" field_name="pais"></div>			
+		</td>
+		<td></td>
+		<td>Provincia</td>
+		<td>
+			<div id="@(Model.FormId)_edit_provincias" field_name="provincia"></div>
+		</td>		
+	</tr>
+</formsection>

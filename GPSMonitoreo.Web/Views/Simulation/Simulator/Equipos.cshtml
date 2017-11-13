@@ -1,0 +1,506 @@
+﻿@using GPSMonitoreo.Core.Authorization;
+
+@{
+	Layout = "_AppLayout";
+
+	var regions = ViewData["regions"] as IEnumerable<CommonBaseSimpleListDto<byte>>;
+
+	var regionsJson = regions.ToJqwidgets().ToJsonString();
+
+	var phases = ViewData["phases"] as IEnumerable<CommonBaseSimpleListDto<byte>>;
+
+	var phasesJson = regions.ToJqwidgets().ToJsonString();
+
+	var equipmentsTree = ViewData["equipmentsTree"] as System.Data.DataTable;
+
+	var equipmentsTreeJson = equipmentsTree.ToJqwidgetsTree(false).ToJsonString();
+
+	var productsTree = ViewData["productsTree"] as System.Data.DataTable;
+
+	var productsTreeJson = productsTree.ToJqwidgetsTree(false).ToJsonString();
+
+
+
+	var currentUser = ViewData["currentUser"] as GPSMonitoreo.Web.Authorization.AppUser;
+
+	bool filterEquipmentVisible = false;
+
+	switch (currentUser.Role)
+	{
+		case Role.SuperAdmin:
+		case Role.InternalMonitorist:
+			filterEquipmentVisible = true;
+			break;
+	}
+
+
+}
+<div class="splitted_panel">
+	<div class="left" style="padding:2px">
+		<div class="panel withfooter">
+			<div class="body">
+				<form action="@(Context.Request.Path.Value)search">
+					<table class="table_edit jqx-wide" style="width:100%">
+						<tr>
+							<td style="width:80px;">Región</td>
+							<td>
+								<div id="form_monitoreo_estado_region" field_name="region"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Fase</td>
+							<td>
+								<div id="form_monitoreo_estado_fase" field_name="fase"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Producto</td>
+							<td>
+								<div id="form_monitoreo_estado_producto" field_name="producto"></div>
+							</td>
+						</tr>
+						@if (filterEquipmentVisible) {
+						<tr>
+							<td>Tipo Equipo</td>
+							<td>
+								<div id="form_monitoreo_estado_equipo" field_name="equipo"></div>
+							</td>
+						</tr>
+						}
+						<tr>
+							<td>Alarma</td>
+							<td>
+								<div id="form_monitoreo_estado_alarma" field_name="alarma"></div>
+							</td>
+
+						</tr>
+
+					</table>
+				</form>
+			</div>
+			<div class="footer">
+				<button type="button" id="form_simulador_equipos">Buscar</button>
+			</div>
+		</div>
+	</div>
+	<div class="right"><div style="width:100%;height:100%"></div></div>
+</div>
+<script script-manager-add="layout" script-manager-key="init">
+
+
+	var $left = layout.container.find('div.panel.withfooter');
+	var $splittedPanel = layout.container.find('div.splitted_panel');
+
+	var $right = $splittedPanel.find('> div.right');
+
+
+	//var $right = $container.find('> div > div.right');
+	var $form = $left.find('> div > form').jqxForm();
+
+	var form = $form.instance;
+	//var $tabs = $right.find('> div');
+
+
+	var $mapContainer = $right.find('> div');
+	//var tabs = $tabs.jqxTabs({ width: '100%', height: '100%', position: 'top'});
+	var appMap = new AppMap({$mapContainer: $mapContainer});
+
+
+	//$form.add([form.elements.prueba], 'jqxInput');
+
+	appMap.initReportMap();
+
+	var estadoAlarmas = {};
+
+	var alarmsGrid;
+	var alarmsGridSummary;
+
+	///Region
+	@*var $cmb_region = $form.find('#form_monitoreo_estado_region');
+	form.add($cmb_region, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_cmb_region"]), checkBoxes: true});
+	$cmb_region.css('width', '100%');*@
+
+	form.add('#form_monitoreo_estado_region', 'jqxDropDownList', {
+		placeHolder: '',
+		source: @Html.Raw(regionsJson),
+		checkBoxes: true
+	});
+
+	form.add('#form_monitoreo_estado_fase', 'jqxDropDownList', {
+		placeHolder: '',
+		source: @Html.Raw(phasesJson),
+		checkBoxes: true
+	});
+
+	///Producto
+	@*var $categoria_producto = $form.find('#form_monitoreo_estado_producto');
+	var $tree_categoria_producto = $form.find('#form_tree_categoria_producto').jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["lista_tree_categoria_producto"]), checkBoxes: true});
+	var ecategoriaproducto = form.addDropDownButton($categoria_producto, { width: '100%', dropDownWidth : 300}, $tree_categoria_producto.data('jqxWidget'));
+	$categoria_producto.css('width', '100%');
+	$tree_categoria_producto.on('select', function (event) {
+		var args = event.args;
+		var item = $tree_categoria_producto.jqxTree('getItem', args.element);
+		var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+		ecategoriaproducto.setContent(dropDownContent);
+		ecategoriaproducto.close();
+	});*@
+
+	///Tipo Equipo
+	@*var $categoria_equipo = $form.find('#form_monitoreo_estado_equipo');
+	var $tree_categoria_equipo = $form.find('#form_tree_categoria_equipo').jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["lista_tree_categoria_equipo"]), checkBoxes: true});*@
+
+
+
+	form.add('#form_monitoreo_estado_producto', 'jqxTree', {
+		height: '150px',
+		width: '100%',
+		source: @Html.Raw(productsTree), 
+		checkBoxes: true,
+		hasThreeStates : true
+	});
+
+	@if (filterEquipmentVisible) {<text>
+	form.add('#form_monitoreo_estado_equipo', 'jqxTree', {
+		height: '150px',
+		width: '100%',
+		source: @Html.Raw(equipmentsTreeJson), 
+		checkBoxes: true,
+		hasThreeStates: true
+	});
+	</text>}
+
+	form.add('#form_monitoreo_estado_alarma', 'jqxTree', {
+		height: '150px',
+		width: '100%',
+		source: @Html.Raw(ViewData["alarmsTreeJson"]), 
+		checkBoxes: true,
+		hasThreeStates : true
+	});
+
+
+	//var ecategoriaequipo = form.addDropDownButton($categoria_equipo, { width: '100%', dropDownWidth : 300}, $tree_categoria_equipo.data('jqxWidget'));
+	//$categoria_equipo.css('width', '100%');
+	//$tree_categoria_equipo.on('select', function (event) {
+	//	var args = event.args;
+	//	var item = $tree_categoria_equipo.jqxTree('getItem', args.element);
+	//	var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+	//	ecategoriaequipo.setContent(dropDownContent);
+	//	ecategoriaequipo.close();
+	//});
+
+	///Alarmas Niveles
+	@*var $cmb_alarma_nivel = $form.find('#form_monitoreo_estado_alarma');
+	form.add($cmb_alarma_nivel, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_cmb_alarma_nivel"]), checkBoxes: true});
+	$cmb_alarma_nivel.css('width', '100%');*@
+
+
+	//$button = $left.find('> div.footer  > button');
+	var $button = layout.container.find('#form_simulador_equipos');
+
+	$button.jqxButton({template: 'info'});
+
+	$button.form = form;
+
+
+	
+	var showDetails = function(item) {
+		//appMap.showInfoWindowByUrl('/simulacion/simulador/alarmas/' + record.id, {lat: record.lat, lng: record.lng});
+
+
+
+		estadoAlarmas.$gps.html('');
+		estadoAlarmas.$equipo.html('');
+		estadoAlarmas.$trip.html('');
+		alarmsGrid.clear();
+		alarmsGridSummary.clear();
+
+		appMap.infoBubbleOpen({lat: item.lat, lng: item.lng});
+
+		App.get('/simulacion/simulador/detalle/' + item.id + '/' + item.tripId, function(response) {
+
+			var record = response.record;
+
+			console.log(estadoAlarmas);
+
+			var gps = record.gps;
+
+
+			estadoAlarmas.$trip.html(item.tripId);
+			estadoAlarmas.$gps.html(gps.description);
+			estadoAlarmas.$equipo.html(gps.equipmentAlternId + ' - ' + gps.equipmentPlate + ' - ' + gps.equipmentDescription);
+
+
+			console.log(record.alarms);
+
+			alarmsGrid.refreshLocalData(record.alarms);
+
+			alarmsGrid.host.jqxGrid('groups', ['categoria']);
+		
+			alarmsGridSummary.refreshLocalData(record.alarmsOcurrences);
+
+			alarmsGridSummary.host.jqxGrid('groups', ['categoria']);
+		});
+		//var infoWindow = appMap.createInfoWindow();
+	};
+
+
+	$button.click(function(){
+		appMap.removeMarkers();
+		App.postFormJsonFromButton($button, function(response) {
+			var records = response.records;
+			var record;
+			var markerOptions = {
+				icon: {
+					path: google.maps.SymbolPath.CIRCLE,
+					fillOpacity: 1,
+					fillColor: 'red',
+					strokeWeight: 0, 
+					scale: 10 //pixels
+				}
+			};
+
+			var marker;
+
+			for(var x = 0; x < records.length; x++)
+			{
+				record = records[x];
+				//markerOptions.position = {lat: record.lat, lng: record.lng};
+				markerOptions.position = new google.maps.LatLng(record.lat, record.lng);
+				markerOptions.icon.fillColor = record.isAlarmed ? 'red' : 'green';
+				
+				marker = appMap.addMarker(markerOptions);
+				google.maps.event.addListener(marker, 'click', function(rec) {
+					return function() {
+						showDetails(rec);
+					}
+				}(record));
+			}
+			
+		});
+	});
+
+
+
+
+	App.getHtml('/simulacion/simulador/alarmasview', function(response) {
+		var $table = $(response);
+
+		estadoAlarmas.$table = $table;
+		estadoAlarmas.$trip = $table.find('#equipos_estado_viaje');
+		estadoAlarmas.$gps = $table.find('#equipos_estado_gps');
+		estadoAlarmas.$equipo = $table.find('#equipos_estado_equipo');
+		estadoAlarmas.$grid = $table.find('#equipos_estado_grid');
+		estadoAlarmas.$gridSummary = $table.find('#equipos_estado_grid_summary');
+
+
+		//self.infoWindow.setContent(response);
+
+
+		//var source =
+		//{
+		//	datatype: "json",
+		//	datafields: [
+		//		{ name: 'AlarmDescription', type: 'string' },
+		//		{ name: 'GeoFenceDescription', type: 'string' },
+		//		{ name: 'DateTime', type: 'string' },
+		//		{ name: 'AlarmValueStandard', type: 'number' },
+		//		{ name: 'AlarmValue', type: 'number' },
+		//		{ name: 'AlarmValueDifference', type: 'number' }
+		//	]
+		//};
+
+		//var dataAdapter = new $.jqx.dataAdapter(source);
+
+		//estadoAlarmas.$grid.jqxGrid(
+		//{
+		//	width: 950,
+		//	height: 300,
+		//	source: dataAdapter,
+		//	columnsresize: true,
+		//	columns: [
+		//		{ text: 'Alarma', datafield: 'AlarmDescription', width: 250 },
+		//		{ text: 'Cerca', datafield: 'GeoFenceDescription', width: 250 },
+		//		{ text: 'Fecha/Hora', datafield: 'DateTime', width: 180 },
+		//		{ text: 'Valor Standard', datafield: 'AlarmValueStandard', width: 80 },
+		//		{ text: 'Valor Efectivo', datafield: 'AlarmValue', width: 80 },
+		//		{ text: 'Diferencia', datafield: 'AlarmValueDifference', width: 80}
+		//	]
+		//});
+
+
+		var datafields = [
+			{ name: 'categoria', type: 'string' },
+			{ name: 'alarma', type: 'string' },
+			{ name: 'inicio', type: 'string' },
+			{ name: 'fin', type: 'string' },
+			{ name: 'cerca', type: 'string' },
+			{ name: 'alarmaValorStandard', type: 'number' },
+			{ name: 'alarmaValor', type: 'number' },
+			{ name: 'alarmaValorDiferencia', type: 'number' },
+			{ name: 'duracion', type: 'number' },
+		];
+
+		var columns = [
+			{text: 'Categoria', datafield: 'categoria', width: '200px', hidden: true},
+			{text: 'Inicio', datafield: 'inicio', width: '150px'},
+			{text: 'Fin', datafield: 'fin', width: '150px'},
+			{text: 'Cerca', datafield: 'cerca', width: '250px'},
+			{text: 'Alarma', datafield: 'alarma', width: '200px'},
+			{ text: 'Valor Standard', datafield: 'alarmaValorStandard', width: 80 },
+			{ text: 'Valor Efectivo', datafield: 'alarmaValor', width: 80 },
+			{ text: 'Valor Diferencia', datafield: 'alarmaValorDiferencia', width: 80 },
+			{ text: 'Duración (s)', datafield: 'duracion', width: 80 }
+
+		];
+
+
+		var sourceGrid = {
+			//localdata: [],
+			datatype: 'json',
+			datafields: datafields,
+			//url: '/simulacion/simulador/alarmaslogsearch',
+			type: 'POST',
+			data: {},
+			beforeprocessing: function(data)
+			{
+				console.log('before processing');
+				//console.log(this);
+				//console.log(data);
+			
+				//searchgrid.adapter._source.data.recordcount = data.recordcount;
+				//ComprobantesRecibidos._searchadapter._source.data.recordcount = data.recordcount;
+				//this.totalrecords = data.recordcount;
+			},
+			cache: false
+
+		};
+
+		//var adapterSettings = {
+		//	contentType : 'application/json',
+		//	processData : function(data){
+		//	},
+		//	formatData : function(data)
+		//	{
+		//		return JSON.stringify(data);
+		//	},
+		//	autoBind : false
+		//};
+
+		var dataAdapter = new $.jqx.dataAdapter(sourceGrid);
+
+
+		var gridOptions = {
+			width: '100%',
+			height: '200px',
+			//source: dataAdapter,
+			columns: columns,
+			groupable: true,
+			pageable: false,
+			columnsresize: true,
+			columnsreorder: false,
+			sortable: false,
+			groupsrenderer: function (text, group, expanded, data) {
+				//return group;
+				console.log(data);
+				return '<div style="padding: 6px; height: 30px;background-color:#1FAEFF;color:white;font-weight:bold">' + text + ' (' + data.subItems.length + ')' + '</div>';
+			},
+			groupsexpandedbydefault: true,
+			showgroupmenuitems: false,
+			showgroupsheader: false,
+			groups: ['categoria']
+
+		};
+
+
+
+
+
+		var summaryDatafields = [
+			{ name: 'categoria', type: 'string' },
+			{ name: 'alarma', type: 'string' },
+			{ name: 'ocurrencias', type: 'number' }
+		];
+
+		var summaryColumns = [
+			{text: 'Categoria', datafield: 'categoria', width: '200px', hidden: true},
+			{text: 'Alarma', datafield: 'alarma', width: '150px'},
+			{text: 'Ocurrencias', datafield: 'ocurrencias', width: '150px'}
+		];
+
+
+		var summarySourceGrid = {
+			//localdata: [],
+			datatype: 'json',
+			datafields: summaryDatafields,
+			//url: '/simulacion/simulador/alarmaslogsearch',
+			type: 'POST',
+			data: {},
+			beforeprocessing: function(data)
+			{
+				console.log('before processing');
+				//console.log(this);
+				//console.log(data);
+			
+				//searchgrid.adapter._source.data.recordcount = data.recordcount;
+				//ComprobantesRecibidos._searchadapter._source.data.recordcount = data.recordcount;
+				//this.totalrecords = data.recordcount;
+			},
+			cache: false
+
+		};
+
+		//var adapterSettings = {
+		//	contentType : 'application/json',
+		//	processData : function(data){
+		//	},
+		//	formatData : function(data)
+		//	{
+		//		return JSON.stringify(data);
+		//	},
+		//	autoBind : false
+		//};
+
+		var summaryDataAdapter = new $.jqx.dataAdapter(summarySourceGrid);
+
+
+		var summaryGridOptions = {
+			width: '100%',
+			height: '200px',
+			//source: dataAdapter,
+			columns: summaryColumns,
+			groupable: true,
+			pageable: false,
+			columnsresize: true,
+			columnsreorder: false,
+			sortable: false,
+			groupsrenderer: function (text, group, expanded, data) {
+				//return group;
+				console.log(data);
+				return '<div style="padding: 6px; height: 30px;background-color:#1FAEFF;color:white;font-weight:bold">' + text + ' (' + data.subItems.length + ')' + '</div>';
+			},
+			groupsexpandedbydefault: true,
+			showgroupmenuitems: false,
+			showgroupsheader: false,
+			groups: ['categoria']
+
+		};
+
+		estadoAlarmas.$grid.jqxGrid(gridOptions);
+		estadoAlarmas.$gridSummary.jqxGrid(summaryGridOptions);
+
+		//var grid = estadoAlarmas.$grid.data('jqxWidget');
+
+		alarmsGrid = estadoAlarmas.$grid.data('jqxWidget');
+		alarmsGridSummary = estadoAlarmas.$gridSummary.data('jqxWidget');
+
+		window.alarmsGrid = alarmsGrid;
+
+		appMap.infoBubbleSetContent($table[0]);
+	});
+
+
+
+
+	//console.log($tabs);
+
+</script>

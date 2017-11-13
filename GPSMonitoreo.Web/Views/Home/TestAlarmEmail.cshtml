@@ -1,0 +1,157 @@
+﻿@using GPSMonitoreo.Data.Extensions;
+
+
+
+@{
+
+	//var c = new GPSMonitoreo.Web.AlarmCat();
+
+	var tree = new GPSMonitoreo.Web.NotificationsAlarmsTree();
+
+	int gpsId = 1;
+	int tripId = 1;
+
+
+
+	var dbContext = ViewData["dbContext"] as GPSMonitoreo.Data.Models.EntitiesContext;
+
+	var pars = new List<KeyValuePair<string, object>>()
+	{
+		new KeyValuePair<string, object>("P_TABLE_NAME", "ALARMAS_CATS"),
+		new KeyValuePair<string, object>("P_EXTRA_FIELDS", null)
+	};
+
+
+	var reader = dbContext.ProcedureDataReader("SP_CATS", pars);
+
+
+	var tableHtml = new System.Text.StringBuilder();
+
+	int parentId;
+	int id;
+
+	while (reader.Read())
+	{
+		//Console.WriteLine(reader["DESCRIPCION_LARGA"]);
+
+		parentId = reader["PADRE_ID"] != DBNull.Value ? Convert.ToInt32(reader["PADRE_ID"]) : 0;
+
+		//Console.WriteLine(reader["ID"].GetType().ToString());
+
+		tree.AddCat(parentId, Convert.ToInt32(reader["ID"]), reader["DESCRIPCION_LARGA"] as string);
+	}
+
+	reader.Close();
+
+
+	var truckId = dbContext.FirstValue<int>("SELECT EQUIPO_ID FROM GPS WHERE ID = 1");
+
+
+	var equipmentSql = $"SELECT ALTERNO_ID, DESCRIPCION_LARGA, PLACA FROM EQUIPOS WHERE ID = {truckId}";
+
+	var equipmentData = dbContext.FirstRow(equipmentSql);
+
+
+	var driversSql = $@"
+	SELECT VC.ENTIDAD_ID, E.IDENTIFICACION, E.APELLIDOS, E.NOMBRES FROM VIAJES_CONDUCTORES VC
+	LEFT JOIN ENTIDADES E ON VC.ENTIDAD_ID = E.ID
+	WHERE VC.VIAJE_ID = {tripId}
+	";
+
+	var driversReader = dbContext.DataReader(driversSql);
+
+	var driversTableHtml = new System.Text.StringBuilder();
+
+
+
+	while (driversReader.Read())
+	{
+		driversTableHtml.Append("<tr>");
+
+		driversTableHtml.Append("<td>" + (int)driversReader["ENTIDAD_ID"] + "</td>");
+
+		driversTableHtml.Append("<td>" + (driversReader["IDENTIFICACION"] as string) + "</td>");
+
+		driversTableHtml.Append("<td>" + (driversReader["NOMBRES"] as string) + " " + (driversReader["APELLIDOS"] as string) + "</td>");
+
+		driversTableHtml.Append("</tr>");
+	}
+
+
+
+	//System.Data.IDataReader
+
+	var alarmReader = dbContext.DataReader($"SELECT * FROM VW_ALARMAS_LOG WHERE VIAJE_ID = {tripId} ORDER BY INICIO DESC");
+	int x = 0;
+	GPSMonitoreo.Web.NotificationsAlarm alarm;
+
+	while(alarmReader.Read())
+	{
+		//Console.WriteLine(x++);
+
+		alarm = new GPSMonitoreo.Web.NotificationsAlarm
+		{
+			Id = Convert.ToInt32(alarmReader["ID"]),
+			AlarmId = Convert.ToInt32(alarmReader["ALARMA_ID"]),
+			AlarmDescription = alarmReader["ALARMA"] as string,
+			GeofenceAuxiliarId = alarmReader["CERCA_AUXILIAR_ID"] as string,
+			RouteAuxiliarId = alarmReader["RUTA_AUXILIAR_ID"] as string,
+			SectionAuxiliarId = alarmReader["TRAMO_AUXILIAR_ID"] as string,
+			SegmentAuxiliarId = alarmReader["SEGMENTO_AUXILIAR_ID"] as string,
+			StandardValue = (double)alarmReader["VALOR_STANDARD"],
+			ActualValue = (double)alarmReader["VALOR_EFECTIVO"],
+			Date = (DateTime)alarmReader["INICIO"],
+			Duration = (int)alarmReader["DURACION"],
+			DriverId = (int)alarmReader["CONDUCTOR_ID"]
+		};
+
+		//Console.WriteLine(alarm.AlarmDescription);
+
+		if (alarm.ActualValue > alarm.StandardValue)
+		{
+			alarm.Excess = alarm.ActualValue - alarm.StandardValue;
+		}
+
+		tree.AddAlarm(Convert.ToInt32(alarmReader["ALARMA_CATEGORIA_ID"]), alarm);
+	}
+
+	alarmReader.Close();
+
+
+	tree.Render(tableHtml);
+
+	//tree.Display = true;
+
+	//GPSMonitoreo.Libraries.Utils.ObjectJsonDumper.Dump(tree, 4);
+
+
+	//var query = dbContext.GPS_ALARMAS.Where(x => x.VIAJE_ID == 1);
+
+	var templateValues = new System.Collections.Specialized.NameValueCollection();
+
+	templateValues["ReportDate"] = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+
+	templateValues["TripId"] = tripId.ToString();
+	templateValues["EquipmentAlternateId"] = equipmentData["ALTERNO_ID"] as string;
+	templateValues["EquipmentDecription"] = equipmentData["DESCRIPCION_LARGA"] as string;
+	templateValues["EquipmentPlate"] = equipmentData["PLACA"] as string;
+	templateValues["LogTableHtml"] = tableHtml.ToString();
+	templateValues["driversTableHtml"] = driversTableHtml.ToString();
+
+	var options = new GPSMonitoreo.Web.MailerTemplateOptions
+	{
+		TemplateHtml = System.IO.File.ReadAllText(@"C:\Users\Fabian\Documents\dev\GPSMonitoreo\GPSMonitoreo.Web\Template.html"),
+		To = new List<string> { "fromberg100@hotmail.com" },
+		TemplateValues = templateValues,
+		Subject = "Notificación Alarmas",
+		SenderEmailAddress = "fvonromberg@expomedios.net"
+
+	};
+
+	//GPSMonitoreo.Web.MailSender.SendTemplate(options);
+
+	var parsed = GPSMonitoreo.Web.MailSender.ParseTemplate(options);
+
+}
+@Html.Raw(parsed);
+

@@ -1,0 +1,24 @@
+﻿@{ 
+
+	GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid layoutModel = Model ?? ViewData["layoutModel"] as GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid;
+	
+
+	IgnoreBody();
+}
+
+<div class="panel withheader">
+	<div class="header">@layoutModel.Title</div>
+	<div class="body" style="background-color:red">
+		<div></div>
+	</div>
+</div>
+
+
+<script script-manager-render="layout">
+App.hookLayout('@layoutModel.Url', function(layout){
+
+	//script-manager["init"]
+
+});
+</script>
+

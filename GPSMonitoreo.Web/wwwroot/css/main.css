@@ -1,0 +1,835 @@
+body, html {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+*, *:before, *:after {
+  /*box-sizing: inherit;*/
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.clearable:after
+{
+	display:block;
+	content: '';
+	clear:both;
+}
+
+.app_header
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	border-bottom: 1px solid #cecece;
+	line-height: 48px;
+}
+
+.app_header > div
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.app_body
+{
+	
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	padding-top: 50px;
+}
+
+
+.center_v
+{
+	top: 50%; 
+	transform: translateY(-50%);
+}
+
+.absolute_center_v
+{
+	top:0;
+	bottom:0;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.panel_input, .panel_search, .layout
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	/*padding: 10px;*/
+	padding-top: 30px;
+	z-index: 5;
+}
+
+.window_search
+{
+
+}
+
+.window_search .form
+{
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	z-index: 10;
+}
+
+.window_search .grid
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 100px;
+	z-index: 5;
+}
+
+
+
+.panel_input > div.header, .panel_search > div.header, .panel_general > div.header, .layout > div.header
+{
+	position: absolute;
+	width: 100%;
+	top: 0;
+	background-color: #1faeff;
+	font-weight: bold;
+	color:white;
+	padding: 0 5px;
+	height: 30px;
+	line-height: 30px;
+	z-index: 10;
+}
+
+
+
+.panel
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.panel.withheader > div.header
+{
+	position: absolute;
+	width: 100%;
+	top: 0;
+	background-color: #1faeff;
+	font-weight: bold;
+	color:white;
+	padding: 0 5px;
+	height: 30px;
+	line-height: 30px;
+	z-index: 10;
+}
+
+
+.panel > div.body
+{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	/*height: 100%;*/
+	/*
+	left: 0;
+	right: 0;*/
+	overflow:auto;
+	z-index: 5;
+}
+
+.panel.withheader > div.body
+{
+	margin-top: 30px;
+}
+
+.panel.withfooter > div.body
+{
+	margin-bottom: 40px;
+}
+
+.panel.withfooter > div.footer
+{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	padding: 0 10px;
+	background-color: #e0e0e0;
+	z-index: 5;
+	line-height: 40px;
+}
+
+
+.panel_input > div.body
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 30px;
+	padding-bottom: 40px;
+	z-index: 5;
+}
+
+.layout > div.body
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	/*
+	width: 100%;
+	height: 100%;
+		*/
+	bottom: 0;
+	margin-top: 30px;
+	/*margin-bottom: -30px;*/
+	z-index: 5;
+	overflow: auto;
+}
+
+.panel_general > div.body
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 30px;
+	z-index: 5;
+}
+
+
+.panel_search > div.form
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100px;
+	padding-top: 30px;
+	z-index: 10;
+}
+
+
+.panel_search > div.grid
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 130px;
+	z-index: 5;
+}
+
+
+.panel_input > div.footer
+{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+	padding: 0 10px;
+	background-color: #e0e0e0;
+	z-index: 5;
+	line-height: 40px;
+}
+
+.panel_input_tabbed
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 30px;
+	z-index: 5;
+	/*padding-bottom: 50px;*/
+}
+
+.input_error
+{
+	display:inline-block;
+	margin-left: 10px;
+	color: red;
+}
+
+.panel_header
+{
+	position: absolute;
+	width: 100%;
+	top: 0;
+	background-color: #1faeff;
+	font-weight: bold;
+	color:white;
+	padding: 0 5px;
+	height: 30px;
+	line-height: 30px;
+	z-index: 10;
+}
+
+
+.panel_general_search
+{
+	position: relative;
+}
+
+
+.panel_general_search > div.form
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100px;
+	z-index: 10;
+}
+
+
+.panel_general_search > div.grid
+{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding-top: 100px;
+	z-index: 5;
+}
+
+.table_edit
+{
+	border-spacing: 0;
+}
+
+.table_edit td, .table_edit th
+{
+	padding: 2px 4px;
+}
+
+.jqx-widget:not(.jqx-button):not(.jqx-checkbox):not(.jqx-radiobutton), .input_label_readonly
+{
+	
+	height: 26px;
+}
+
+.jqx-wide .jqx-listbox
+{
+	width: 100% !important;
+}
+
+.jqx-wide .jqx-input, .jqx-wide .jqx-dropdownlist-state-normal, .jqx-wide .input_label_readonly, .jqx-wide .jqx-combobox-state-normal
+{
+	width: 100% !important;
+	height: 26px !important;
+}
+
+
+.jqx-wide .jqx-numberinput > div
+{
+	width: 19px !important;
+}
+
+/*
+.jqx-input, .jqx-dropdownlist-state-normal, .input_label_readonly
+{
+	width: 100%;
+
+}
+	*/
+
+.input_label_readonly
+{
+	display: inline-block;
+	background-color: #f6f6f6;
+	border: 1px solid #c2c2c2;
+	line-height: 24px;
+}
+
+.input_data
+{
+	width: 100%;
+	/*border: 1px solid #c2c2c2;*/
+	line-height: 24px;
+	min-height: 24px;
+	background-color: #F5F5F5;
+	padding-left: 3px;
+	/*overflow: hidden;*/
+}
+
+.input_data_inline
+{
+	display: inline-block;
+	border: 1px solid #c2c2c2;
+	line-height: 24px;
+}
+
+.tbody_group:after
+{
+	display: block;
+	width: 1px;
+	height: 10px;
+	content: ' ';
+}
+
+
+.tbody_group tr:first-of-type > td, .tbody_group tr:first-of-type > th
+{
+	border-top: 1px solid #c2c2c2;
+}
+
+.tbody_group tr > *:first-child
+{
+	border-left: 1px solid #c2c2c2;
+}
+
+.tbody_group tr > *:last-child
+{
+	border-right: 1px solid #c2c2c2;
+}
+
+
+.tbody_group tr:last-of-type > td
+{
+	border-bottom: 1px solid #c2c2c2;
+}
+
+.tbody_group th
+{
+	background-color: #f6f6f6;
+	text-align: left;
+}
+
+
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading .loading-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  z-index: 99999;
+}
+
+.loading .loading-text {
+	/*display: none;*/
+	display: block;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+  text-shadow: white 0 0 1em, white 0 0 0.5em, white 0 0 0.25em;
+  position: relative;
+  
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.loading .loading-text:after {
+/*display: none;*/
+  content: "...";
+}
+
+.loading .loading-icon 
+{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: url('/images/ajax-loader-white.gif') no-repeat center center;
+}
+
+
+.report_tabbed
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.report_tabbed > .left
+{
+	clear:both;
+	float:left;
+	width:100%;
+	height:50%;
+	background-color: #f1f1f1;
+	overflow:auto;
+	/*
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 220px;
+	z-index: 2;*/
+}
+
+.report_tabbed > .right
+{
+	clear:both;
+	float:left;
+	width:100%;
+	height:50%;
+	background-color: #f1f1f1;
+	/*
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-left: 220px;
+	z-index: 1;
+	*/
+}
+
+.splitted_panel
+{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.splitted_panel > .left
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 300px;
+	background-color: #f1f1f1;
+	z-index: 2;
+}
+
+.splitted_panel > .right
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-left: 300px;
+	background-color: white;
+	z-index: 1;
+}
+
+
+.error_field_label
+{
+	color: red;
+	text-align: left;
+}
+
+.err
+{
+	border: 1px solid #e50010 !important;
+}
+
+.jqx-grid-widget > button
+{
+	height: 23px;
+	line-height: 23px;
+	padding: 0 3px;
+}
+
+.jqx-grid-widget > button > i
+{
+	font-size: 16px;
+}
+
+.jqx-input-metro, .jqx-fill-state-normal-metro, .jqx-widget-content-metro
+{
+	border-color: #c2c2c2;
+}
+
+.jqx-window-header-metro, .jqx-input-button-header-metro, .jqx-calendar-title-header-metro, 
+.jqx-grid-metro .jqx-widget-header-metro, .jqx-grid-header-metro, .jqx-grid-column-header-metro
+{
+	border-color: #c2c2c2;
+}
+
+.jqx-widget-metro .jqx-grid-cell-metro, .jqx-widget-metro .jqx-grid-column-header-metro, 
+.jqx-widget-metro .jqx-grid-group-cell-metro
+{
+	border-color: #c2c2c2;
+}
+
+.jqx-tabs-header
+{
+	border-bottom-color: #c2c2c2;
+}
+
+.jqx-tabs-title-selected-bottom-metro, .jqx-tabs-selection-tracker-bottom-metro, 
+.jqx-tabs-title-selected-top-metro, .jqx-tabs-selection-tracker-top-metro
+{
+	border-color: #c2c2c2;
+	border-bottom-color: white;
+}
+
+
+/*.report_tabbed > .left_al
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 48%;
+	height: 100%;
+	background-color: #f1f1f1;
+	z-index: 2;
+}
+
+.report_tabbed > .right_al
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 48%;
+	height: 100%;
+	padding-left: 220px;
+	z-index: 1;
+}*/
+
+
+.grid_table_error
+{
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+.grid_table_error td
+{
+	padding: 0;
+}
+
+.grid_table_error > tr:nth-of-type(even), .grid_table_error > tbody > tr:nth-of-type(even) {
+	background-color: lightblue;
+}
+
+#form_productos_peso > .jqx-input-content {
+height: 25px !important
+}
+
+#app_menu_left .jqx-tree-item 
+{
+	/*line-height: 28px;*/
+}
+
+#app_menu_left webicon {
+	vertical-align: middle;
+	width: 18px;
+	height: 18px;
+}
+
+.jqx-grid-widget webicon {
+	width: 20px;
+	height: 20px;
+}
+
+.jqx-grid .jqx-picker
+{
+	border: none;
+	margin-top: 1px;
+	margin-left: 1px;
+	
+}
+
+.jqx-fill-state-disabled-metro
+{
+	color: unset;
+}
+
+
+
+/*
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+*/
+
+/****************************************************************************************************************/
+/************************************************ CALENDARIO OPERATIVO ******************************************/
+/****************************************************************************************************************/
+.cls_div_meses{
+	clear:both;
+	float:left;
+	width:100%;
+	height:100%;
+	background-color:#f2f2f2;
+	overflow:auto;
+}
+
+.cls_div_mes{
+	clear:both;
+	float:left;
+	width:97%;
+	height:8%;
+	margin:1% 0 1% 0;
+	background-color:#f2f2f2; /*#f1f1f1;*/ /*#E0E6F8;*/
+	overflow:auto;
+
+}
+
+.cls_generico {
+	clear:both;
+	float:left;
+	width:97%;
+	height:2%;
+	margin:1% 0 1% 0;
+	text-align:center;
+}
+
+.cls_generico .cls_span_botones {
+	color:#1faeff;
+}
+
+.cls_generico .cls_span_botones:hover {
+	color:#1faeff;
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+.cls_span_botones {
+	float:left;
+	width:12%;
+	text-align:left;
+}
+.clase_table_mes {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.clase_table_mes th, .clase_table_mes td {
+    text-align: center;
+    padding: 1px;
+	border: 1px solid black;
+}
+
+.clase_table_mes tbody tr {
+	background-color:#E0E6F8;
+}
+
+/*.clase_table_mes tr:nth-child(even){background-color:#f2f2f2}*/
+
+.clase_table_mes th {
+    background-color: #CED8F6;
+    color: #424242;
+}
+
+.grid_link_container
+{
+	position: absolute;
+	display: table;
+	width: 25px;
+	height: 100%;
+	top: 0;
+	right: 0;
+	padding: 0 4px;
+	background-color:white;
+}
+
+.grid_link_container > *
+{
+	display:table-cell;
+	vertical-align:middle;
+	/*text-align:right*/
+}
+
+.rotate_text span
+{
+	position: absolute;
+	display: block;
+	transform: rotate(-90.0deg);
+	transform-origin: left top;
+	bottom: -15px;
+	/*text-align: left;*/
+	/*height: 150px !important;*/
+}
+
+.templateroute-editablecell
+{
+	background-color: green;
+	color: white !important;
+}
+
+.templateroute-editablecell > .jqx-icon-arrow-down-metro
+{
+	background-image: url(/assets/jqwidgets4.5.2/styles/images/metro-icon-down-white.png);
+}
+
+.templateroute-editablecell > .jqx-icon-arrow-right-metro
+{
+	background-image: url(/assets/jqwidgets4.5.2/styles/images/metro-icon-right-white.png);
+}
+
+
+.grid-toolbar-menu
+{
+	
+}
+
+
+.grid-toolbar-menu > ul
+{
+	background-color: #fefefe;
+	padding: 0 2px;
+}
+
+.grid-toolbar-buttons
+{
+	position: relative;
+	height: 34px;
+	padding: 0 3px;
+	line-height: 28px;
+}
+
+.grid-toolbar-buttons > *
+{
+	vertical-align: middle;
+	/*margin-top: 3px;*/
+}
+
+.grid-toolbar-buttons > webicon
+{
+	margin-top: 2px;
+	margin-bottom: 0px;
+}
+
+.geographics-popup-table
+{
+	border-collapse: collapse;
+}
+
+.geographics-popup-table th
+{
+	background-color: #f4f4f4;
+}
+
+.geographics-popup-table, .geographics-popup-table th, .geographics-popup-table td
+{
+	border: 1px solid #c2c2c2;
+}
+
+.blinking-alarm
+{
+	animation: blink 0.5s infinite;
+}
+
+@keyframes blink { 
+	100%{background-color:white}
+}
+
+
+

@@ -1,0 +1,821 @@
+﻿@{
+
+	Layout = "_AppLayoutTabbedForm3";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutForm(this.ViewContext);
+
+	layoutModel.Title = "GEOGRAFICO::CERCA";
+
+	ViewData["layoutModel"] = layoutModel;
+
+	var regions = ViewData["regions"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var regionsJson = regions.PrependBlankItem().ToJsonString();
+
+	var layers = ViewData["layers"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var layersJson = layers.ToJsonString();
+
+	var roadShapes = ViewData["roadShapes"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var roadShapesJson = roadShapes.ToJsonString();
+
+	var roadSurfaces = ViewData["roadSurfaces"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var roadSurfacesJson = roadSurfaces.ToJsonString();
+
+	var roadSurfaceStates = ViewData["roadSurfaceStates"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var roadSurfaceStatesJson = roadSurfaceStates.ToJsonString();
+
+	var curveTypes = ViewData["curveTypes"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var curveTypesJson = curveTypes.ToJsonString();
+
+	var curveGrades = ViewData["curveGrades"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var curveGradesJson = curveGrades.ToJsonString();
+
+	var hillTypes = ViewData["hillTypes"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var hillTypesJson = hillTypes.ToJsonString();
+
+	var hillGrades = ViewData["hillGrades"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var hillGradesJson = hillGrades.ToJsonString();
+
+	var roadTraffics = ViewData["roadTraffics"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var roadTrafficsJson = roadTraffics.ToJsonString();
+
+
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+	layout.addFormInitializer(function(form){
+		var $form = form.$form;
+		var f = form.formElement;
+
+		var geofenceMap;
+		var geofenceMapMenu;
+
+		var $layer = $form.find('#@(layoutModel.FormId)_Layer');
+
+		form.add($layer, 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(layersJson)});
+
+		var inRouteGeofence = form.addPicker('#@(layoutModel.FormId)_InRouteGeofence', { descriptionKey: 'InRouteGeofenceDescription' }, function(){
+			App.geographics.geofences.windowSearch(function(item){
+				inRouteGeofence.val({value: item.Id, label: item.Description});
+			}, {closeOnSelect: true});
+		});
+
+		var parentGeofence = form.addPicker('#@(layoutModel.FormId)_ParentGeofence', { descriptionKey: 'ParentGeofenceDescription' }, function(){
+			App.geographics.geofences.windowSearch(function(item){
+				parentGeofence.val({value: item.Id, label: item.Description});
+			}, {closeOnSelect: true});
+		});
+
+		form.add('#@(layoutModel.FormId)_Region', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(regionsJson) });
+
+		var $roadShape = $form.find('#@(layoutModel.FormId)_RoadShape');
+		form.add($roadShape, 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(roadShapesJson) });
+
+
+		var $inRouteGeofenceBlock = $form.find('#@(layoutModel.FormId)_InRouteGeofenceBlock');
+		var $parentGeofenceBlock = $form.find('#@(layoutModel.FormId)_ParentGeofenceBlock');
+		var $curvesBlock = $form.find('.curvas_block');
+		var $hillsBlock = $form.find('#@(layoutModel.FormId)_HillsBlock');
+		var $roadBlock = $form.find('#@(layoutModel.FormId)_RoadBlock');
+		var $optimalBlock = $form.find('#@(layoutModel.FormId)_OptimalBlock');
+		var $speedBlock = $form.find('#@(layoutModel.FormId)_SpeedBlock');
+
+
+
+		var category = form.addTreeDropDown('#@(layoutModel.FormId)_Category', {}, [], function(item) {
+			switch(item.value)
+			{
+				case 20: //PARQUEO INGRESO LUGAR DE CARGA
+				case 74: //BALANZA DE ENTRADA CARGA
+				case 72: //PARQUEO INGRESO SITIO DE CARGA
+				case 69: //SITIO DE CARGA
+				case 21: //PARQUEO INGRESO PUNTO DE CARGA
+				case 22: //PUNTO DE CARGA
+				case 76: //BALANZA DE SALIDA CARGA
+				case 23: //PARQUEO SALIDA LUGAR DE CARGA
+				case 29: //PARQUEO INGRESO LUGAR DE DESCARGA
+				case 75: //BALANZA DE ENTRADA DESCARGA
+				case 73: //PARQUEO INGRESO SITIO DE DESCARGA
+				case 71: //SITIO DE DESCARGA
+				case 30: //PARQUEO INGRESO PUNTO DE DESCARGA
+				case 31: //PUNTO DE DESCARGA
+				case 77: //BALANZA DE SALIDA DESCARGA
+				case 32: //PARQUEO SALIDA LUGAR DE DESCARGA
+					$parentGeofenceBlock.css('display', '')
+					break;
+
+				default:
+					$parentGeofenceBlock.css('display', 'none')
+					break;
+			}
+		});
+
+		form.add('#@(layoutModel.FormId)_CurveType', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(curveTypesJson) });
+	
+		form.add('#@(layoutModel.FormId)_CurveGrade', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(curveGradesJson) });
+
+		form.add('#@(layoutModel.FormId)_RoadSurface', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(roadSurfacesJson) });
+
+		form.add('#@(layoutModel.FormId)_RoadSurfaceState', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(roadSurfaceStatesJson) });
+
+		var $hillGoingType = $form.find('#@(layoutModel.FormId)_HillGoingType');
+
+		form.add($hillGoingType, 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(hillTypesJson) });
+
+		var hillGoingGrade = form.addSingle('#@(layoutModel.FormId)_HillGoingGrade', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', disabled: true, source: @Html.Raw(hillGradesJson) });
+
+		var $hillReturningType = $form.find('#@(layoutModel.FormId)_HillReturningType');
+
+		form.add($hillReturningType, 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(hillTypesJson) });
+		
+		var hillReturningGrade = form.addSingle('#@(layoutModel.FormId)_HillReturningGrade', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', disabled: true, source: @Html.Raw(hillGradesJson) });
+
+		form.add('#@(layoutModel.FormId)_RoadTraffic', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(roadTrafficsJson) });
+				
+		form.add('#@(layoutModel.FormId)_CurvesQty', 'jqxInput');
+	
+		form.add([f.elements.Distance, f.elements.OptimalTiming], 'jqxNumberInput', {decimalDigits: 4, digits: 6, inputMode: 'simple', spinButtons: false, textAlign: 'left'});
+
+		form.add([
+			f.elements.SpeedGoingMop,
+			f.elements.SpeedReturningMop,
+			f.elements.SpeedGoingMopRest,
+			f.elements.SpeedReturningMopRest,
+			f.elements.SpeedGoingCustomRest,
+			f.elements.SpeedReturningCustomRest,
+			f.elements.OptimalSpeed
+		], 'jqxNumberInput', {decimalDigits: 0, digits: 3, inputMode: 'simple', spinButtons: false, textAlign: 'left'});
+
+		form.add([f.elements.RoadLanesGoing, f.elements.RoadLanesReturning], 'jqxInput');
+
+		var geofenceShape = form.addSingle('#@(layoutModel.FormId)_Shape', 'jqxInput', {valueMember: 'value', displayMember: 'label', disabled: true, source: [{value: 1, label: 'Circular'}, {value: 2, label: 'Rectangular'}, {value: 3, label: 'Poligono'}]});
+		var geofenceRadius = form.addSingle('#@(layoutModel.FormId)_Radius', 'jqxInput', {disabled: true});
+
+		var geofenceCoords = form.addWidgetHookSingle('#@(layoutModel.FormId)_Coords', function(newVal){
+			var table = this.host[0];
+	
+			if(newVal === undefined)
+			{
+				var row;
+				var ret = [];
+				for(var x = 1; x < table.rows.length; x++)
+				{
+					row = table.rows[x];
+					ret.push({lat: row.cells[0].innerHTML, lng: row.cells[1].innerHTML});
+				}
+				return ret;
+			}
+			else
+			{
+				while(table.rows.length > 1)
+					table.deleteRow(1);
+
+				if(newVal === null)
+					return;
+
+				var cell1;
+				var cell2;
+				for(var x = 0; x < newVal.length; x++)
+				{
+					row = table.insertRow();
+					cell1 = row.insertCell();
+					cell2 = row.insertCell();
+
+					cell1.innerHTML = newVal[x].lat;
+					cell2.innerHTML = newVal[x].lng;
+				}
+			}
+		});
+
+		$layer.on('change', function(evt){
+			var id = evt.args.item.value;
+
+			$inRouteGeofenceBlock.css('display', id > 1 ? '' : 'none');
+
+			$optimalBlock.css('display', id == 1 ? '' : 'none');
+			$roadBlock.css('display', id == 1 ? '' : 'none');
+			$speedBlock.css('display', id == 1 ? '' : 'none');
+
+			category.reset();
+
+			//PENDIENTE
+			Ajax.get('/geografico/capas/categorias/' + id, function(response){
+				//$categoryTree.jqxTree({source: response.records});
+				category.tree.host.jqxTree({source: response.records});
+			});
+
+			//console.log(category);
+		});
+
+		$roadShape.on('change', function(evt){
+			if(evt.args.item.value == 2)
+				$curvesBlock.fadeIn();
+			else
+				$curvesBlock.fadeOut();
+
+			switch(evt.args.item.value)
+			{
+				case 1: //recta
+				case 2: //curva
+				case 3: //bifurcacion
+					$hillsBlock.fadeIn();
+					break;
+
+				default:
+					$hillsBlock.fadeOut();
+					break;
+			}
+		});
+	
+		$hillGoingType.on('change', function(evt){
+			var item = evt.args.item;
+
+			if(item && (item.value == 1 || item.value == 0)) // si es plano
+			{
+				hillGoingGrade.clearSelection();
+				hillGoingGrade.host.jqxDropDownList({disabled: true});
+			}
+			else
+			{
+				hillGoingGrade.host.jqxDropDownList({disabled: false});
+			}
+		});
+
+		$hillReturningType.on('change', function(evt){
+			var item = evt.args.item;
+
+			if(item && (item.value == 1 || item.value == 0)) // si es plano
+			{
+				hillReturningGrade.clearSelection();
+				hillReturningGrade.host.jqxDropDownList({disabled: true});
+			}
+			else
+			{
+				hillReturningGrade.host.jqxDropDownList({disabled: false});
+			}
+		});
+
+		form.fromJsonHooks.push(function(data){
+			if(data.InRouteGeofenceId > 0)
+			{
+				inRouteGeofence.setContent(data.InRouteGeofenceDescription);
+			}
+
+			switch(data.ShapeId)
+			{
+				case 1 ://circular
+					geofenceMap.circle(data.Coords[0], data.Radius);
+					break;
+
+				case 2: //rectangular
+					geofenceMap.rectangle(data.Coords);
+					break;
+
+				case 3: //poligono
+					geofenceMap.polygon(data.Coords);
+					break;
+			}
+
+			geofenceMap.setCenter(data.Coords[0]);
+		});
+
+		form.resetHooks.push(function(){
+			geofenceMap.setCurrentFlightPath(null);
+		});
+
+
+		layout.tabInitializers[1] = function(){
+			google.maps.event.trigger(geofenceMap, "resize");
+
+			GMaps.initResizerPanel(geofenceMap, geofenceMapMenu);
+
+			if(geofenceMap._currentFlightPath)
+			{
+				switch(true)
+				{
+					case geofenceMap._currentFlightPath instanceof google.maps.Polygon:
+						//console.log(geofenceMap._currentFlightPath.getPath().getAt(0));
+						geofenceMap.setCenter(geofenceMap._currentFlightPath.getPath().getAt(0));
+						break;
+
+
+					case geofenceMap._currentFlightPath instanceof google.maps.Rectangle:
+						geofenceMap.setCenter(geofenceMap._currentFlightPath.getBounds().getCenter());
+						break;
+
+					case geofenceMap._currentFlightPath instanceof google.maps.Circle:
+						geofenceMap.setCenter(geofenceMap._currentFlightPath.getCenter());
+						break;
+				}
+			}
+			else
+			{
+				//mamut
+				geofenceMap.setCenter({lat: -2.1903268, lng: -79.9378324});
+			}
+		};
+
+		function onFlightPathChanged(flightPath)
+		{
+
+			var forma = {value: 0, label: '[ninguno]'};
+			var puntos = [];
+			var radio = 0;
+
+			switch(true)
+			{
+				case flightPath instanceof google.maps.Polygon:
+					forma.value = 3;
+					forma.label = 'Poligono';
+
+					puntos = GMaps.mvcPathsToObjectArray(flightPath.getPaths());
+					//console.log(puntos);
+					break;
+
+
+				case flightPath instanceof google.maps.Rectangle:
+					forma.value = 2;
+					forma.label = 'Rectangulo';
+
+					var bounds = flightPath.getBounds();
+					var southWest = bounds.getSouthWest();
+					var northEast = bounds.getNorthEast();
+
+					//{ south: -2.1875246166926927, west: -79.95582729578018, north: -2.1873356587485344, east: -79.95512455701828 }
+					puntos = [southWest.toJSON(), northEast.toJSON()];
+
+					//GMaps.mvcPathsToArray(flightPath.)
+					break;
+
+				case flightPath instanceof google.maps.Circle:
+					forma.value = 1;
+					forma.label = 'Circulo';
+					puntos = [flightPath.getCenter().toJSON()];
+					radio = flightPath.getRadius();
+
+					break;
+			}
+
+			
+			geofenceShape.val(forma);
+			geofenceCoords.val(puntos);
+			geofenceRadius.val(radio);
+		}
+
+
+	
+
+		function initMap()
+		{
+
+			var mapOptions = {
+				zoom: 18,
+				/*center: new google.maps.LatLng(-2.1706536610011726, -79.92279052734375), guayaquil*/
+				center: {lat: -2.1903268, lng: -79.9378324} /*mamut*/,
+				scaleControl: true,
+				zoomControl: true
+
+
+			};
+
+			var $map = $('#geofenceMap');
+
+			var $panel1 = layout.container.find('#geofenceMap_floatingpanel1');
+			var $panel2 = layout.container.find('#geofenceMap_floatingpanel2');
+
+			geofenceMap = new google.maps.Map($map[0], mapOptions);
+
+			//window.mymap = geofenceMap;
+
+			geofenceMap.$container = $map;
+
+			$map.append($panel1);
+			$map.append($panel2);
+
+		
+
+			var drawingManager = new google.maps.drawing.DrawingManager({
+				/*drawingMode: google.maps.drawing.OverlayType.POLYGON,*/
+				drawingControl: true,
+				drawingControlOptions: {
+					position: google.maps.ControlPosition.TOP_CENTER,
+					drawingModes: ['circle', 'polygon', 'polyline', 'rectangle']
+				},
+				markerOptions: { icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png' },
+				circleOptions: GMaps.defaults.circleOptions,
+				polygonOptions: GMaps.defaults.polygonOptions,
+				polylineOptions: GMaps.defaults.polylineOptions,
+				rectangleOptions: GMaps.defaults.rectangleOptions
+			});
+
+			drawingManager.setMap(geofenceMap);
+
+			drawingManager._$activeMode = null;
+
+			function setDrawingMode(icon, mode)
+			{
+				if(drawingManager._$activeMode)
+					drawingManager._$activeMode.removeClass('active');
+
+				$icon = $(icon);
+				$icon.addClass('active');
+				drawingManager._$activeMode = $icon;
+				drawingManager.setDrawingMode(mode);
+			}
+
+
+			$drawingModeCursor = $panel1.find('.designerset_cursor');
+
+			$drawingModeCursor.on('click', function(){
+				setDrawingMode(this, null);
+			});
+
+
+			$panel1.find('.designerset_circle').on('click', function(){
+				setDrawingMode(this, 'circle');
+			});
+
+			$panel1.find('.designerset_square').on('click', function(){
+				setDrawingMode(this, 'rectangle');
+			});
+
+			$panel1.find('.designerset_polyline').on('click', function(){
+				setDrawingMode(this, 'polyline');
+			});
+
+			$panel1.find('.designerset_polygon').on('click', function(){
+				setDrawingMode(this, 'polygon');
+			});
+
+			geofenceMap.setCurrentFlightPath = function(flightPath)
+			{
+				if (this._currentFlightPath) 
+				{
+					this._currentFlightPath.setMap(null);
+				}
+
+				this._currentFlightPath = flightPath;
+
+				if(!flightPath)
+				{
+					onFlightPathChanged(null);
+					return;
+				}
+
+				var callback = function() {onFlightPathChanged(flightPath);};
+
+				switch(true)
+				{
+					case flightPath instanceof google.maps.Polygon:
+						var path = flightPath.getPath();
+						google.maps.event.addListener(path, 'set_at', callback);
+						google.maps.event.addListener(path, 'remove_at', callback);
+						google.maps.event.addListener(path, 'insert_at', callback);
+						onFlightPathChanged(flightPath);
+						break;
+
+					case flightPath instanceof google.maps.Rectangle:
+						google.maps.event.addListener(flightPath, 'bounds_changed', callback);
+						onFlightPathChanged(flightPath);
+						break;
+
+					
+
+					case flightPath instanceof google.maps.Circle:
+						google.maps.event.addListener(flightPath, 'dragend', callback);
+						google.maps.event.addListener(flightPath, 'radius_changed', callback);
+						onFlightPathChanged(flightPath);
+						break;
+				}
+			};
+
+			geofenceMapMenu = new FlightPathMenu('#flightPathMenu', geofenceMap);
+
+			geofenceMap.addMenuToFlightPath = function(flightPath, geofenceMapMenu)
+			{
+				google.maps.event.addListener(flightPath, 'rightclick', function (e) {
+					geofenceMapMenu.open(flightPath, e);
+				});
+			};
+
+			geofenceMap.circle = function(punto, radio)
+			{
+				var point1 = new google.maps.LatLng(punto);
+				var flightPath = GMaps.drawCircle(this, point1, radio);
+				this.setCenter(point1);
+				this.setCurrentFlightPath(flightPath);
+				this.addMenuToFlightPath(flightPath, geofenceMapMenu);
+				this.setZoom(15);
+				$drawingModeCursor.click();
+			};
+
+			geofenceMap.rectangle = function(puntos)
+			{
+				var point1 = new google.maps.LatLng(puntos[0]);
+				var point2 = new google.maps.LatLng(puntos[1]);
+				var bounds = new google.maps.LatLngBounds(point1, point2);
+				var flightPath = GMaps.drawRectangle(this, bounds);
+				this.setCenter(point1);
+				this.setCurrentFlightPath(flightPath);
+				this.addMenuToFlightPath(flightPath, geofenceMapMenu);
+				$drawingModeCursor.click();
+			};
+
+			geofenceMap.polygon = function(puntos)
+			{
+				var point1 = new google.maps.LatLng(puntos[0]);
+				var point2 = new google.maps.LatLng(puntos[1]);
+				var bounds = new google.maps.LatLngBounds(point1, point2);
+				var flightPath = GMaps.drawRectangle(this, bounds);
+				this.setCenter(point1);
+				this.setCurrentFlightPath(flightPath);
+				this.addMenuToFlightPath(flightPath, geofenceMapMenu);
+				$drawingModeCursor.click();
+			};
+
+			geofenceMap.polygon = function(puntos)
+			{
+				var flightPath = GMaps.drawPolygon(this, puntos);
+				this.setCurrentFlightPath(null);
+				this.setCenter(puntos[0]);
+				this.setCurrentFlightPath(flightPath);
+				this.addMenuToFlightPath(flightPath, geofenceMapMenu);
+				$drawingModeCursor.click();
+			};
+
+		
+			google.maps.event.addListener(drawingManager, 'overlaycomplete', function (evt) {
+				geofenceMap.setCurrentFlightPath(evt.overlay);
+
+				switch (evt.type) {
+					case 'polygon':
+					case 'polyline':
+					case 'circle':
+					case 'rectangle':
+						geofenceMap.addMenuToFlightPath(evt.overlay, geofenceMapMenu);
+						break;
+
+				}
+				$drawingModeCursor.click();
+			});
+
+			$panel1.find('.designerset_polygon').click();
+
+			google.maps.event.addListenerOnce(geofenceMap, 'tilesloaded', function(){
+				var drawingIcons = $map.find('.gmnoprint img[src*="drawing.png"]');
+				$(drawingIcons[0]).closest('.gmnoprint').css('display', 'none');
+
+				var form = $panel2.find('form')[0];
+
+				$panel2.find('.designerset_circle').on('click', function(){
+					geofenceMap.circle({lat: form.elements.inicial_lat.value*1.0, lng: form.elements.inicial_lng.value*1.0}, 100);
+				});
+
+				$panel2.find('.designerset_polyline').on('click', function(){
+					var point1 = new google.maps.LatLng(form.elements.inicial_lat.value*1.0, form.elements.inicial_lng.value*1.0);
+					var point2 = new google.maps.LatLng(form.elements.final_lat.value*1.0, form.elements.final_lng.value*1.0);
+					var flightPath = GMaps.drawPolyline(geofenceMap, point1, point2);
+					geofenceMap.setCenter(point1);
+					geofenceMap.setCurrentFlightPath(flightPath);
+					geofenceMap.addMenuToFlightPath(flightPath, geofenceMapMenu);
+					//drawingManager.setDrawingMode(null);
+					$drawingModeCursor.click();
+				});
+
+				$panel2.find('.designerset_square').on('click', function(){
+					geofenceMap.rectangle([{lat: form.elements.inicial_lat.value*1.0, lng: form.elements.inicial_lng.value*1.0}, {lat: form.elements.final_lat.value*1.0, lng: form.elements.final_lng.value*1.0}]);
+				});
+			});
+
+			//GMaps.initResizerPanel(geofenceMap, menu);
+		}
+		
+		initMap();
+	});
+
+
+</script>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr>
+		<td>Capa</td>
+		<td colspan="4"><div id="@(layoutModel.FormId)_Layer" field_name="LayerId"></div></td>
+	</tr>
+	<tr>
+		<td>Categoria</td>
+		<td colspan="4">
+			<div id="@(layoutModel.FormId)_Category" field_name="CategoryId">
+				<div id="@(layoutModel.FormId)_CategoryTree" style="border: none;"></div>
+			</div>							
+		</td>
+	</tr>
+	<tr id="@(layoutModel.FormId)_InRouteGeofenceBlock" style="display:none">
+		<td>Cerca en Ruta</td>
+		<td colspan="4"><div id="@(layoutModel.FormId)_InRouteGeofence" field_name="InRouteGeofenceId"></div></td>
+	</tr>
+	<tr id="@(layoutModel.FormId)_ParentGeofenceBlock" style="display:none">
+		<td>Cerca Padre</td>
+		<td colspan="4"><div id="@(layoutModel.FormId)_ParentGeofence" field_name="ParentGeofenceId"></div></td>
+	</tr>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Region</td>
+		<td><div id="@(layoutModel.FormId)_Region" field_name="RegionId"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section3">
+	<tbody class="tbody_group"  id="@(layoutModel.FormId)_OptimalBlock" style="display:none">
+		<tr>
+			<th colspan="5">OPTIMO / ESTANDARES</th>
+		</tr>
+		<tr>
+			<td>Velocidad óptima (km/h)</td>
+			<td><input type="text" name="OptimalSpeed" /></td>
+			<td></td>
+			<td>Tiempo óptimo (horas)</td>
+			<td><input type="text" name="OptimalTiming" /></td>
+		</tr>
+	</tbody>
+	<tbody class="tbody_group"  id="@(layoutModel.FormId)_RoadBlock" style="display:none">
+		<tr>
+			<th colspan="5">DEFINICION CARRETERA</th>
+		</tr>
+		<tr>
+			<td>Trazado via</td>
+			<td><div id="@(layoutModel.FormId)_RoadShape" field_name="RoadShapeId"></div></td>
+			<td></td>
+			<td>Distancia (kms)</td>
+			<td><input type="text" name="Distance" /></td>
+		</tr>
+		<tr class="curvas_block" style="display:none">
+			<td>Tipo curva</td>
+			<td><div id="@(layoutModel.FormId)_CurveType" field_name="CurveTypeId"></div></td>
+			<td></td>
+			<td>Cantidad curvas</td>
+			<td><input id="@(layoutModel.FormId)_CurvesQty" type="text" name="CurvesQty" maxlength="5" style="width:50px" /></td>
+		</tr>
+		<tr class="curvas_block" style="display:none">
+			<td>Grado curva</td>
+			<td><div id="@(layoutModel.FormId)_CurveGrade" field_name="CurveGradeId"></div></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Tipo calzada</td>
+			<td><div id="@(layoutModel.FormId)_RoadSurface" field_name="RoadSurfaceId"></div></td>
+			<td></td>
+			<td>Estado calzada</td>
+			<td><div id="@(layoutModel.FormId)_RoadSurfaceState" field_name="RoadSurfaceStateId"></div></td>
+		</tr>
+		<tr>
+			<td>Carriles</td>
+			<td>
+				ida: <input name="RoadLanesGoing" maxlength="5" style="width:30px !important" />
+				retorno: <input name="RoadLanesReturning" maxlength="5" style="width:30px !important" />
+			</td>
+			<td></td>
+			<td>Nivel tráfico</td>
+			<td><div id="@(layoutModel.FormId)_RoadTraffic" field_name="RoadTrafficId"></div></td>
+		</tr>
+	</tbody>
+	<tbody class="tbody_group" id="@(layoutModel.FormId)_HillsBlock" style="display:none">
+		<tr>
+			<th colspan="5">PENDIENTE</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th style="text-align:center">IDA</th>
+			<th></th>
+			<th></th>
+			<th style="text-align:center">RETORNO</th>
+		</tr>
+		<tr>
+			<td>Tipo</td>
+			<td><div id="@(layoutModel.FormId)_HillGoingType" field_name="HillGoingTypeId"></div></td>
+			<td></td>
+			<td>Tipo</td>
+			<td><div id="@(layoutModel.FormId)_HillReturningType" field_name="HillReturningTypeId"></div></td>
+		</tr>
+		<tr>
+			<td>Grado</td>
+			<td><div id="@(layoutModel.FormId)_HillGoingGrade" field_name="HillGoingGradeId"></div></td>
+			<td></td>
+			<td>Grado</td>
+			<td><div id="@(layoutModel.FormId)_HillReturningGrade" field_name="HillReturningGradeId"></div></td>
+		</tr>
+	</tbody>
+	<tbody class="tbody_group"  id="@(layoutModel.FormId)_SpeedBlock" style="display:none">
+		<tr>
+			<th colspan="5">LIMITES VELOCIDAD</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th style="text-align:center">IDA</th>
+			<th></th>
+			<th></th>
+			<th style="text-align:center">RETORNO</th>
+		</tr>
+		<tr>
+			<td>General MOP</td>
+			<td><input name="SpeedGoingMop" /></td>
+			<td></td>
+			<td>General MOP</td>
+			<td><input name="SpeedReturningMop" /></td>
+		</tr>
+		<tr>
+			<td>Restringida MOP</td>
+			<td><input name="SpeedGoingMopRest" /></td>
+			<td></td>
+			<td>Restringida MOP</td>
+			<td><input name="SpeedReturningMopRest" /></td>
+		</tr>
+		<tr>
+			<td>Restringida Empresa</td>
+			<td><input name="SpeedGoingCustomRest"  /></td>
+			<td></td>
+			<td>Restringida Empresa</td>
+			<td><input name="SpeedReturningCustomRest" /></td>
+		</tr>
+	</tbody>
+	<tbody class="tbody_group">
+		<tr>
+			<th colspan="5">CERCA GEOGRAFICA</th>
+		</tr>
+		<tr>
+			<td>Forma</td>
+			<td colspan="4"><input id="@(layoutModel.FormId)_Shape" field_name="ShapeId" style="width:200px" class="input_label_readonly" /></td>
+		</tr>
+		<tr>
+			<td>Radio</td>
+			<td colspan="4"><input id="@(layoutModel.FormId)_Radius" field_name="Radius" style="width:200px" class="input_label_readonly" /></td>
+		</tr>
+		<tr>
+			<td>Puntos</td>
+			<td colspan="4">
+				<table style="border-spacing: 0" id="@(layoutModel.FormId)_Coords" field_name="Coords">
+					<tr>
+						<th>Lagitud</th>
+						<th>Longitud</th>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="5">&nbsp;</td>
+		</tr>
+	</tbody>
+</formsection>
+
+
+@section tabtitles{
+	<li>Mapa</li>
+}
+
+@section tabs{
+	<div>
+		<div id="geofenceMap" class="map_cerca" style="z-index:4"></div>
+		<div id="flightPathMenu" class="googlemaps_flightpathmenu">
+			<div class="delete">Eliminar</div>
+			<div class="delete_vertex">Eliminar vértice</div>
+			<!--<div class="convert_polygon">Convertir a poligono</div>-->
+		</div>
+		<div id="geofenceMap_floatingpanel1" class="googlemaps_floatingpanel center" style="line-height:0">
+			<webicon class="designerset_cursor clickable" style="margin-right:5px"></webicon>
+			<webicon class="designerset_circle clickable" style="margin-right:5px"></webicon>
+			<webicon class="designerset_polygon clickable" style="margin-right:5px"></webicon>
+			<webicon class="designerset_polyline clickable" style="margin-right:5px"></webicon>
+			<webicon class="designerset_square clickable" style="margin-right:5px"></webicon>
+		</div>
+		<div id="geofenceMap_floatingpanel2" class="googlemaps_floatingpanel right" style="width:240px;">
+			<div style="width:205px;">
+				<form>
+					<table>
+						<tr>
+							<th colspan="2">Coordenada</th>
+						</tr>
+						<tr>
+							<td>Inicial</td>
+							<td>Lat: <input type="text" value="" name="inicial_lat" /> Lng: <input type="text" value="" name="inicial_lng" /></td>
+						</tr>
+						<tr>
+							<td>Final</td>
+							<td>Lat: <input type="text" value="" name="final_lat" /> Lng: <input type="text" value="" name="final_lng" /></td>
+						</tr>
+					</table>
+
+				</form>
+			</div>
+			<div>
+				<webicon class="designerset_circle clickable"></webicon><br/>
+				<webicon class="designerset_polyline clickable"></webicon><br/>
+				<webicon class="designerset_square clickable"></webicon>
+			</div>
+		</div>
+	</div>
+}

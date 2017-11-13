@@ -1,0 +1,58 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid
+@{ 
+	IgnoreBody();
+}
+
+<div>
+    <div>
+        <span>
+			@Model.Title
+        </span>
+    </div>
+    <div style="position:relative;padding:0">
+		<div class="window-search-grid"></div>
+    </div>
+</div>
+
+
+<script script-manager-render="layout">
+App.windows.search['@Model.Url'].init = function($windowDiv, win) {
+	var grid;
+	var options = AppGrid2.getDefaultOptions();
+	
+
+	options.$element = $windowDiv.find('.window-search-grid');
+	options.searchUrl = '@Model.PostUrl';
+
+
+	var createwidget = function (row, column, value, htmlElement) {
+		$select = $('<webicon class="eyedropper clickable"></webicon>');
+
+		var $element = $(htmlElement);
+		$element.css('padding', '3px');
+		$element.append($select);
+
+
+		$select.on('click', function(){
+			var boundRow = grid.grid.getboundrowfrombutton(this);
+			win.onSelect(boundRow);
+
+			if(win.options.closeOnSelect)
+				win.win.close();
+		});
+	}
+
+	var initwidget = function(row, column, value, cellElement){
+
+	};
+
+
+	//script-manager["init"]
+
+
+	options.columns.push({ text: '', width: 100, createwidget: createwidget, initwidget: initwidget});
+
+	grid = new AppGrid2(options);
+};
+</script>
+

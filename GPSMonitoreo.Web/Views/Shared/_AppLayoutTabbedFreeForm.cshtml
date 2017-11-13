@@ -1,0 +1,50 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutFreeForm
+@{ 
+	//public var xx = "afdddasf";
+
+	//var urlArr = Context.Request.Path.Value.Split('/');
+	//var postUrl = string.Join("/", urlArr.Take(urlArr.Length - (Model.UrlIndludesId ? 2 : 1))) + "/save";
+	IgnoreBody();
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.FormModel() { FormId = Model.FormId, Action = Model.PostUrl, UseTable = Model.UseFreeFormTable, Style = Model.FormStyle };
+
+
+}
+<div classsss="panel_input" class="panel withheader withfooter">
+	<div class="header layout_header">
+		<span class="layout_title">@Model.Title</span><span class="layout_subtitle"></span>
+	</div>
+	<div class="body">
+		<div>
+			<ul>
+				<li>@Model.MainTabTitle</li>
+				 @RenderSection("tabtitles", false)
+			</ul>
+			<div style="@Model.MainTabStyle">
+				@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FreeForm), new { model = formModel })
+			</div>
+			@RenderSection("tabs", false)
+		</div>
+	</div>
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+<script script-manager-render="tabbed_layout_form">
+App.hookLayout('@Model.Url', function(layout){
+	layout.editDataUrl = '@Model.EditDataUrl';
+	layout.options = {
+		formId	: '@Model.FormId'
+
+	};
+
+	//console.log(layout);
+
+	//script-manager["manager:form"]
+
+
+});
+	
+
+</script>

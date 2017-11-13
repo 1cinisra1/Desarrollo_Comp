@@ -1,0 +1,243 @@
+﻿@using GPSMonitoreoServer.Reports.Enums
+@{
+
+	Layout = "_AppLayout";
+
+}
+<div>
+	<ul>
+		<li>Log</li>
+		<li>Mapa</li>
+	</ul>
+	<div style="position:relative;">
+		<div style="position:absolute;width:100%;height:100px">
+			<form id="form_alarmaslog" style="padding: 5px">
+				<table>
+					<tr>
+						<td>Orden de viaje</td>
+						<td style="width:80px">
+							<input type="text" name="viaje" />
+						</td>
+						<td>Categoria</td>
+						<td style="width:200px">
+							<div id="form_alarmaslog_categoria" field_name="categoria">
+								<div style="border: none;"></div>
+							</div>
+						</td>
+						<td></td>
+						<td style="width:200px"></td>
+					</tr>
+				</table>
+				<button type="button">Buscar</button>
+				<button type="button">ver en mapa</button>
+			</form>
+		</div>
+		<div style="position:absolute;width:100%;top:0;bottom:0;margin-top:100px">
+			<div id="form_alarmaslog_grid"></div>
+		</div>
+	</div>
+	<div>
+		<div id="form_alarmaslog_grid_map" style="width:100%;height:100%"></div>
+	</div>
+</div>
+<script script-manager-add="layout" script-manager-key="init">
+
+	var $body = layout.container.find('> div > div.body');
+	
+	var $tabs = $body.find('> div');
+
+
+	var appMap;
+
+	$tabs.jqxTabs({width: '100%', height: '100%', initTabContent: function (tab) {
+		if(tab == 1)
+			console.log(google.maps.event.trigger(appMap.map, 'resize'));
+	}});
+
+	var tabs = $tabs.data('jqxWidget');
+	
+
+	var $form = $body.find('#form_alarmaslog').jqxForm();
+
+	var form = $form.instance;
+
+	
+
+	var $buttons = $form.find('button');
+
+	var $buttonSearch = $($buttons[0]);
+	var $buttonMap = $($buttons[1]);
+	var $grid = $body.find('#form_alarmaslog_grid');
+
+	var f = form.formElement;
+	
+	
+	form.add([f.elements.viaje], 'jqxNumberInput', {decimalDigits: 0, digits: 10, inputMode: 'simple', spinButtons: false, textAlign: 'left'});
+	form.add('#form_alarmaslog_categoria', 'jqxDropDownList', {placeHolder: ''});
+
+	$buttonSearch.jqxButton({template: 'info'});
+	$buttonMap.jqxButton({template: 'primary'});
+
+
+	var datafields = [
+		{ name: 'categoria', type: 'string' },
+		{ name: 'alarma', type: 'string' },
+		{ name: 'inicio', type: 'string' },
+		{ name: 'fin', type: 'string' },
+		{ name: 'cerca', type: 'string' },
+		{ name: 'alarmaValorStandard', type: 'number' },
+		{ name: 'alarmaValor', type: 'number' },
+		{ name: 'alarmaValorDiferencia', type: 'number' },
+		{ name: 'duracion', type: 'number' },
+	];
+
+	var columns = [
+		{text: 'Categoria', datafield: 'categoria', width: '200px', hidden: true},
+		{text: 'Inicio', datafield: 'inicio', width: '150px'},
+		{text: 'Fin', datafield: 'fin', width: '150px'},
+		{text: 'Cerca', datafield: 'cerca', width: '250px'},
+		{text: 'Alarma', datafield: 'alarma', width: '200px'},
+		{ text: 'Valor Standard', datafield: 'alarmaValorStandard', width: 80 },
+		{ text: 'Valor Efectivo', datafield: 'alarmaValor', width: 80 },
+		{ text: 'Valor Diferencia', datafield: 'alarmaValorDiferencia', width: 80 },
+		{ text: 'Duración (s)', datafield: 'duracion', width: 80 }
+
+	];
+
+
+	var sourceGrid = {
+		//localdata: [],
+        datatype: 'json',
+		datafields: datafields,
+		url: '/simulation/simulator/alarmaslogsearch',
+		type: 'POST',
+		data: {},
+		beforeprocessing: function(data)
+		{
+			console.log('before processing');
+			console.log(this);
+			console.log(data);
+			
+			//searchgrid.adapter._source.data.recordcount = data.recordcount;
+			//ComprobantesRecibidos._searchadapter._source.data.recordcount = data.recordcount;
+			//this.totalrecords = data.recordcount;
+		},
+		cache: false
+
+	};
+
+	var adapterSettings = {
+		contentType : 'application/json',
+		processData : function(data){
+		},
+		formatData : function(data)
+		{
+			return JSON.stringify(data);
+		},
+		autoBind : false
+	};
+
+	var dataAdapter = new $.jqx.dataAdapter(sourceGrid, adapterSettings);
+
+
+	var gridOptions = {
+		width: '100%',
+		height: '100%',
+		//source: dataAdapter,
+		columns: columns,
+		groupable: true,
+		pageable: false,
+		columnsresize: true,
+		columnsreorder: false,
+		sortable: false,
+		groupsrenderer: function (text, group, expanded, data) {
+			//return group;
+			console.log(data);
+			return '<div style="padding: 6px; height: 30px;background-color:#1FAEFF;color:white;font-weight:bold">' + text + ' (' + data.subItems.length + ')' + '</div>';
+		},
+		groupsexpandedbydefault: true,
+		showgroupmenuitems: false,
+		showgroupsheader: false,
+		groups: ['categoria']
+
+	};
+
+	$grid.jqxGrid(gridOptions);
+
+	var grid = $grid.data('jqxWidget');
+	window.mygrid = grid;
+
+	//this.grid.host.jqxGrid('source', this.adapter);
+
+
+	$buttonSearch.click(function(){
+		
+		dataAdapter._source.data = form.toJson();
+		console.log(dataAdapter);
+		
+		grid.host.jqxGrid('source', dataAdapter);
+		//grid.host.jqxGrid('groupable', true);
+		grid.host.jqxGrid('groups', ['categoria']);
+		//grid.host.jqxGrid(gridOptions);
+	});
+
+	var showAlarm = function(record) {
+		var html = '<table style="width:300px">';
+		html += '<tr><td>Alarma</td><td>' + record.alarma + '</td></tr>';
+		html += '<tr><td>Cerca</td><td>' + record.cerca + '</td></tr>';
+		html += '<tr><td>Inicio</td><td>' + record.inicio + '</td></tr>';
+		html += '<tr><td>Fin</td><td>' + record.fin + '</td></tr>';
+		html += '</table>';
+		appMap.showInfoWindow(html, {lat: record.lat, lng: record.lng});
+	};
+
+	$buttonMap.click(function(){
+		tabs.select(1);
+		appMap.removeMarkers();
+		App.get('/simulation/simulator/alarmaslogmap', function(response) {
+			
+			var records = response.records;
+			var record;
+			var markerOptions = {
+				icon: {
+					path: google.maps.SymbolPath.CIRCLE,
+					fillOpacity: 1,
+					fillColor: 'red',
+					strokeWeight: 0, 
+					scale: 10 //pixels
+				}
+			};
+
+			for(var x = 0; x < records.length; x++)
+			{
+				record = records[x];
+				console.log(record);
+				//markerOptions.position = {lat: record.lat, lng: record.lng};
+				markerOptions.position = new google.maps.LatLng(record.lat, record.lng);
+				appMap.addMarker(markerOptions, function(rec) {
+					return function() {
+						showAlarm(rec);
+					}
+					
+				}(record));
+
+
+
+			}
+		});
+	});
+
+
+	var $mapContainer = layout.container.find('#form_alarmaslog_grid_map');
+
+	appMap = new AppMap({$mapContainer: $mapContainer});
+	//appMap = new AppMap({id: 'form_alarmaslog_grid_map', $container: layout.container});
+	//appMap.initMapaCercas();
+	appMap.initMapaCercas();
+
+	//$container.appMap = appMap;
+
+	//console.log($grid);
+
+	//console.log(layout.container.find('> div > div.body'));
+</script>

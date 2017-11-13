@@ -1,0 +1,184 @@
+﻿
+@using Newtonsoft.Json
+@{
+	Layout = "_AppLayout";
+}
+
+<div style="position:absolute;width:500px;height:100%;z-index:2">
+	<div class="panel withheader withfooter">
+		<div class="header" style="background-color:#b6c0c8">JERARQUIA</div>
+		<div class="body"><div></div></div>
+		<div class="footer">
+			<button type="button">Nuevo</button>
+			<button type="button">Editar</button>
+		</div>
+	</div>
+</div>
+
+<div style="position:absolute;width:100%;height:100%;padding-left:500px;z-index:1">
+	<div class="panel withheader withfooter">
+		<div class="header" style="background-color:#b6c0c8">RELACIONES</div>
+		<div class="body">
+			<div></div>
+		</div>
+		<div class="footer">
+			
+		</div>
+	</div>
+</div>
+
+
+
+<script script-manager-add="layout" script-manager-key="init" type="text/javascript">
+
+	var $panels = layout.container.find('.panel');
+
+	var $panel_left = layout.container.find('.panel').first();
+	var $panel_right = layout.container.find('.panel').last();
+	var $tree = $panel_left.find('> .body >:first-child');
+	var $buttons = $panel_left.find('> .footer').children();
+
+	var $grid = $panel_right.find('> .body >:first-child');
+
+
+	var tree = $tree.jqxTree({width: '100%', height: '100%', source: @Html.Raw(ViewData["jsonTree"])}).data('jqxWidget');
+	tree.expandAll();
+	$buttons.jqxButton({template: 'info'});
+	var selectedItem;
+	var optionsNew = {onFormLoaded: function($container){
+		$container.form.widgets.padre._hostedWidget.selectItemByValue(selectedItem.value);
+	}};
+	$($buttons[0]).click(function(){
+		selectedItem = tree.getSelectedItem();
+
+		if(selectedItem == null)
+			App.showError('Debe seleccionar un item en el arbol.  Debajo de este item se creará un nuevo elemento.');
+		else
+			@(ViewData["editMethod"])(undefined, optionsNew);
+
+	});
+	$($buttons[1]).click(function(){
+		var item = tree.getSelectedItem();
+		if(item == null)
+			App.showError('Debe seleccionar un item en el arbol para editarlo');
+		else
+			@(ViewData["editMethod"])(item.value);
+
+	});
+
+	var searchgrid = new SearchGrid();
+
+	var search = function() {
+		var item = tree.getSelectedItem();
+
+		if(item && searchgrid.form.widgets.rel.val())
+		{
+			searchgrid.form.widgets.id.val(item.value);
+			searchgrid.search();
+		}
+	};
+
+	$tree.jqxTree().click(function () {
+		search();
+	});
+
+
+	var source =  {
+		datafields: @Html.Raw(JsonConvert.SerializeObject(ViewData["objGridFields"])),
+		datatype: 'json',
+		url: '/general/equipos/catstreerels',
+		type: 'POST',
+		data: {},
+		beforeprocessing: function(data)
+		{
+			searchgrid.adapter._source.data.recordcount = data.recordcount;
+			source.totalrecords = data.recordcount;
+		},
+		cache: false
+	};
+
+	var adapterSettings = {
+		contentType : 'application/json',
+		processData : function(data){
+		},
+		formatData : function(data)
+		{
+			return JSON.stringify(data);
+		},
+		autoBind : false
+	};
+
+
+	var rendergridrows = function (params) {
+		return params.data;
+	};
+
+
+	searchgrid.adapter = new $.jqx.dataAdapter(source, adapterSettings);
+
+	var columns = @Html.Raw(JsonConvert.SerializeObject(ViewData["objGridColumns"]));
+
+	var options = {
+		width: '100%',
+		height:'100%',
+		columnsresize: true,
+		selectionmode: 'singlecell',
+		virtualmode: true,
+		pageable: true,
+		rendergridrows: rendergridrows,
+		columns: columns,
+		showtoolbar: true,
+		rendertoolbar: function (toolbar) {
+			var $form = $('<form style="padding:3px"><div field_name="rel"></div><input type="hidden" name="id"></form>');
+			toolbar.append($form);
+
+			var $tablas = $form.find('> div');
+
+			$form.jqxForm();
+			var form = $form.instance;
+
+			form.add($tablas, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_tablas"])});
+			form.addFormElement($form.find('> input'));
+
+			searchgrid.form = form;
+
+
+			$tablas.on('change', function (event) {
+				search();
+			});
+		}
+	};
+
+	searchgrid.grid = $grid.jqxGrid(options).data('jqxWidget');
+
+	window.searchgrid = searchgrid;
+	
+
+	var edit = function(id)
+	{
+		App.equipos.equipo.edit(id);
+	};
+
+
+	var createwidget = function (row, column, value, htmlElement) {
+		var $element = $(htmlElement);
+		$element.css('padding', '3px');
+
+		var rowIndex = row.boundindex;
+
+		$editButton = $('<webicon class="file-4 clickable" style="margin-right:5px"></webicon>');
+		$element.append($editButton);
+
+		$editButton.on('click', function(){
+			edit(searchgrid.grid.getboundrow(rowIndex).id);
+		});
+
+	}
+
+	columns.push({ text: '', width: 100, createwidget: createwidget, initwidget: function(){}});
+
+
+
+</script>
+
+

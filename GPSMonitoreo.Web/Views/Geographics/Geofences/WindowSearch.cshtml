@@ -1,0 +1,97 @@
+﻿@{
+	Layout = "_AppLayoutWindowSearch";
+
+	var regions = ViewData["regions"] as IEnumerable<CommonBaseSimpleListDto<byte>>;
+	var regionsJson = regions.ToJqwidgets().PrependBlankItem().ToJsonString();
+
+	var layers = ViewData["layers"] as IEnumerable<CommonBaseSimpleListDto<byte>>;
+	var layersJson = layers.ToJqwidgets().ToJsonString();
+
+	var filters = new List<object>()
+	{
+		new { value = "", label = "TODAS" },
+		new { value = "with", label = "ASSIGNADA" },
+		new { value = "without", label = "SIN ASIGNAR" }
+	};
+
+	var filtersJson = filters.ToJsonString();
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+	options.dataFields = [
+		{ name: 'Id', type: 'number' },
+		{ name: 'AuxiliaryId', type: 'string' },
+		{ name: 'Description', type:' string' },
+		{ name: 'CategoryDescription', type: 'string' }
+	];
+
+	options.columns = [
+		{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+		{ text: 'Cód. Auxiliar.', datafield: 'AuxiliaryId', width: '90px' },
+		{ text: 'Descripción', datafield: 'Description', width: '250px' },
+		{ text: 'Categoria', datafield: 'CategoryDescription', width: '250px'}
+	];
+
+	options.searchFilters = [
+		[
+			new AppGridFilter({
+				label		: 'Cód Auxiliar',
+				widgetName	: 'jqxInput',
+				labelWidth	: '70px',
+				widgetWidth	: '170px',
+				fieldName	: 'AuxiliaryId'
+			}),
+			new AppGridFilter({
+				label		: 'Region',
+				widgetName	: 'jqxDropDownList',
+				labelWidth	: '70px',
+				widgetWidth	: '170px',
+				fieldName	: 'RegionId',
+				widgetOptions : { placeHolder: '', source: @Html.Raw(regionsJson) }
+			}),
+			new AppGridFilter({
+				label		: 'Ruta',
+				widgetName	: 'jqxComboBox',
+				labelWidth	: '70px',
+				widgetWidth	: '170px',
+				fieldName	: 'Routes',
+				widgetOptions : { placeHolder: '', source: @Html.Raw(filtersJson) }
+			}),
+			new AppGridFilter({
+				label		: 'Segmento',
+				widgetName	: 'jqxComboBox',
+				labelWidth	: '70px',
+				widgetWidth	: '170px',
+				fieldName	: 'Segments',
+				widgetOptions : { placeHolder: '', source: @Html.Raw(filtersJson) }
+			})
+		],
+		[
+			new AppGridFilter({
+				label		: 'Descripción',
+				widgetName	: 'jqxInput',
+				labelWidth	: '70px',
+				widgetWidth	: '170px',
+				fieldName	: 'Description'
+			}),
+			new AppGridFilter({
+				label		: 'Capa',
+				widgetName	: 'jqxDropDownList',
+				labelWidth	: '70px',
+				widgetWidth	: '170px',
+				fieldName	: 'LayerIds',
+				widgetOptions : { placeHolder: '', source: @Html.Raw(layersJson), checkboxes: true }
+			}),
+			new AppGridFilter({
+				label		: 'Tramo',
+				widgetName	: 'jqxComboBox',
+				labelWidth	: '70px',
+				widgetWidth	: '170px',
+				fieldName	: 'Sections',
+				widgetOptions : { placeHolder: '', source: @Html.Raw(filtersJson) }
+			})
+		]
+	];
+
+</script>

@@ -1,0 +1,243 @@
+﻿@model GPSMonitoreo.Web.ViewComponents.Models.FormEditableGridModel
+@using Newtonsoft.Json
+
+
+<script script-manager-add="@Model.ManagerId">
+	//var arregloCapacidades= new Array();
+	//arregloCapacidades.push({categoria: 1, capacidad: 2, unidad : 'moon', cantidad : 19});
+
+(function(){
+
+	var $grid = $container.find('#@(Model.FormId)_@Model.FieldName');
+
+
+	var grid;
+	var current_row;
+
+	var datafields = [];
+	var columns = [];
+	var customVal = null;
+	var localdata = [];
+	var addRow = function(){grid.addrow(null, {});};
+	var removeSelectedRows = null;
+	var edit = function(){};
+	var loadCallback = null;
+
+
+	//script-manager["init"]
+
+
+@if (Model.ShowEditButton) {<text>
+	var editWidgets = function (row, column, value, htmlElement) {
+		var $element = $(htmlElement);
+		$element.css('padding', '3px');
+
+		var rowIndex = row.boundindex;
+		$editButton = $('<webicon class="file-4 clickable" style="margin-right:5px"></webicon>');
+
+
+		$element.append($editButton);
+
+		$editButton.on('click', function(){
+			var boundRow = grid.getboundrow(rowIndex);
+			edit(boundRow.id, boundRow);
+		});
+	};
+	columns.push({ text: '', width: 100, createwidget: editWidgets, initwidget: function(){}});
+</text>}
+
+
+@if (Model.Swapable){<text>
+	var swapWidget = function (row, column, value, htmlElement) {
+		$up = $('<webicon class="up-arrow-3 clickable"></webicon>');
+		$down = $('<webicon class="down-arrow-3 clickable" style="margin-right:5px"></webicon>');
+
+		var $element = $(htmlElement);
+		$element.css('padding', '3px');
+		$element.append($down);
+		$element.append($up);
+
+		var boundIndex = row.boundindex;
+
+		$up.on('click', function(){
+			var rowIndex = grid.getrowindex(boundIndex);
+			if(rowIndex > 0)
+			{
+				var rowData = grid.getrowdata(rowIndex);
+				var prevRowData = grid.getrowdata(rowIndex - 1);
+				var uid = rowData.uid;
+				var prev_uid = prevRowData.uid;
+				var newRowData = grid.getcleanedrowdata(prevRowData);
+				var newPrevRowData = grid.getcleanedrowdata(rowData);
+				grid.updaterow(uid, newRowData);
+				grid.updaterow(prev_uid, newPrevRowData);
+			}
+		});
+
+		$down.on('click', function(){
+			var rowIndex = grid.getrowindex(boundIndex);
+
+			if(rowIndex < grid.getdatainformation().rowscount-1)
+			{
+				var rowData = grid.getrowdata(rowIndex);
+				var nextRowData = grid.getrowdata(rowIndex + 1);
+				var uid = rowData.uid;
+				var next_uid = nextRowData.uid;
+
+				var newRowData = grid.getcleanedrowdata(nextRowData);
+				var newNextRowData = grid.getcleanedrowdata(rowData);
+
+				grid.updaterow(uid, newRowData);
+				grid.updaterow(next_uid, newNextRowData);
+			}
+		});
+	};
+
+	columns.push({ text: '', width: 100, createwidget: swapWidget, initwidget: function(){}});
+
+
+</text>}
+
+
+
+	var source_grid =
+	{
+		localdata: localdata,
+        datatype: "array",
+		datafields: datafields,
+        deleterow: function (rowid, commit) {
+		commit(true);
+	},
+        addrow: function (rowid, rowdata, position, commit) {
+		commit(true);
+	},
+        updaterow: function (rowid, newdata, commit) {
+		commit(true);
+	}
+};
+
+	var dataAdapter = new $.jqx.dataAdapter(source_grid);
+
+	$grid.jqxGrid({
+		width: '100%',
+		height: '100%',
+		source: dataAdapter,
+		selectionmode: 'checkbox',
+		columnsresize: true,
+		columns: columns,
+		editable: true,
+
+
+
+@if (Model.ShowToolBar) {<text>
+		showtoolbar: true,
+		rendertoolbar: function ($toolbar) {
+			var $toolbar_container = $('<div style="height:100%;padding:3px"></div>');
+
+@if (Model.ShowAddButton) { <text>
+			var $add = $('<webicon class="placeholder-29 clickable"></webicon>');
+			$toolbar_container.append($add);
+			$add.click(function(){
+				addRow();
+			});
+</text>}			
+
+@if (Model.ShowRemoveButton) { <text>
+			var $delete = $('<webicon class="garbage-1 clickable"></webicon>');
+			$toolbar_container.append($delete);
+			if(removeSelectedRows)
+			{
+				$delete.click(function(){
+					removeSelectedRows();
+				});
+			}
+			else
+			{
+				$delete.click(function(){
+					grid.removecheckedrows();
+				});
+			}
+</text>}
+
+@if (Model.ShowReloadButton) { <text>
+			var $reload = $('<webicon class="arrows_repeat clickable"></webicon>');
+			$toolbar_container.append($reload);
+			$reload.click(function(){
+				grid.reload();
+			});
+</text>}
+			$toolbar.append($toolbar_container);
+		}
+	});
+</text>}
+
+	$grid.on('rowclick', function(evt){
+		current_row = evt.args.rowindex;
+	});
+
+
+	grid = $grid.data('jqxWidget');
+
+
+	//temporary fixes
+	if(typeof(layout) !== 'undefined')
+	{
+		layout.grids['@Model.FieldName'] = grid;
+	}
+	else
+	{
+		if($container.grids === undefined)
+			$container.grids = {};
+
+		$container.grids['@Model.FieldName'] = grid;
+
+		$container.grid = grid;
+	}
+
+	//temporary for debugging
+	//window.editablegrid = grid;
+	if(!window.grids)
+		window.grids = {};
+
+	window.grids['@Model.ManagerId'] = grid;
+
+
+@if (Model.AddToForm) { <text>
+	form.addWidget(grid);
+</text>}
+
+
+	grid.customReset = function()
+	{
+		grid.updatebounddata();
+	};
+
+	grid.customVal = customVal;
+
+	if(loadCallback)
+		grid.setloader(loadCallback);
+
+
+	@if(Model.TabIndex == -1){<text>
+	//initGrid();
+	////generarGridEditable($grid,$form,arregloCapacidades,datafields);
+	</text>}else{<text>
+	//tabInitializers[@Model.TabIndex] = function(){ initGrid();};
+	//tabInitializers[@Model.TabIndex] = function(){ /*grid.render();*/ /*grid.host.jqxGrid({height: '100%'});*/};
+	</text>}
+
+})();
+
+	//tabInitializers
+
+
+
+
+</script>
+
+
+<script script-manager-add="commonform" script-manager-key="form_init2">
+	//script-manager["manager:@Model.ManagerId"]
+</script>
+
+<div id="@(Model.FormId)_@Model.FieldName" field_name="@Model.FieldName"></div>

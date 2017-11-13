@@ -1,0 +1,19 @@
+﻿@{
+	Layout = "_CommonPopupEdit";
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel(this.ViewContext);
+	formModel.Title = "PARAMETROS::MARCAS";
+
+	ViewData["formModel"] = formModel;
+
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+	form.addTreeDropDown('#@(formModel.FormId)_CategoryId', {}, @Html.Raw(ViewData["cats"]));
+</script>
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr>
+		<td>Categoria</td>
+		<td colspan="4"><div id="@(formModel.FormId)_CategoryId" field_name="CategoryId"></div></td>
+	</tr>
+</formsection>

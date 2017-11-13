@@ -1,0 +1,76 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayout
+@{
+	Layout = "_AppLayoutTabbed";
+
+	var entityId = (int)ViewData["entityId"];
+}
+@section tabtitles{
+	<li>Destinatarios</li>
+}
+
+@section tabs{
+	<div><div class="recipients-grid"></div></div>
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addInitializer(function() {
+
+		var $tabsContainer = $(this.tabs._contentWrapper);
+
+		var $recipientsGrid = $tabsContainer.find('> div > div.recipients-grid');
+		var recipientsGrid;
+
+		var recipientsOptions = AppGrid2.getDefaultOptions();
+
+
+		recipientsOptions.$element = $recipientsGrid;
+
+		recipientsOptions.searchUrl = '/entities/entityalarmnotifications/search';
+
+		recipientsOptions.extraParameters = { EntityId: @entityId };
+		
+
+		recipientsOptions.showAddButton = true;
+		recipientsOptions.showRowEditButton = true;
+		
+		recipientsOptions.rowEditMethod = function(id, row){
+			App.entities.entityalarmnotifications.edit(id, {additionalQueryString: @entityId});
+		};
+		
+		recipientsOptions.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'RecipientLastNames', type: 'string' },
+			{ name: 'RecipientNames', type: 'string' }
+		];
+
+		recipientsOptions.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Apellidos', datafield: 'RecipientLastNames', width: '200px' },
+			{ text: 'Nombres', datafield: 'RecipientNames', width: '200px' }
+		];
+
+		recipientsOptions.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Nombres',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Names'
+				}),
+				new AppGridFilter({
+					label		: 'Apellidos',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'LastNames'
+				})
+			]
+		];
+
+		recipientsGrid = new AppGrid2(recipientsOptions);
+
+	});
+
+</script>

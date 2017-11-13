@@ -1,0 +1,43 @@
+﻿@{
+	Layout = "_AppLayoutWindowSearch";
+
+
+
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+	options.dataFields = [
+		{ name: 'Id', type: 'number' },
+		{ name: 'AuxiliaryId', type: 'string' },
+		{ name: 'Description', type:' string' },
+		{ name: 'CategoryDescription', type: 'string' }
+	];
+
+	options.columns = [
+		{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+		{ text: 'Cód. Auxiliar.', datafield: 'AuxiliaryId', width: '90px' },
+		{ text: 'Descripción', datafield: 'Description', width: '250px' },
+		{ text: 'Categoria', datafield: 'CategoryDescription', width: '250px'}
+	];
+
+	options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Cód Auxiliar',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'AuxiliaryId'
+				}),
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Description'
+				})
+			]
+	];
+
+</script>

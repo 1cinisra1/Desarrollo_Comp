@@ -1,0 +1,325 @@
+﻿@{
+}
+
+<script>
+App.hookTab('@Context.Request.Path.Value', function($container, tabIndex, tabs){
+	console.log('B');
+	var $left = $container.find('> div > div.left');
+	var $right = $container.find('> div > div.right');
+	var $form = $left.find('> form').jqxForm();
+	var form = $form[0];
+	var $tabs = $right.find('> div');
+
+
+	var $mapContainer = $tabs.find('> div:first > div');
+	var tabs = $tabs.jqxTabs({ width: '100%', height: '100%', position: 'top'});
+	var map = new AppMap({$mapContainer: $mapContainer});
+
+
+	//form.add([form.elements.prueba], 'jqxInput');
+
+	map.initReportMap();
+
+	///Region
+	var $cmb_region = $form.find('#form_cmb_region');
+	form.add($cmb_region, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_cmb_region"]), checkBoxes: true});
+	$cmb_region.css('width', '100%');
+
+	///Producto
+	var $categoria_producto = $form.find('#form_categoria_producto');
+	var $tree_categoria_producto = $form.find('#form_tree_categoria_producto').jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["lista_tree_categoria_producto"]), checkBoxes: true});
+	var ecategoriaproducto = form.addDropDownButton($categoria_producto, { width: '100%', dropDownWidth : 300}, $tree_categoria_producto.data('jqxWidget'));
+	$categoria_producto.css('width', '100%');
+	$tree_categoria_producto.on('select', function (event) {
+		var args = event.args;
+		var item = $tree_categoria_producto.jqxTree('getItem', args.element);
+		var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+		ecategoriaproducto.setContent(dropDownContent);
+		ecategoriaproducto.close();
+	});
+
+	///Tipo Equipo
+	var $categoria_equipo = $form.find('#form_categoria_equipo');
+	var $tree_categoria_equipo = $form.find('#form_tree_categoria_equipo').jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["lista_tree_categoria_equipo"]), checkBoxes: true});
+	var ecategoriaequipo = form.addDropDownButton($categoria_equipo, { width: '100%', dropDownWidth : 300}, $tree_categoria_equipo.data('jqxWidget'));
+	$categoria_equipo.css('width', '100%');
+	$tree_categoria_equipo.on('select', function (event) {
+		var args = event.args;
+		var item = $tree_categoria_equipo.jqxTree('getItem', args.element);
+		var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+		ecategoriaequipo.setContent(dropDownContent);
+		ecategoriaequipo.close();
+	});
+
+	///Alarmas Niveles
+	var $cmb_alarma_nivel = $form.find('#form_cmb_alarma_nivel');
+	form.add($cmb_alarma_nivel, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_cmb_alarma_nivel"]), checkBoxes: true});
+	$cmb_alarma_nivel.css('width', '100%');
+
+	
+	///TreeGrid
+
+	
+	
+	
+
+});
+</script>
+
+
+<script>
+	App.hookTab('@Context.Request.Path.Value', function($container, tabIndex, tabs){
+		////console.log('A');
+		var $gridTree = $container.find('#treeGrid');
+		var gridTree;
+		var $general_chb = $('<div>');
+		var general_chb_1 = $general_chb.jqxCheckBox({width: '50px', height: '50px'});
+		var arreglo_json = @Html.Raw(ViewData["arreglo_json_categorias_alarmas"]);
+		var recordsData;
+		///console.log(arreglo_json);
+
+		var arregloTiposNivelesAlarmas = ["viaje", "ruta", "tramo", "segmento", "cerca"];
+
+		var source =
+		{
+			dataType: "json",
+			dataFields: [
+				 { name: "id", type: "number" },
+				 { name: "descripcion", type: "string" },
+				 { name: "arregloFilaAlarma", type: "array" },
+				 { name: "viaje", type: "string" },
+				 { name: "ruta", type: "string" },
+				 { name: "tramo", type: "string" },
+				 { name: "segmento", type: "string" },
+				 { name: "cerca", type: "string" }
+			],
+			hierarchy:
+				{
+					root: "arregloFilaAlarma"
+				},
+			localData: arreglo_json,
+			id: "id"
+		};
+
+		var dataAdapterTree = new $.jqx.dataAdapter(source
+				//, {
+				//	beforeLoadComplete: function (records) 
+				//	{
+				//		console.log('aaa');
+				//		//////console.log(mygridTree.base.table[0].firstChild.rows);
+				//		console.log("$.jqx.dataAdapter=>beforeLoadComplete")
+				//		recordsData =  records;
+				//		for (var i = 0; i < records.length; i++)D
+				//		{
+				//			console.log(records);
+				//			records[i]['viaje'] = formarHtmlCheckbox(records[i]['viaje']);
+				//			records[i]['ruta'] = formarHtmlCheckbox(records[i]['ruta']);
+				//			records[i]['tramo'] = formarHtmlCheckbox(records[i]['tramo']);
+				//			records[i]['segmento'] = formarHtmlCheckbox(records[i]['segmento']);
+				//			records[i]['cerca'] = formarHtmlCheckbox(records[i]['cerca']);
+
+				//			var arregloHijo = records[i]['arregloFilaAlarma'];
+				//			recorrerArregloHijo(arregloHijo, arregloTiposNivelesAlarmas);
+
+				//		}
+				//	}
+				//}
+		);
+
+
+
+		columnsTree = [
+			 { text: "", align: "center", dataField: "descripcion", width: 350}
+					  , { text: "Viaje", dataField: "viaje", cellsAlign: "center", align: "center", width: 50 }
+					  , { text: "Ruta", dataField: "ruta", cellsAlign: "center", align: "center", width: 50 }
+					  , { text: "Tramo", dataField: "tramo", cellsAlign: "center", align: "center", width: 50 }
+					  , { text: "Segmento", dataField: "segmento", cellsAlign: "center", align: "center", width: 100 }
+					  , { text: "Cerca", dataField: "cerca", cellsAlign: "center", align: "center", width: 50 }
+		];
+
+		//function formarHtmlCheckbox(valorCheck){
+		//	var codigoHtml = '';
+		//	if(valorCheck == 'na')
+		//	{
+		//		codigoHtml = '';
+		//	}
+		//	else
+		//	{
+		//		codigoHtml = '<input type="checkbox" style="position: relative; margin-left: 3px;" ';
+		//		codigoHtml +=  ' />';
+		//		//codigoHtml = general_chb_1;
+		//	}
+
+		//	return codigoHtml;
+		//}
+
+		//function recorrerArregloHijo(arregloHijo, arregloNombreColumnas){
+		//	for (var j = 0; j < arregloHijo.length; j++)
+		//	{
+
+		//		for(var k = 0; k < arregloNombreColumnas.length; k++)
+		//		{
+		//			var nombreColumna = arregloNombreColumnas[k];
+		//			var valorCheck = arregloHijo[j][nombreColumna];
+		//			arregloHijo[j][nombreColumna] = formarHtmlCheckbox(valorCheck);
+		//		}
+
+		//	}
+		//}
+	
+
+		function initGridTree()
+		{
+			////console.log('inicio => initGridTree');
+			$gridTree.jqxTreeGrid(
+			{
+				source: dataAdapterTree,
+				//altRows: true,
+				sortable: true,
+				//showtoolbar: true,
+				//editable: true,
+				///hierarchicalCheckboxes: true,
+				////width: 500,
+				height:300,
+				////checkboxes: false,
+				//enableHover: false,
+				//selectionMode: 'none',
+				////renderer : function () {
+				////	console.log(mygridTree.base.table[0].firstChild.rows);
+				////},
+				//rowDetails: true,
+				ready: function()
+				{
+					$("#treeGrid td").on('click', function (event) {
+						alert($(event.target).text());
+					});
+				},
+				columns: columnsTree
+
+			});
+			
+			gridTree = $gridTree.data('jqxWidget');
+			$container.gridTree = gridTree;
+
+			window.mygridTree = gridTree;
+			window.dataAdapterTree = dataAdapterTree;
+			mygridTree.expandAll();
+			cargarCheckboxTreeGrid();
+		}
+
+		initGridTree();
+
+		function cargarCheckboxTreeGrid()
+		{
+			console.log('bbb');
+			////console.log(mygridTree.base.table[0].firstChild.rows);
+			var arreglo = mygridTree.base.table[0].firstChild.rows;
+			for(var i = 0; i < arreglo.length; i++)
+			{
+			
+				realizarInsercionCheckbox(mygridTree,i,1);
+				realizarInsercionCheckbox(mygridTree,i,2);
+				realizarInsercionCheckbox(mygridTree,i,3);
+				realizarInsercionCheckbox(mygridTree,i,4);
+				realizarInsercionCheckbox(mygridTree,i,5);
+
+			}
+		}
+
+		function realizarInsercionCheckbox(mygridTree,irow,icell)
+		{
+			var valor = obtenerValorCelda(mygridTree, irow, icell);
+			limpiarCelda(mygridTree, irow, icell);
+			if(valor == "true"){
+				limpiarCelda(mygridTree, irow, icell);
+				var div = $('<div>');
+				div.jqxCheckBox({width: '25px', height: '25px'});
+				$(mygridTree.base.table[0].firstChild.rows[irow].cells[icell]).append(div);
+				
+			}
+		}
+
+		function limpiarCelda(mygridTree, irow, icell)
+		{
+			mygridTree.base.table[0].firstChild.rows[irow].cells[icell].innerText = '';
+			mygridTree.base.table[0].firstChild.rows[irow].cells[icell].innerHtml = '';
+		}
+
+		function obtenerValorCelda(mygridTree, irow, icell)
+		{
+			return mygridTree.base.table[0].firstChild.rows[irow].cells[icell].innerText;
+		}
+
+});
+</script>
+
+<div class="report_tabbed">
+	
+	<div class="left">
+		<div class="jqx-widget-metro jqx-fill-state-pressed-metro" style="width:100%;height:32px;padding-top:8px;padding-left:5px;margin-bottom:3px;font-weight: 600">FILTROS BÚSQUEDA</div>
+		<form id="form_reporte_filtro" action="@(Context.Request.Path.Value)search">
+			<table class="table_edit jqx-wide">
+
+				<tr>
+					<td style="width:100px;">Región</td>
+					<td style="width:120px;">
+						<div id="form_cmb_region" field_name="region"></div>
+					</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td style="width:100px;">Producto</td>
+					<td style="width:120px;">
+						<div id="form_categoria_producto" field_name="producto">
+							<div id='form_tree_categoria_producto' style="border: none;"></div>
+						</div>
+					</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td style="width:100px;">Tipo Equipo</td>
+					<td style="width:120px;">
+						<div id="form_categoria_equipo" field_name="categoria">
+							<div id='form_tree_categoria_equipo' style="border: none;"></div>
+						</div>
+					</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td style="width:100px;">Alarma</td>
+					<td></td>
+					<td style="overflow:auto">
+						<div id="treeGrid" field_name="alarma_arreglo">
+
+						</div>
+					</td>
+
+				</tr>
+				
+				<tr>
+					<td style="width:100px;">Nivel Alarma</td>
+					<td style="width:120px;">
+						<div id="form_cmb_alarma_nivel" field_name="alarma_nivel"></div>
+					</td>
+					<td></td>
+
+				</tr>
+				
+			</table>
+		</form>
+	</div>
+	
+	<div class="right">
+		<div>
+			<ul>
+				<li>Mapa</li>
+			</ul>
+			<div>
+				<div style="width:100%;height:100%"></div>
+			</div>
+		</div>
+	</div>
+</div>

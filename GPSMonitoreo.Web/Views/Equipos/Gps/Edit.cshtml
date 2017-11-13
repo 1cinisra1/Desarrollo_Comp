@@ -1,0 +1,104 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_TabbedLayoutForm.cshtml";
+
+	var viewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.FormRelationalGridModel()
+		{
+			Title = "Gps"
+			, FormId = Model.FormId
+			//, FieldName = "lista_equipo_grupo"
+		}
+	};
+}
+
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+	var $gps_marca = $form.find('#form_gps_marca');
+	form.add($gps_marca, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_gps_marca"])});
+	$gps_marca.css('width', '100%');
+
+	var $gps_modelo = $form.find('#form_gps_modelo');
+	form.add($gps_modelo, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_gps_modelo"])});
+	$gps_modelo.css('width', '100%');
+
+	var $gps_equipo = $form.find('#form_gps_equipo');
+	form.add($gps_equipo, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["lista_equipo"])});
+	$gps_equipo.css('width', '100%');
+
+	
+
+	form.add('#form_gps_imei', 'jqxInput');
+
+	function windowSearch(grid){
+		App.equipos.gps.windowSearch(function(item){
+			grid.addrow(null
+						,	{
+								id: item.id
+								, descripcion_larga: item.descripcion_larga
+								, estado: item.estado
+								, imei: item.imei
+								, marca: item.marca
+								, modelo: item.modelo
+								, equipo: item.equipo
+							}
+						);
+		});
+	}
+</script>
+
+
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr>
+		<td>Gps marca</td>
+		<td>
+			<div id="form_gps_marca" field_name="marca"></div>
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Gps modelo</td>
+		<td>
+			<div id="form_gps_modelo" field_name="modelo"></div>
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Equipo</td>
+		<td>
+			<div id="form_gps_equipo" field_name="equipo"></div>
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</formsection>
+
+
+<formsection form-manager="commonform" form-manager-section="section3">
+	<tbody class="tbody_group">
+		<tr>
+			<th colspan="4">OTROS DATOS</th>
+		</tr>
+		<tr>
+			<td>IMEI</td>
+			<td>
+				<input id="form_gps_imei" field_name="imei" maxlength="18" style="width:170px !important" />
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</formsection>
+
+
+@*<formsection form-manager="commonform" form-manager-section="section3">
+	@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormRelationalGrid), viewComponentModel)
+</formsection>*@

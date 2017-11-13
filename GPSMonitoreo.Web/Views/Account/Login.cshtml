@@ -1,0 +1,41 @@
+﻿@{ 
+	Layout = "_Static";
+}
+<script>
+	$(function() {
+		$('#createAccount').jqxExpander({  toggleMode: 'none', width: '350px', showArrow: false });
+		var form = document.forms[0];
+		$(form.elements.username).jqxInput({ width: 200, height: 25 });
+		$(form.elements.password).jqxPasswordInput({ width: 200, height: 25 });
+
+		$('#submitButton').jqxButton({height: 25, template: 'primary' });
+	});
+
+
+</script>
+<div style="">
+	<div id="createAccount" style="position:absolute;font-family: Verdana; font-size: 13px;top: 50%;left: 50%;transform: translate(-50%, -50%); ">
+		<div>
+			Login
+		</div>
+		<div style="font-family: Verdana; font-size: 13px;">
+
+			<form class="form" id="form" method="post" style="font-size: 13px; font-family: Verdana; ">
+				<table>
+					<tr>
+						<td>Usuario:</td>
+						<td><input name="username" type="text" /></td>
+					</tr>
+					<tr>
+						<td>Clave:</td>
+						<td><input name="password" type="password" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><button type="submit" id="submitButton">Login</button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>

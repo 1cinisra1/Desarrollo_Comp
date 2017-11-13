@@ -1,0 +1,306 @@
+﻿@{
+	Layout = "_AppLayoutSearchGrid";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid(this.ViewContext);
+
+	layoutModel.Title = "ENTIDADES";
+
+	ViewData["layoutModel"] = layoutModel;
+
+	var entityTypes = ViewData["entityTypes"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var entityTypesJson = entityTypes.PrependBlankItem().ToJsonString();
+
+	var identificationTypes = ViewData["identificationTypes"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var identificationTypesJson = identificationTypes.PrependBlankItem().ToJsonString();
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addGridInitializer(function() {
+
+		var options = AppGrid2.getDefaultOptions();
+
+		options.selectionMode = 'singlerow';
+
+		options.searchUrl = '@layoutModel.PostUrl';
+		
+		options.showRowEditButton = true;
+		options.rowEditMethod = function(id) {
+			App.entidades.entidad.edit(id);
+		};
+
+		options.showAddButton = true;
+		options.addMethod = function() {
+			App.entidades.entidad.editNew();
+		};
+
+		options.showRowQuickViewButton = true;
+		options.rowQuickViewMethod = function(id) {
+			App.quickView('/entidades/entidad/quickview/' + id);
+		};
+
+		options.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'EntityTypeId', type: 'number' },
+			{ name: 'EntityTypeDescription', type: 'string' },
+			{ name: 'Description', type: 'string' },
+			{ name: 'Identification', type: 'string' },
+			{ name: 'BusinessName', type: 'string' },
+			{ name: 'LastNames',type:'string'},
+			{ name: 'Names',type:'string'}
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Tipo', datafield: 'EntityTypeDescription', width: '90px' },
+			{ text: 'Descripción', datafield: 'Description', width: '200px' },
+			{ text: 'Identificación', datafield: 'Identification', width: '200px' },
+			{ text: 'Razón Social', datafield: 'BusinessName', width: '200px' },
+			{ text: 'Apellidos', datafield: 'LastNames', width: '200px' },
+			{ text: 'Nombres', datafield: 'Names', width: '200px' }
+		];
+
+		options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Identificación',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Identification'
+				}),
+				new AppGridFilter({
+					label		: 'Tipo Identif.',
+					widgetName	: 'jqxDropDownList',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'IdentificationTypeId',
+					widgetOptions : { placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(identificationTypesJson) }
+				}),
+				new AppGridFilter({
+					label		: 'Nombres',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Names'
+				}),
+				new AppGridFilter({
+					label		: 'Apellidos',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'LastNames'
+				})
+			],
+			[
+				new AppGridFilter({
+					label		: 'Razón Social',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'BusinessName'
+				}),
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Description'
+				}),
+				new AppGridFilter({
+					label		: 'Tipo Entidad',
+					widgetName	: 'jqxDropDownList',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'EntityTypeId',
+					widgetOptions : { placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(entityTypesJson) }
+				}),
+				new AppGridFilterInitializer({
+					label		: 'Categoria',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'CategoryIds',
+					initialize  : function ($element, searchFiltersForm) {
+						var $categoryTree = $('<div style="border:none;"></div>');
+
+						$element.append($categoryTree);
+
+						$categoryTree.jqxTree({ height: '200px', checkboxes: true, source: @Html.Raw(ViewData["categories"])});
+
+						var categoryTree = $categoryTree.data('jqxWidget');
+
+						var category = searchFiltersForm.addDropDownButton($element, { width: '100%', dropDownWidth : 300}, categoryTree);
+
+						$categoryTree.on('checkChange', function (event) {
+							var args = event.args;
+							var items = categoryTree.getCheckedItems();
+
+							var str = '';
+
+							if(items.length == 0)
+								str = '';
+							else if(items.length == 1)
+								str = items[0].label;
+							else
+								str = 'Items seleccionados: (' + items.length + ')';
+
+							category.setContent('<div style="position: relative; margin-left: 3px;">' + str + '</div>');
+
+						});
+					}
+				})
+			]
+		];
+		
+
+		var toolbarMenu;
+
+		options.onButtonsToolbarRendering = function($buttonsToolBar) {
+			//console.log($buttonsToolBar);
+
+			//var $toolbarMenu = $('<div class="grid-toolbar-menu" style="display:inline-block;margin-left:35px;">');
+
+			var $toolbarMenu = $('<div style="display:inline-block;margin-left:35px;">');
+
+			$buttonsToolBar.append($toolbarMenu);
+
+			//var menuSource = [
+			//	{ id: 'options', label: 'Opciones', disabled: true, items: [
+			//			{ id: 'alarmNotifications', label: 'Notificaciones Alarmas', disabled: false, items: [{label:'mae'}] },
+			//			{ id: 'logisticNotifications', label: 'Notificaciones logistics', disabled: false }
+			//		]
+			//	}
+			//];
+
+			var menuSource = [
+				{ value: 'alarmNotifications', label: 'Notificaciones Alarmas', disabled: true },
+				{ value: 'logisticNotifications', label: 'Notificaciones Logisticas', disabled: true },
+				{ value: 'prueba', label: 'Notificaciones Logisticas prueba', disabled: true },
+			];
+
+		
+			$toolbarMenu.jqxDropDownList({ source: menuSource, width: 'auto', dropDownWidth: '150px', height: 22, placeHolder: '[ Opciones ]', closeDelay: 0 });
+
+
+			//$toolbarMenu.jqxMenu({ source: menuSource, height: 24, showTopLevelArrows: true, clickToOpen: true});
+
+			toolbarMenu = $toolbarMenu.data('jqxWidget');
+
+			$toolbarMenu.on('open', function(event) {
+				var menu = event.owner;
+
+				var selectedRows = layout.grid.grid.getselectedrows();
+
+				if(selectedRows.length == 1)
+				{
+
+					var alarmNotificationsEnabled = false;
+					var logisticNotificationsEnabled = false;
+					var pruebaEnabled = false;
+
+					var row = selectedRows[0];
+
+					switch(row.EntityTypeId)
+					{
+						case 1: //empresa
+							alarmNotificationsEnabled = true;
+							pruebaEnabled = true;
+
+							break;
+					}
+
+					menu.enableByValue('alarmNotifications', alarmNotificationsEnabled);
+					menu.enableByValue('logisticNotifications', logisticNotificationsEnabled);
+					menu.enableByValue('prueba', pruebaEnabled);
+
+					//menu.enableAll();
+
+				}
+				else
+				{
+					menu.disableAll();
+				}
+
+
+
+
+			});
+
+			$toolbarMenu.on('select', function (event) {
+
+				var args = event.args;
+
+				var menu = event.owner;
+				
+				menu.clearSelection();
+
+				
+
+				menu.close();
+
+				
+				if (args) 
+				{
+					var item = args.item;
+					
+					//console.log(item.value);
+
+					var selectedRows = layout.grid.grid.getselectedrows();
+
+					if(selectedRows.length == 1)
+					{
+						var selectedRow = selectedRows[0];
+						
+						switch(item.value)
+						{
+							case 'alarmNotifications':
+								App.entities.entityalarmnotifications.index({additionalQueryString: selectedRow.Id});
+								break;
+						}
+					}
+				}
+
+			});
+		};
+
+
+		//options.events.rowselect = function (event) {
+		//	var args = event.args;
+		//	var grid = args.owner;
+
+		//	console.log('selecting');
+		//	//console.log(grid.getselectedrowindexes());
+
+		//	console.log(event);
+
+		//	if(grid.getselectedrowindexes().length == 1)
+		//	{
+		//		toolbarMenu.enableAll();
+		//	}
+		//	else
+		//	{
+		//		toolbarMenu.disableAll();
+		//	}
+		//};
+
+		//options.events.rowunselect = function (event) {
+		//	var args = event.args;
+		//	var grid = args.owner;
+
+		//	console.log('unselecting');
+
+		//	if(grid.getselectedrowindexes().length == 1)
+		//	{
+		//		toolbarMenu.enableAll();
+		//	}
+		//	else
+		//	{
+		//		toolbarMenu.disableAll();
+		//	}
+		//};
+
+		return options;
+	});
+
+</script>

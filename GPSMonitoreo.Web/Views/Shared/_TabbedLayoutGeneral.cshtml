@@ -1,0 +1,229 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{
+	//public var xx = "afdddasf";
+
+	//var urlArr = Context.Request.Path.Value.Split('/');
+	//var postUrl = string.Join("/", urlArr.Take(urlArr.Length - 1)) + "/save";
+
+	this.IgnoreBody();
+
+}
+
+
+<div class="panel_general">
+	<div class="header">
+		@Model.Title
+	</div>
+	<div class="body">
+		<div>
+			<ul>
+				<li>Edición</li>
+				<li>Búsqueda</li>
+			</ul>
+			<div style="padding:5px">
+				<form method="post" action="@(Context.Request.Path.Value)save" id="@Model.FormId">
+					<table class="table_edit jqx-wide">
+						<tbody>
+							<tr>
+								<td style="width:120px;">Código Interno</td>
+								<td style="width:150px;"><input type="text" name="id" class="input_label_readonly" /></td>
+								<td style="width:10px;">&nbsp;</td>
+								<td style="width:120px;">Código Auxiliar</td>
+								<td style="width:150px;"><input type="text" name="codigo" maxlength="10" /></td>
+							</tr>
+							@RenderSection("form_sub1", false)
+							<tr>
+								<td>Fecha creación</td>
+								<td><span class="input_label_readonly">10/10/2016 18:35</span></td>
+								<td></td>
+								<td>Fecha modificación</td>
+								<td><div class="input_label_readonly">10/10/2016 18:35</div></td>
+							</tr>
+							<tr>
+								<td>Usuario creación</td>
+								<td><span class="input_label_readonly">jjjj</span></td>
+								<td></td>
+								<td>Usuario modificación</td>
+								<td><div class="input_label_readonly">xxx</div></td>
+							</tr>
+							<tr>
+								<td>Descripción larga</td>
+								<td colspan="4"><input type="text" name="descripcion_larga" maxlength="52" /></td>
+							</tr>
+							<tr>
+								<td>Descripción mediana</td>
+								<td colspan="4"><input type="text" name="descripcion_mediana" maxlength="30" style="width:250px" /></td>
+							</tr>
+							<tr>
+								<td>Descripción corta</td>
+								<td colspan="4"><input type="text" name="descripcion_corta" maxlength="15" style="width:150px" /></td>
+							</tr>
+							<tr>
+								<td>Abreviacion</td>
+								<td colspan="4"><input type="text" name="abreviacion" maxlength="5" style="width:50px" /></td>
+							</tr>
+							<tr>
+								<td>Observaciones</td>
+								<td colspan="4"><div id="@(Model.FormId)_observaciones" field_name="observaciones" style="height:50px"></div></td>
+							</tr>
+							<tr>
+								<td>Activo</td>
+								<td colspan="4"><div id="@(Model.FormId)_estado" field_name="estado" class="jqx-checkbox-nomargin"></div></td>
+							</tr>
+							<tr>
+								<td colspan="5">&nbsp;</td>
+							</tr>
+						</tbody>
+						@RenderSection("form_sub2", false)
+					</table>
+					<button type="button">Guardar</button>
+					<div class="input_error">asdfas</div>
+				</form>
+			</div>
+			<div class="panel_general_search">
+				<div class="form jqx-wide">
+					<form id="@(Model.FormId)_search" style="padding: 5px">
+						<table>
+							<tr>
+								<td>Descripcion</td>
+								<td style="width:150px"><input type="text" name="descripcion" maxlength="100" /></td>
+							</tr>
+						</table>
+						<button type="button">Buscar</button>
+					</form>
+				</div>
+				<div class="grid">
+					<div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script script-manager-render="tabbed_layout_form">
+//RemoteContent.hook(App.$splittedBody.$right, '@Context.Request.Path.Value', function($container){
+App.hookTab('@Context.Request.Path.Value', function($container, tabIndex, tabs){
+	var $form = $container.find('#@Model.FormId').jqxForm();
+	var form = $form.instance;
+	$container.form = form;
+
+
+	var $form_search = $container.find('#@(Model.FormId)_search').jqxForm();
+	var form_search = $form_search.instance;
+
+	var $grid = $form_search.parent().next().children();
+
+	var $button_search = $form_search.find('button');
+
+
+	var f = form.formElement;
+
+
+
+	form.add([f.elements.id, f.elements.codigo, f.elements.descripcion_larga, f.elements.descripcion_mediana, f.elements.descripcion_corta, f.elements.abreviacion], 'jqxInput');
+	form.add('#@(Model.FormId)_observaciones', 'jqxTextArea');
+	form.add('#@(Model.FormId)_estado', 'jqxCheckBox');
+
+
+	var $button = $form.find('button');
+
+
+	form.$errorMessageContainer = $button.next();
+
+	$button.form = form;
+
+	$button.click(function(){
+		App.postFormJsonFromButton($button, function(response){
+			form.setWidgetValue('id', response.id);
+		}, null, {popupErrorMessage: true, resetFormErrors : true});
+	});
+
+	$button.jqxButton({template: 'info'});
+
+	var tabInitialized = function(tab){};
+
+	$container.find('> div > div.body > div').jqxTabs({ width: '100%', height: '100%',
+		initTabContent: function (tab) {
+			tabInitialized(tab);
+		}
+	});
+
+
+
+	form_search.add([$form_search[0].elements.descripcion], 'jqxInput');
+
+	
+
+
+	var searchgrid = new SearchGrid();
+
+	searchgrid.form = $form_search;
+
+
+	$button_search.jqxButton({template: 'info'});
+
+	$button_search.click(function(){
+		searchgrid.search();
+	});
+
+
+	var source =  {
+		/*localdata: [],*/
+		datafields: [{"name":"id","map":"0","type":"string"},{"name":"descripcion","map":"1","type":"string"}],
+		datatype: 'json',
+		url: '@(Context.Request.Path.Value)search',
+		type: 'POST',
+		data: {},
+		beforeprocessing: function(data)
+		{
+			searchgrid.adapter._source.data.recordcount = data.recordcount;
+			//ComprobantesRecibidos._searchadapter._source.data.recordcount = data.recordcount;
+			source.totalrecords = data.recordcount;
+		},
+		cache: false
+	};
+
+	var adapterSettings = {
+		contentType : 'application/json',
+		processData : function(data){
+		},
+		formatData : function(data)
+		{
+			return JSON.stringify(data);
+		},
+		autoBind : false
+	};
+
+
+	var rendergridrows = function (params) {
+		return params.data;
+	};
+
+
+	searchgrid.adapter = new $.jqx.dataAdapter(source, adapterSettings);
+
+	var columns = [{"text":"Código interno","datafield":"id","width":"150px"},{"text":"Descripción","datafield":"descripcion","width":"250px"}];
+
+
+	
+
+
+
+
+
+	var options = {
+		width: '100%',
+		height:'100%',
+		columnsresize: true,
+		selectionmode: 'singlecell',
+		virtualmode: true,
+		pageable: true,
+		rendergridrows: rendergridrows,
+		//localization: gridLocalizationES,
+		columns: columns
+	};
+	searchgrid.grid = $grid.jqxGrid(options).data('jqxWidget');
+
+});
+	
+
+</script>

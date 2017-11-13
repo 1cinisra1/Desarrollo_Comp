@@ -1,0 +1,75 @@
+﻿@*@model GPSMonitoreo.Web.ViewModels.AppLayoutForm*@
+@{ 
+	//GPSMonitoreo.Web.ViewModels.AppLayoutForm layoutModel = Model ?? ViewData["layoutModel"] as GPSMonitoreo.Web.ViewModels.AppLayoutForm;
+
+
+	var layoutModel = (Model ?? ViewData["layoutModel"]) as GPSMonitoreo.Web.ViewModels.AppLayoutForm;
+
+	IgnoreBody();
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel() { FormId = layoutModel.FormId, Action = layoutModel.PostUrl };
+
+
+}
+<div class="panel_input">
+	<div class="header layout_header">
+		<span class="layout_title">@layoutModel.Title</span><span class="layout_subtitle"></span>
+	</div>
+	<div class="body">
+		<div>
+			<ul>
+				<li>Principal</li>
+				 @RenderSection("tabtitles", false)
+			</ul>
+			<div style="padding:5px">
+				@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.CommonForm3), new { model = formModel })
+				<br/><br/>
+			</div>
+			@RenderSection("tabs", false)
+		</div>
+	</div>
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+<script script-manager-render="tabbed_layout_form">
+App.hookLayout('@layoutModel.Url', function(layout){
+	layout.editDataUrl = '@layoutModel.EditDataUrl';
+	layout.options = {
+		formId	: '@layoutModel.FormId'
+
+	};
+
+	//console.log(layout);
+
+	//script-manager["manager:commonform"]
+
+
+
+	@*//var tabInitialized = function(tab){};
+
+	var layout = new AppTabbedLayoutForm({
+		$container	: $container,
+		formId		: '@Model.FormId' 
+	});
+
+	layout.initForm();
+	window.layout = layout;
+
+	$container.layout = layout;
+
+	
+
+	
+
+
+
+	
+
+	layout.initTabs();*@
+
+});
+	
+
+</script>

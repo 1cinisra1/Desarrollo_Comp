@@ -1,0 +1,43 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid
+@{
+	Layout = "_AppLayoutSearchGrid";
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addGridInitializer(function() {
+
+		var options = AppGrid2.getDefaultOptions();
+
+		@Html.Raw(Model.RenderOptions())
+
+		options.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'Username', type: 'text'},
+			{ name: 'EntityDescription', type: 'text'},
+			{ name: 'RoleDescription', type: 'text'}
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Usuario', datafield: 'Username', width: '200px' },
+			{ text: 'Entidad', datafield: 'EntityDescription', width: '200px' },
+			{ text: 'Rol', datafield: 'RoleDescription', width: '200px' }
+		];
+
+		options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Usuario',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Username'
+				})
+			]
+		];
+
+		return options;
+	});
+
+</script>

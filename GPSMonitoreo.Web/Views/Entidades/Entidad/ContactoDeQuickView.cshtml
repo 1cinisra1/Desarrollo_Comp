@@ -1,0 +1,48 @@
+﻿@model GPSMonitoreo.Web.ViewModels.QuickView
+@using GPSMonitoreo.Core.Linq.Extensions
+@{
+	Layout = "_QuickView";
+
+	var Details = (GPSMonitoreo.Web.ViewModels.Entidades.ContactoDetails)Model.Details;
+}
+
+@section details{
+	<table class="table_edit">
+		<tbody>
+			<tr>
+				<td style="width:120px;">Código Interno</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.id</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Código Auxiliar</td>
+				<td style="width:250px;">
+					<div class="input_data">&nbsp;</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Apellidos</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.apellidos</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Nombres</td>
+				<td style="width:250px;">
+					<div class="input_data">@Details.nombres</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Cargo</td>
+				@*<td style="width:250px; height:25px;">*@
+				<td colspan="4">
+					<div class="input_data">@Details.cargo</div>
+				</td>
+			</tr>
+	</tbody>	
+</table>
+}
+
+
+<script script-manager-add="quickView" script-manager-key="init">
+
+</script>

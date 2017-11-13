@@ -1,0 +1,509 @@
+﻿@{
+}
+<script script-manager-render="tabbed_layout_form">
+RemoteContent.hook(App.$splittedBody.$left, '@Context.Request.Path.Value', function($container){
+
+	var $menu = $('#app_menu_left');
+	var menuData = @Html.Raw(ViewData["menuData"])
+	$menu.jqxTree({ width: '100%', height: '100%', source: menuData});
+
+	//$menu.on('itemClick', function(event){
+	//	var element = event.args.element;
+	//	var url = element.attributes.url;
+	//	var title = element.attributes.tab_title;
+	//	if(url)
+	//	{
+	//		App.loadTab(url.value, title.value);
+	//	}
+	//});
+});
+</script>
+<div style="border: none;" id='app_menu_left'>
+	<!--
+	<ul>
+		<li item-selected='true'>
+			<webicon class="oliver_essential-collection_home" style="margin-right:5px"></webicon>
+			Home
+		</li>
+        <li item-expanded='true'>
+            Simulación
+            <ul>
+                <li onclick="App.loadLayout('/simulacion/simulador', 'Simulador')">Simulador</li>
+				<li onclick="App.loadLayout('/simulacion/simulador/equipos', 'Estado Equipos')">Estado Equipos</li>
+				<li onclick="App.loadLayout('/simulacion/simulador/alarmaslog', 'Log Alarmas')">Log Alarmas</li>
+				<li onclick="App.loadLayout('/simulacion/simulador/eventoslog', 'Log Eventos')">Log Eventos</li>
+            </ul>
+        </li>
+		<li item-expanded='true'>
+			<webicon class="oliver_business-collection_graph-1" style="margin-right:5px"></webicon>
+			Reportes
+			<ul>
+				<li onclick="App.loadTab('/geografico/reportes/alarmasylogs', 'Reporte: Alarmas y Logs')">
+					<webicon class="oliver_essential-collection_alarm-1" style="margin-right:5px"></webicon>
+					Alarmas y Logs
+				</li>
+			</ul>
+		</li>
+		<li item-expanded='true'>
+			<webicon class="oliver_essential-collection_id-card-1" style="margin-right:5px"></webicon>
+			Entidades
+			<ul>
+				<li>
+					<webicon class="oliver_essential-collection_id-card-3" style="margin-right:5px"></webicon>
+					Entidad
+					<ul>
+						<li onclick="App.entidades.entidad.editNew()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nueva entidad
+						</li>
+						<li onclick="App.entidades.entidad.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li item-expanded='true'>
+			<webicon class="oliver_essential-collection_map-1" style="margin-right:5px"></webicon>
+			Geográfico
+			<ul>
+				<li>
+					<webicon class="oliver_designer-set_distort-1" style="margin-right:5px"></webicon>
+					Cercas
+					<ul>
+						<li onclick="App.geografico.cercas.edit()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nueva cerca							
+						</li>
+						<li onclick="App.geografico.cercas.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_placeholder-1" style="margin-right:5px"></webicon>
+					Segmentos
+					<ul>
+						<li onclick="App.geografico.segmentos.edit()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nuevo segmento
+						</li>
+						<li onclick="App.geografico.segmentos.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_pins-and-locations_route" style="margin-right:5px"></webicon>
+					Tramos
+					<ul>
+						<li onclick="App.geografico.tramos.edit()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nuevo tramo
+						</li>
+						<li onclick="App.geografico.tramos.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_route" style="margin-right:5px"></webicon>
+					Rutas
+					<ul>
+						<li onclick="App.geografico.rutas.edit()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nueva ruta
+						</li>
+						<li onclick="App.geografico.rutas.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+						<li onclick="App.loadLayout('/geografico/rutas/fases', 'RUTA - FASES', 'TabbedForm')">
+							<webicon class="oliver_arrow-collection_fast-fwd" style="margin-right:5px"></webicon>
+							Fases
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_route" style="margin-right:5px"></webicon>
+					Rutas Externas
+					<ul>
+						<li onclick="App.geografico.rutasexternas.edit()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nueva ruta
+						</li>
+						<li onclick="App.geografico.rutasexternas.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>			
+		<li item-expanded='true'>
+			<webicon class="oliver_transport-collection_crane-2" style="margin-right:5px"></webicon>
+			Equipos
+			<ul>
+				<li>
+					<webicon class="oliver_delivery_truck" style="margin-right:5px"></webicon>
+					Equipo
+					<ul>
+						<li onclick="App.equipos.equipo.edit()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nuevo Equipo
+						</li>
+						<li onclick="App.equipos.equipo.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_wifi" style="margin-right:5px"></webicon>
+					GPS
+					<ul>
+						<li onclick="App.equipos.gps.edit()">
+							<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+							Nuevo GPS
+						</li>
+						<li onclick="App.equipos.gps.index()">
+							<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+							Búsqueda
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li item-expanded='true'>
+			<webicon class="oliver_business-collection_box-1" style="margin-right:5px"></webicon>
+			Productos
+			<ul>
+				<li onclick="App.productos.producto.cats()">
+					<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>
+					Categorias
+				</li>
+				<li onclick="App.productos.productos.edit()">
+					<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+					Nuevo Producto
+				</li>
+				<li onclick="App.productos.productos.index()">
+					<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+					Búsqueda
+				</li>
+			</ul>
+		</li>
+		<li item-expanded='true'>
+			<webicon class="oliver_essential-collection_settings-4" style="margin-right:5px"></webicon>
+			Administración General
+			<ul>
+				<li>
+					<webicon class="oliver_essential-collection_alarm-1" style="margin-right:5px"></webicon>
+					Alarmas y Logs
+					<ul>
+						<li onclick="App.general.alarmas.tipos()">
+							<webicon class="oliver_essential-collection_alarm" style="margin-right:5px"></webicon>
+							Tipos Alarmas
+						</li>
+						<li onclick="App.general.alarmas.aunidades()">
+							<webicon class="oliver_constructions_drawing" style="margin-right:5px"></webicon>
+							Unidades
+						</li>
+						<li onclick="App.general.alarmas.permans()">
+							<webicon class="oliver_essential-collection_stopwatch-1" style="margin-right:5px"></webicon>
+							Permans
+						</li>
+						<li onclick="App.general.alarmas.permansresets()">Permans Resets</li>
+						
+						<li onclick="App.general.alarmas.niveles()">
+							<webicon class="oliver_arrow-collection_transfer" style="margin-right:5px"></webicon>
+						Niveles
+						</li>
+						<li onclick="App.general.logtipos.cats()">
+							<webicon class="oliver_office-elements_notes" style="margin-right:5px"></webicon>
+						Tipos Logs</li>
+						<li>
+							Matrices Control Velocidad
+							<ul>
+								<li onclick="App.general.controlvelocidad.velocidad.edit()">
+								<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+								Nuevo
+								</li>
+								<li onclick="App.general.controlvelocidad.velocidad.index()">
+								<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+								Búsqueda
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Calendarios
+					<ul>
+						<li onclick="App.loadTab('/general/calendarios/calendariooperativo', 'Calendarios: Operativo')">Calendario Operativo</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_transport-collection_truck-2" style="margin-right:5px"></webicon>
+					Viajes
+					<ul>
+						<li onclick="App.general.viajes.estado()">Estado</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_arrow-collection_fast-fwd" style="margin-right:5px"></webicon>
+					Fases
+					<ul>
+						<li onclick="App.general.viajes.geografico()">
+							<webicon class="oliver_essential-collection_map-1" style="margin-right:5px"></webicon>
+							Geografico
+						</li>
+						<li onclick="App.general.viajes.operacionruta()">
+							<webicon class="oliver_essential-collection_route" style="margin-right:5px"></webicon>
+							Operacion Ruta
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_map-1" style="margin-right:5px"></webicon>
+					Geografico
+					<ul>
+						<li onclick="App.general.geografico.cercastrafico()">
+							<webicon class="" style="margin-right:5px"></webicon>
+							Tráfico Cercas
+						</li>
+						<li>
+							<webicon class="oliver_designer-set_distort-1" style="margin-right:5px"></webicon>
+							Cercas
+							<ul>
+								<li onclick="App.general.geografico.cercas()">
+									<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>
+									Categorias
+								</li>
+								<li onclick="App.general.geografico.cercastree()">
+									<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+									Jerarquia Categorias
+								</li>
+							</ul>
+						</li>
+						<li><webicon class="oliver_essential-collection_placeholder-1" style="margin-right:5px"></webicon>
+							Segmentos
+							<ul>
+								<li onclick="App.general.geografico.segmentos()">
+									<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>
+									Categorias
+								</li>
+								<li onclick="App.general.geografico.segmentostree()">
+									<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+									Jerarquia Categorias
+								</li>
+							</ul>
+						</li>
+						<li>
+							<webicon class="oliver_pins-and-locations_route" style="margin-right:5px"></webicon>
+							Tramos
+							<ul>
+								<li onclick="App.general.geografico.tramos()">
+									<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>
+									Categorias
+								</li>
+								<li onclick="App.general.geografico.tramostree()">
+									<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+									Jerarquia Categorias
+								</li>
+							</ul>
+						</li>
+						<li>
+							<webicon class="oliver_essential-collection_route" style="margin-right:5px"></webicon>
+							Rutas
+							<ul>
+								<li onclick="App.general.geografico.rutas()">
+									<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>
+									Categorias
+								</li>
+								<li onclick="App.general.geografico.rutastree()">
+									<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+									Jerarquia Categorias
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_transport-collection_crane-2" style="margin-right:5px"></webicon>
+					Equipos
+					<ul>
+						<li onclick="App.general.equipos.grupos()">
+							<webicon class="oliver_designer-set_group" style="margin-right:5px"></webicon>
+							Grupos
+						</li>
+						<li onclick="App.general.equipos.eopera()">
+							<webicon class="oliver_transport-collection_car-repair-3" style="margin-right:5px"></webicon>
+							Estados Operativos
+						</li>
+						<li onclick="App.general.equipos.cats()">
+							<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>						
+							Categorias
+						</li>
+						<li onclick="App.general.equipos.catstree()">
+							<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+							Jerarquia Categorias
+						</li>
+						<li onclick="App.general.equipos.capacidades()">
+							<webicon class="oliver_delivery_weight-scale" style="margin-right:5px"></webicon>	
+							Capacidades
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_business-collection_price-tag-1" style="margin-right:5px"></webicon>
+					Marcas y Modelos
+					<ul>
+						<li onclick="App.general.marcasmodelos.marcas()">
+							<webicon class="oliver_business-collection_price-tag-7" style="margin-right:5px"></webicon>
+							Marcas
+						</li>
+						<li onclick="App.general.marcasmodelos.modelos()">
+							<webicon class="oliver_business-collection_price-tag-9" style="margin-right:5px"></webicon>
+							Modelos
+						</li>
+						<li onclick="App.general.marcasmodelos.categorias()">
+							<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>
+							Categoria Marcas
+						</li>
+						<li onclick="App.general.marcasmodelos.categoriastree()">
+							<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+							Jerarquia Marcas
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_id-card-1" style="margin-right:5px"></webicon>
+					Entidades
+					<ul>
+						<li onclick="App.general.entidades.tipos()">
+							<webicon class="oliver_office-elements_id-card" style="margin-right:5px"></webicon>
+							Tipos
+						</li>
+						<li onclick="App.general.entidades.categorias()">
+							<webicon class="oliver_arrow-collection_multiply-3" style="margin-right:5px"></webicon>
+							Categorias
+						</li>
+						<li onclick="App.general.entidades.categoriastree()">
+							<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+							Jerarquia Entidades
+						</li>
+						<li onclick="App.general.entidades.relaciones()">
+							<webicon class="oliver_real-state-collection_cityscape" style="margin-right:5px"></webicon>
+							Relaciones con Empresa
+						</li>
+						<li onclick="App.general.entidades.cargos()">
+							<webicon class="oliver_essential-collection_user-6" style="margin-right:5px"></webicon>
+							Cargos
+						</li>
+						<li onclick="App.general.entidades.emails_proposito()">
+							<webicon class="oliver_dialog-assets_mail-1" style="margin-right:5px"></webicon>
+							Emails Proposito
+						</li>
+						<li onclick="App.general.entidades.emails_tipos()">
+							<webicon class="oliver_interaction-assets_mail-6" style="margin-right:5px"></webicon>
+							Emails Tipos
+						</li>
+						<li onclick="App.general.entidades.telefonos_tipos()">
+							<webicon class="oliver_interaction-assets_phone-call-9" style="margin-right:5px"></webicon>
+							Telefonos Tipos
+						</li>
+						<li onclick="App.general.entidades.direcciones_tipos()">
+							<webicon class="oliver_pins-and-locations_map-10" style="margin-right:5px"></webicon>
+							Direcciones Tipos
+						</li>
+						<li onclick="App.general.entidades.ubicaciones_tipos()">
+							<webicon class="oliver_pins-and-locations_pin-2" style="margin-right:5px"></webicon>
+							Ubicaciones Tipos
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_worldwide" style="margin-right:5px"></webicon>
+					Localidades
+					<ul>							
+						<li>
+							<webicon class="oliver_essential-collection_map-location" style="margin-right:5px"></webicon>
+							Países
+							<ul>
+								<li onclick="App.general.localidades.paises.edit()">
+									<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+									Nuevo País
+								</li>
+								<li onclick="App.general.localidades.paises.index()">
+									<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+									Búsqueda
+								</li>
+							</ul>
+						</li>
+						<li>
+							<webicon class="oliver_essential-collection_map-2" style="margin-right:5px"></webicon>
+							Provincias
+							<ul>
+								<li onclick="App.general.localidades.provincias.edit()">
+									<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+									Nueva provincia
+								</li>
+								<li onclick="App.general.localidades.provincias.index()">
+									<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+									Búsqueda
+								</li>
+							</ul>
+						</li>
+						<li>
+							<webicon class="oliver_essential-collection_map" style="margin-right:5px"></webicon>
+							Ciudades
+							<ul>
+								<li onclick="App.general.localidades.ciudades.edit()">
+									<webicon class="oliver_essential-collection_add-1" style="margin-right:5px"></webicon>
+									Nueva ciudad
+								</li>
+								<li onclick="App.general.localidades.ciudades.index()">
+									<webicon class="oliver_security_search" style="margin-right:5px"></webicon>
+									Búsqueda
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<webicon class="oliver_essential-collection_users-1" style="margin-right:5px"></webicon>
+					Personas
+					<ul>
+						<li onclick="App.general.personas.profesiones()">
+							<webicon class="oliver_constructions_engineer" style="margin-right:5px"></webicon>
+							Profesiones
+						</li>
+						<li onclick="App.general.personas.saludos()">
+							<webicon class="" style="margin-right:5px"></webicon>
+							Saludos
+						</li>
+					</ul>
+				</li>				
+				<li>
+					<webicon class="" style="margin-right:5px"></webicon>
+					Otros
+					<ul>
+						<li onclick="App.general.otros.unidades()">
+							<webicon class="oliver_constructions_drawing" style="margin-right:5px"></webicon>
+							Unidades
+						</li>
+						<li onclick="App.general.otros.unidadestree()">
+							<webicon class="oliver_business-collection_diagram-1" style="margin-right:5px"></webicon>
+							Jerarquia Unidades
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	-->
+</div>

@@ -1,0 +1,23 @@
+﻿@{
+	Layout = "_CommonPopupEdit";
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel(this.ViewContext);
+	formModel.Title = "PARAMETROS::MODELOS EQUIPOS";
+
+	ViewData["formModel"] = formModel;
+
+	var brands = ViewData["brands"] as List<CommonDbEntitySimpleListDto<short>>;
+	var brandsJson = brands.PrependBlankItem().ToJsonString();
+
+
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+	form.add('#@(formModel.FormId)_BrandId', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(brandsJson)});
+</script>
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Marca</td>
+		<td colspan="4"><div id="@(formModel.FormId)_BrandId" field_name="BrandId"></div></td>
+	</tr>
+</formsection>

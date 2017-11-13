@@ -1,0 +1,127 @@
+--temp-output:C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\obj\Debug\net461\
+--out:C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\bin\Debug\net461\GPSMonitoreo.Services.dll
+--define:DEBUG
+--define:TRACE
+--define:NET461
+--suppress-warning:CS1701
+--suppress-warning:CS1702
+--suppress-warning:CS1705
+--optimize:False
+--output-name:GPSMonitoreo.Services
+--file-version:1.0.0.0
+--version:1.0.0.0
+--informational-version:1.0.0
+--target-framework:.NETFramework,Version=v4.6.1
+--reference:C:\Users\vicente.pinargote\.nuget\packages\EntityFramework\6.1.3\lib\net45\EntityFramework.SqlServer.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\EntityFramework\6.1.3\lib\net45\EntityFramework.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\Microsoft.Extensions.DependencyInjection\1.1.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\Microsoft.Extensions.DependencyInjection.Abstractions\1.1.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\Microsoft.Win32.Primitives\4.3.0\ref\net46\Microsoft.Win32.Primitives.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\Newtonsoft.Json\9.0.1\lib\net45\Newtonsoft.Json.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.AppContext\4.3.0\ref\net46\System.AppContext.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Collections.Concurrent.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ComponentModel.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.ComponentModel.Annotations\4.3.0\ref\net461\System.ComponentModel.Annotations.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Console\4.3.0\ref\net46\System.Console.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Data.Common\4.3.0\ref\net451\System.Data.Common.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Diagnostics.Debug.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Diagnostics.Tools.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Diagnostics.Tracing.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Globalization.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Globalization.Calendars\4.3.0\ref\net46\System.Globalization.Calendars.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.IO.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.IO.Compression\4.3.0\ref\net46\System.IO.Compression.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.IO.Compression.ZipFile\4.3.0\ref\net46\System.IO.Compression.ZipFile.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.IO.FileSystem\4.3.0\ref\net46\System.IO.FileSystem.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.IO.FileSystem.Primitives\4.3.0\ref\net46\System.IO.FileSystem.Primitives.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Linq.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Linq.Dynamic.Core\1.0.7\lib\net46\System.Linq.Dynamic.Core.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Linq.Expressions.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Net.Http\4.3.0\ref\net46\System.Net.Http.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Net.Primitives.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Net.Sockets\4.3.0\ref\net46\System.Net.Sockets.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.ObjectModel.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.Extensions.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Reflection.Primitives.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Resources.ResourceManager.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Extensions.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Handles.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.InteropServices.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Runtime.InteropServices.RuntimeInformation\4.3.0\ref\netstandard1.1\System.Runtime.InteropServices.RuntimeInformation.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Runtime.Numerics.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Security.Cryptography.Algorithms\4.3.0\ref\net461\System.Security.Cryptography.Algorithms.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Security.Cryptography.Encoding\4.3.0\ref\net46\System.Security.Cryptography.Encoding.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Security.Cryptography.Primitives\4.3.0\ref\net46\System.Security.Cryptography.Primitives.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Security.Cryptography.X509Certificates\4.3.0\ref\net461\System.Security.Cryptography.X509Certificates.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Text.Encoding.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Text.Encoding.Extensions.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Text.RegularExpressions.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Threading.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Threading.Tasks.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Threading.Timer.dll
+--reference:C:\Users\vicente.pinargote\.nuget\packages\System.Xml.ReaderWriter\4.3.0\ref\net46\System.Xml.ReaderWriter.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Facades\System.Xml.XDocument.dll
+--reference:C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Core\bin\Debug\net461\GPSMonitoreo.Core.dll
+--reference:C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Data\bin\Debug\GPSMonitoreo.Data.dll
+--reference:C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Dtos\bin\Debug\net461\GPSMonitoreo.Dtos.dll
+--reference:C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Libraries\bin\Debug\net461\GPSMonitoreo.Libraries.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\mscorlib.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Core.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Microsoft.CSharp.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.ComponentModel.DataAnnotations.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.IO.Compression.FileSystem.dll
+--reference:C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.dll
+--resource:"C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\obj\Debug\net461\GPSMonitoreo.Services.Resources.ServicesErrorMessages.resources",GPSMonitoreo.Services.Resources.ServicesErrorMessages.resources
+--resource:"C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\obj\Debug\net461\GPSMonitoreo.Services.Resources.ServicesMessages.resources",GPSMonitoreo.Services.Resources.ServicesMessages.resources
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\BaseOutput.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\BaseResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\BaseService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Class1.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\CreateUpdateResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\GetListResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\GetResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\GetStringResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\OperationResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\ServicesManager.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Authorization\RoleManager.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\AlarmGrades\AlarmGradeService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\AlarmSpeedLimitSettings\AlarmSpeedLimitSettingService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Brands\BrandService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\CommonDbEntities\CommonDbEntityService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Entities\EntityService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\EntityAddresses\EntityAddressService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\EntityAlarmNotifications\EntityAlarmNotificationService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\EquipmentCapabilities\EquipmentCapabilityService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Equipments\EquipmentService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Geofences\GeofenceService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Geographics\Courses\CourseService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Models\ModelService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\RequiredPermissions\RequiredPermissionService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Roles\RoleService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Routes\CreateUpdateRouteTemplateResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Routes\RouteService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Sections\SectionService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Segments\SegmentService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Base\Users\UserService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Enums\ErrorCode.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Enums\OperationStatus.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Enums\OutputStatus.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Extensions\DtoExtensions.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Extensions\EntityExtensions.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Misc\AlarmFilters\AlarmFilterService.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Properties\AssemblyInfo.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Resources\ServicesErrorMessages.Designer.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Resources\ServicesErrorMessagesNames.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Resources\ServicesMessages.Designer.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Resources\ServicesMessagesNames.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Utils\GeographicsUtils.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Utils\ObjectJsonDumper.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Validation\InputCollectionValidationError.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Validation\InputValidationErrors.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Validation\InputValidationResult.cs
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\Validation\InputValidator.cs

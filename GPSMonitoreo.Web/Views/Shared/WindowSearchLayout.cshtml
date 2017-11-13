@@ -1,0 +1,143 @@
+﻿@model GPSMonitoreo.Web.ViewModels.SearchGridViewModel
+@using Newtonsoft.Json
+@{ 
+	//var urlArr = Context.Request.Path.Value.Split('/');
+	//var url = string.Join("/", urlArr.Take(urlArr.Length - 1));
+
+
+
+}
+
+<script script-manager-render="windowsearch">
+App.windows.search['@Context.Request.Path.Value'].init = function($windowDiv, win){
+		
+
+
+	var searchgrid = new SearchGrid();
+
+
+	var $form = $windowDiv.find('.form > form');
+	var $grid = $windowDiv.find('.grid > div');
+	var $button = $form.find('button');
+
+	$form.jqxForm();
+	var form = $form.instance;
+	searchgrid.form = form;
+
+	$button.jqxButton({template: 'info'});
+
+	$button.click(function(){
+		searchgrid.search();
+	});
+
+	
+
+
+
+	
+
+	//script-manager["form_init"]
+
+	var source =  {
+		datafields: @Html.Raw(JsonConvert.SerializeObject(Model.Grid.Fields)),
+		datatype: 'json',
+		url: '@Model.SearchUrl',
+		type: 'POST',
+		data: {},
+		beforeprocessing: function(data)
+		{
+			searchgrid.adapter._source.data.recordcount = data.recordcount;
+			source.totalrecords = data.recordcount;
+		},
+		cache: false
+	};
+
+	var adapterSettings = {
+		contentType : 'application/json',
+		processData : function(data){
+		},
+		formatData : function(data)
+		{
+			return JSON.stringify(data);
+		},
+		autoBind : false
+	};
+
+
+	var rendergridrows = function (params) {
+		//console.log('rendering');
+		return params.data;
+	};
+
+
+	searchgrid.adapter = new $.jqx.dataAdapter(source, adapterSettings);
+
+	var columns = @Html.Raw(JsonConvert.SerializeObject(Model.Grid.Columns));
+
+	var createwidget = function (row, column, value, htmlElement) {
+		$select = $('<webicon class="eyedropper clickable"></webicon>');
+
+		var $element = $(htmlElement);
+		$element.css('padding', '3px');
+		$element.append($select);
+
+
+		$select.on('click', function(){
+			//console.log(row);
+			//console.log('------');
+			//console.log(searchgrid.grid.getrowdata(0));
+			//console.log('------');
+
+			//console.log(searchgrid.grid.getrowdata(source.recordstartindex + row.boundindex));
+			//win.onSelect(row.bounddata);
+			win.onSelect(searchgrid.grid.getrowdata(source.recordstartindex + row.boundindex));
+
+			if(win.options.closeOnSelect)
+				win.win.close();
+		});
+	}
+
+	var initwidget = function(row, column, value, cellElement){
+
+	};
+
+
+	columns.push({ text: '', width: 100, createwidget: createwidget, initwidget: initwidget});
+
+
+	var options = {
+		width: '100%',
+		height:'100%',
+		columnsresize: true,
+		selectionmode: 'singlecell',
+		virtualmode: true,
+		pageable: true,
+		rendergridrows: rendergridrows,
+		//localization: gridLocalizationES,
+		columns: columns
+	};
+
+
+	searchgrid.grid = $grid.jqxGrid(options).data('jqxWidget');
+
+
+
+};
+</script>
+<div class="window_search">
+    <div>
+        <span>
+			@Model.Title
+        </span>
+    </div>
+    <div style="position:relative;padding:0">
+		<div class="form">
+			@RenderSection("form", false)
+		</div>
+		<div class="grid">
+			<div></div>
+		</div>
+    </div>
+</div>
+
+

@@ -1,0 +1,537 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedForm.cshtml";
+
+
+	var direccionesViewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.FormEditableGridModel()
+		{
+			FormId = Model.FormId,
+			FieldName = "direcciones",
+			TabIndex = 1,
+			ShowEditButton = true,
+			ShowReloadButton = true,
+			AddToForm = false,
+			ManagerId = "manager_direcciones",
+		}
+	};
+
+	var telefonosViewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.FormEditableGridModel()
+		{
+			FormId = Model.FormId,
+			FieldName = "telefonos",
+			TabIndex = 2,
+			ManagerId = "manager_telefonos",
+			Swapable = true,
+			ShowReloadButton = true
+		}
+	};
+
+	var emailsViewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.FormEditableGridModel()
+		{
+			FormId = Model.FormId,
+			FieldName = "emails",
+			TabIndex = 3,
+			ManagerId = "manager_emails",
+			AddToForm = false,
+			ShowReloadButton = true
+		}
+	};
+
+	var contactosViewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.FormEditableGridModel()
+		{
+			FormId = Model.FormId,
+			FieldName = "contactos",
+			TabIndex = 4,
+			ShowEditButton = true,
+			ShowReloadButton = true,
+			AddToForm = false,
+			ManagerId = "manager_contactos",
+		}
+	};
+}
+
+@*Script de incializacion*@
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+	layout._options.onResetDisableTabs = true;
+
+	layout.tabInitializers[0] = function(tabs){
+		tabs.disableAt(1);
+		tabs.disableAt(2);
+		tabs.disableAt(3);
+	};
+
+	var $categoria = form.add('#@(Model.FormId)_categoria', 'jqxTree', { height: 150, checkboxes: true, source: @Html.Raw(ViewData["categorias"])});
+	var $tipo = $('#@(Model.FormId)_tipo');
+	var $saludo = $('#@(Model.FormId)_saludo');
+	var $profesion = $('#@(Model.FormId)_profesion');
+
+	var $fila_razon_social  = $('#@(Model.FormId)_fila_razon_social');
+	var $datos_persona = $('#@(Model.FormId)_datospersona');
+	var $datos_identificacion = $('#@(Model.FormId)_datosidentificacion');
+	var $datos_relacion_empresa = $('#@(Model.FormId)_seccion_relaciones');
+	var $adicional_persona = $('#@(Model.FormId)_fila_infoadicionalpersona');
+
+
+	layout.onSaved = function(){
+		this.enableAllTabs();
+	};
+
+	layout.onDataLoaded = function() {
+		this.enableAllTabs();
+		this.grids.direcciones.reload();
+		this.grids.contactos.reload();
+		this.grids.telefonos.reload();
+		this.grids.emails.reload();
+	};
+
+	//$container.enableGrids = function() {
+	//	var grids = $container.grids;
+
+		
+
+	//	//$container.innerTabs.enableAt(1);
+	//	innerTabs.enableAt(1);
+	//	innerTabs.enableAt(2);
+	//	innerTabs.enableAt(3);
+
+
+	//	grids.direcciones.reload();
+	//	grids.contactos.reload();
+
+	//};
+
+
+	$tipo.on('change', function(){
+		console.log($tipo.val());
+
+		var tipo = $tipo.val();
+
+		//TODO: SE PUEDE OPTIMIZAR...
+		switch(tipo){
+			case '1': //juridico
+				$datos_identificacion.css('display','');
+				$fila_razon_social.css('display', '');
+				$datos_persona.css('display', 'none');
+				$datos_relacion_empresa.css('display','');
+				$adicional_persona.css('display','none');
+				break;
+
+			case '2': //natural
+				$datos_identificacion.css('display','');
+				$fila_razon_social.css('display', 'none');
+				$datos_persona.css('display', '');
+				$datos_relacion_empresa.css('display','');
+				$adicional_persona.css('display','none');
+				break;
+
+			case '3': //lugar
+				$datos_identificacion.css('display','none');
+				$fila_razon_social.css('display', 'none');
+				$datos_persona.css('display', 'none');
+				$datos_relacion_empresa.css('display','');
+				$adicional_persona.css('display','none');
+				break;
+
+			case '4': //persona
+				$datos_identificacion.css('display','');
+				$fila_razon_social.css('display', 'none');
+				$datos_persona.css('display', '');
+				$datos_relacion_empresa.css('display','');
+				$adicional_persona.css('display','');
+				break;
+
+			case '5': //empleado
+				$datos_identificacion.css('display','');
+				$fila_razon_social.css('display', 'none');
+				$datos_persona.css('display', '');
+				$datos_relacion_empresa.css('display','');
+				$adicional_persona.css('display','none');
+				break;
+		}
+	});
+
+	form.add($tipo, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["tipos"])});
+	form.add($saludo, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["saludos"])});
+	form.add($profesion, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["profesiones"])});
+
+
+	//Agregando los elementos txt al form:
+	form.add([f.elements.razon_social, f.elements.identificacion, f.elements.nombres, f.elements.apellidos], 'jqxInput');
+
+	//Agregando el tipo identificación:
+	form.add('#@(Model.FormId)_tipoiden', 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["tipoiden"])});
+
+	//Agregando el listbox para la relación con empresas:
+	form.add('#@(Model.FormId)_relaciones', 'jqxListBox', {width: "100%", checkboxes: true, source: @Html.Raw(ViewData["relaciones"])});
+
+	function windowSearch(grid){
+		App.entidades.entidad.windowSearch(function(item){
+			grid.addrow(null, {id: item.id, descripcion: item.descripcion});
+		});
+	}
+	/*
+	$identificacion.on('change', function(evt){
+		var id = evt.args.item.value;
+
+		//Si está seleccionado algún elemento de la lista de países:
+		if(id)
+		{
+			Ajax.get('/localidades/paises/provincias/' + id, function(response){
+				//Ajax.get('/general/paises/provincias/' + id, function(response){
+				$provincias_div.jqxDropDownList({source: response.records});
+			});
+		}
+		else
+			provincias_widget.clear();
+			*/
+
+
+	/*var $elemento = $('#adfadf');
+
+	form.add($elemento, 'jqxInput');*/
+</script>
+
+@*Manejo del tab direcciones*@
+<script script-manager-add="manager_direcciones" script-manager-key="init">
+	loadCallback = function(){
+		var self = this;
+		App.get('/entidades/direccion/entidaddirecciones/' + $form._widgetsDict.id.val(), function(response){
+			self.refreshLocalData(response.records);
+		})
+	};
+
+	removeSelectedRows = function(){
+		console.log(grid.getselectedrows());
+	};
+
+
+	addRow = function(){
+		var id = $form._widgetsDict.id.val();
+		//Se va a permitir editar múltiples direcciones? si es el caso, el formulario de edición no soporta la múltiple edición
+		//Se asume que se pueda una sola dirección a la vez:
+		//var idDireccion = $container.grid.getcellvalue(0,'id');
+
+		//alert('Direccion siendo editada:');
+		//alert($container.grid.getcellvalue(0,'id'));
+
+		App.loadTab2({
+			//Se modifica, y se envía como parámetro el id de la dirección a editar en lugar del id de la entidad como estaba originalmente:
+			url			: '/entidades/direccion/editform/' + id,
+			//url			: '/entidades/direccion/editform/' + idDireccion,
+			title		: 'Nueva dirección para Entidad: ' + id,
+			hoverTitle	: 'Nueva dirección para Entidad: ' + id + ' - ' + $form._widgetsDict.descripcion_larga.val(),
+			onActivate	: function($container){
+				$container.$form.reset();
+			}
+		});
+	};
+
+	datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'descripcion', type: 'string'},
+		{ name: 'ciudadela', type: 'string'},
+		{ name: 'calle_principal', type: 'string' },
+		{ name: 'calle_transversal', type: 'string'},
+		{ name: 'numeracion', type: 'number'},
+		{ name: 'codigo_postal', type: 'string'},
+		{ name: 'pais', type: 'string'},
+		{ name: 'provincia', type: 'string'},
+		{ name: 'ciudad', type: 'string'}
+	];
+
+	columns = [
+		{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+		{text: 'Descripción', datafield: 'descripcion', width: '150px'},
+		{text: 'País', datafield: 'pais', width: '100px'},
+		{text: 'Provincia', datafield: 'provincia', width: '100px'},
+		{text: 'Ciudad', datafield: 'ciudad', width: '100px'},
+		{text: 'Ciudadela', datafield: 'ciudadela', width: '100px'},
+		{text: 'Calle Principal', datafield: 'calle_principal', width: '100px'},
+		{text: 'Calle Transversal', datafield: 'calle_transversal', width: '100px'},
+		{text: 'Numeración', datafield: 'numeracion', width: '50px'},
+		{text: 'Cód. Postal', datafield: 'codigo_postal', width: '70px'}
+	];
+
+	edit = function(id, row){
+		var entidadId = $form._widgetsDict.id.val();
+		App.loadTab2({
+			url			: '/entidades/direccion/editform/' + entidadId,
+			title		: 'Edición dirección : ' + id + ' de Entidad: ' + entidadId,
+			hoverTitle	: 'Edición dirección : ' + id + ' - ' + row.descripcion + ' de Entidad: ' + entidadId + id + ' - ' + $form._widgetsDict.descripcion_larga.val(),
+			onActivate	: function($container){
+				var $form = $container.$form;
+				$form.reset();
+				App.get('/entidades/direccion/editvalues/' + id, function(response){
+					$form.fromJson(response.record);
+				});
+			}
+		});
+	}
+
+</script>
+
+@*Manejo del tab telefonos*@
+<script script-manager-add="manager_telefonos" script-manager-key="init">
+
+	var telefono_tipos = @Html.Raw(ViewData["telefono_tipos"]);
+
+	loadCallback = function(){
+		var self = this;
+		App.get('/entidades/entidad/telefonos/' + $form._widgetsDict.id.val(), function(response){
+			self.refreshLocalData(response.records);
+		})
+	};
+
+	//$form.fromJsonHooks.push(function(){
+	//	grid.reload();
+	//});
+
+	datafields = [
+		{ name: 'tipo', type: 'number' },
+		{ name: 'tipo_descripcion', value: 'tipo', values: {source: telefono_tipos, value: 'value', name: 'label'} },
+		{ name: 'codigo_pais', type: 'number' },
+		{ name: 'codigo_area', type: 'number'},
+		{ name: 'telefono', type: 'string'}
+
+	];
+	columns = [
+		{text: 'Tipo', datafield: 'tipo', displayfield: 'tipo_descripcion', width: 150, cellsalign: 'left', columntype: 'dropdownlist', /*columntype: 'template', */
+			createeditor: function(row, value, editor) {
+				editor.jqxDropDownList({ source: telefono_tipos, placeHolder: '', valueMember: 'value', displayMember: 'label'});
+			}			
+		},
+		{text: 'Cód Pais', datafield: 'codigo_pais', width: 70, cellsalign: 'left', columntype: 'numberinput', createeditor : function (row, cellvalue, editor){
+			editor.jqxNumberInput({ decimalDigits: 0, digits: 4, spinButtons: false, min: 0});
+		}},
+		{text: 'Cód Area', datafield: 'codigo_area', width: 70, cellsalign: 'left', columntype: 'numberinput', createeditor : function (row, cellvalue, editor){
+			editor.jqxNumberInput({ decimalDigits: 0, digits: 4, spinButtons: false, min: 0});
+		}},
+		{text: 'No. Teléfono', datafield: 'telefono', width: 150, cellsalign: 'left', columntype: 'textbox'}
+	];
+</script>
+
+
+<script script-manager-add="manager_emails" script-manager-key="init">
+
+	loadCallback = function(){
+		var self = this;
+		App.get('/entidades/entidad/emails/' + $form._widgetsDict.id.val(), function(response){
+			self.refreshLocalData(response.records);
+		})
+	};
+
+	removeSelectedRows = function(){
+		console.log(grid.getselectedrows());
+	};
+
+	addRow = function(){
+		App.popupEdit('/entidades/entidad/emailform', null, {
+			//onFormLoaded: function($container) {
+			//	$container.$form[0].elements.entidad.value = $form._widgetsDict.id.val();
+			//},
+			extendUrl: $form._widgetsDict.id.val(),
+			width: 400,
+			height: 350
+		});
+	};
+
+	datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'email', type: 'string'},
+		{ name: 'tipo', type: 'string'}
+	];
+
+	columns = [
+		{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+		{text: 'Email', datafield: 'email', width: '250px'},
+		{text: 'Tipo', datafield: 'tipo', width: '150px'}
+	];
+</script>
+
+
+<script script-manager-add="manager_contactos" script-manager-key="init">
+
+	loadCallback = function(){
+		var self = this;
+		App.get('/entidades/entidad/contactos/' + $form._widgetsDict.id.val(), function(response){
+			self.refreshLocalData(response.records);
+		})
+	};
+
+	removeSelectedRows = function(){
+		console.log(grid.getselectedrows());
+	};
+
+	addRow = function(){
+		App.popupEdit('/entidades/entidad/contactoform', null, {
+			//onFormLoaded: function($container) {
+			//	$container.$form[0].elements.entidad.value = $form._widgetsDict.id.val();
+			//},
+			extendUrl: $form._widgetsDict.id.val(),
+			width: 700,
+			height: 650
+		});
+	};
+
+	datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'apellidos', type: 'string'},
+		{ name: 'nombres', type: 'string'},
+		{ name: 'cargo', type: 'string'}
+	];
+
+	columns = [
+		{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+		{text: 'Apellidos', datafield: 'apellidos', width: '150px'},
+		{text: 'Nombres', datafield: 'nombres', width: '150px'},
+		{text: 'Cargo', datafield: 'cargo', width: '100px'}
+	];
+
+	edit = function(id, row){
+
+		App.popupEdit('/entidades/entidad/contactoform', id, {
+			loadUrl		: '/entidades/entidad/contactovalues',
+			extendUrl	: $form._widgetsDict.id.val(),
+			onSaved		: function() {
+				//$container.grids.contactos.reload();
+				layout.grids.contactos.reload();
+			},
+			width		: 700,
+			height		: 650
+		});
+
+
+		//var entidadId = $form._widgetsDict.id.val();
+		//App.loadTab2({
+		//	url			: '/entidades/direccion/editform/' + entidadId, 
+		//	title		: 'Edición dirección : ' + id + ' de Entidad: ' + entidadId, 
+		//	hoverTitle	: 'Edición dirección : ' + id + ' - ' + row.descripcion + ' de Entidad: ' + entidadId + id + ' - ' + $form._widgetsDict.descripcion_larga.val(),
+		//	onActivate	: function($container){
+		//		var $form = $container.$form;
+		//		$form.reset();
+		//		App.get('/entidades/direccion/editvalues/' + id, function(response){
+		//			$form.fromJson(response.record);
+		//		});
+		//	}
+		//});
+	}
+
+</script>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+		<tr>
+			<td>Tipo Entidad</td>
+			<td>
+				<div id="@(Model.FormId)_tipo" field_name="tipo"></div>
+			</td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td>Categoria</td>
+			<td colspan="4">
+				<div id="@(Model.FormId)_categoria" field_name="categoria"></div>
+			</td>
+		</tr>	
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section3">
+		<tbody class="tbody_group" id="@(Model.FormId)_datosidentificacion" style="display:none">
+			<tr>
+				<th colspan="5">IDENTIFICACION</th>
+			</tr>
+			<tr>
+				<td>Tipo identificación</td>
+				<td><div id="@(Model.FormId)_tipoiden" field_name="tipoiden"></div></td>
+				<td></td>
+				<td>Identificación</td>
+				<td style="width:150px;"><input type="text" name="identificacion" maxlength="13" /></td>
+			</tr>
+			<tr id="@(Model.FormId)_fila_razon_social" style="display:none">
+				<td style="width:150px;">Razón Social</td>
+				<td colspan="4"><input type="text" name="razon_social" maxlength="100" /></td>
+			</tr>
+			<tr>
+				<td colspan="5"></td>
+			</tr>
+		</tbody>
+
+		<tbody class="tbody_group" id="@(Model.FormId)_datospersona" style="display:none">
+			<tr>
+				<th colspan="5">DATOS PERSONA</th>
+			</tr>
+			<tr>
+				<td>Apellidos</td>
+				<td colspan="4"><input type="text" name="apellidos" maxlength="150" /></td>
+			</tr>
+			<tr>
+				<td>Nombres</td>
+				<td colspan="4"><input type="text" name="nombres" maxlength="100" /></td>
+			</tr>
+			<tr id="@(Model.FormId)_fila_infoadicionalpersona" style="display:none">
+				<td>Saludo</td>
+				<td>
+					<div id="@(Model.FormId)_saludo" field_name="saludo"></div>
+				</td>
+				<td></td>
+				<td>Profesión</td>
+				<td>
+					<div id="@(Model.FormId)_profesion" field_name="profesion"></div>
+				</td>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td colspan="5"></td>
+			</tr>
+		 </tbody>
+
+		<tbody class="tbody_group" id="@(Model.FormId)_seccion_relaciones" style="display:none">
+			<tr>
+				<th colspan="5">RELACIÓN EMPRESA</th>
+			</tr>
+			<tr>
+				<td>Relación con la empresa</td>
+				<td colspan="4">
+					<div id="@(Model.FormId)_relaciones" field_name="relaciones" style="width:500px"></div>
+				</td>
+			</tr>
+			<tr>
+				@*Cada fila contiene 5 celdas para mantener la simetría*@
+				@*Al hacer el colspan, internamente se hace un merge cells tal y como excel.*@
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+</formsection>
+
+
+@section tabtitles{
+			<li>Direcciones</li>
+			<li>Teléfonos</li>
+			<li>Emails</li>
+			<li>Contactos</li>
+}
+
+@section tabs{
+			<div>@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormEditableGrid), direccionesViewComponentModel)</div>
+			<div>@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormEditableGrid), telefonosViewComponentModel)</div>
+			<div>@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormEditableGrid), emailsViewComponentModel)</div>
+			<div>@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.FormEditableGrid), contactosViewComponentModel)</div>
+}

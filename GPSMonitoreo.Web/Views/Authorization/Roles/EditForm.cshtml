@@ -1,0 +1,444 @@
+﻿@using GPSMonitoreo.Core.Authorization;
+@model GPSMonitoreo.Web.ViewModels.AppLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedForm3.cshtml";
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+
+	var entitiesList = @Html.Raw(ViewData["entities"]);
+	var alarmsList =  @Html.Raw(ViewData["alarmsJson"]);
+
+	
+
+
+	layout.tabInitializers[2] = function(tabs){
+		layout.form.widgets.AlarmsFiltersPermissions.base.host.jqxTreeGrid({height: '100%'});
+	};
+
+	layout.addFormInitializer(function(form){
+		var f = form.formElement;
+
+
+		var $alarmsFiltersGrid = layout.container.find('#@(Model.FormId)_alarmsFiltersPermissions');
+
+
+
+		var alarmsFiltersGrid;
+
+		
+
+		var source = {
+			dataType: 'json',
+			dataFields: [
+				{ name: 'Id', type: 'string' },
+				{ name: 'Description', type: 'string' },
+
+
+
+				{ name: 'children', type: 'array' },
+				{ name: 'expanded', type: 'bool' },
+				{ name: 'PermissionView', type: 'bool' }
+			],
+			hierarchy: {
+				root: 'children'
+			},
+			id: 'Id',
+			localData: alarmsList
+		};
+
+		var dataAdapter = new $.jqx.dataAdapter(source, {
+			loadComplete: function () {
+				
+			}
+		});
+
+		$alarmsFiltersGrid.jqxTreeGrid({
+			width: '100%',
+			/*height: '100%',*/
+			source: dataAdapter,
+			editable: true,
+			editSettings: {
+				saveOnPageChange: true, 
+				saveOnBlur: true, 
+				saveOnSelectionChange: true, 
+				cancelOnEsc: true, 
+				saveOnEnter: true, 
+				editSingleCell: true, 
+				editOnDoubleClick: true, 
+				editOnF2: true
+			},
+			rendered: function () {
+				//console.log('rendered');
+				//console.log(arguments);
+			},
+			columns: [
+				/*{text: 'Id', dataField: 'Id', width: 80, editable: false },*/
+				{text: 'Descripción', dataField: 'Description', width: 600, editable: false },
+				{text: 'Ver', dataField: 'PermissionView', width: 90, editable: false, cellsalign: 'center',
+					cellsRenderer : function (row, column, value, rowData) {
+						//console.log(rowData);
+						//console.log(arguments);
+						return '<input type="checkbox"' + (rowData.PermissionView ? ' checked="checked"' : '') + ' onclick="console.log(\'check click\');return false;"/>';
+
+						//return $('<input type="text"/>');
+
+						//if(rowData._rendered)
+						//{
+						//	return null;
+						//}
+						//else
+						//{
+						//	rowData._rendered = true;
+						//	return new Date();
+						//}
+
+						////console.log('rendering: ' + row);
+					},
+					
+					columnType: 'template',
+					createEditor: function (row, cellValue, editor, cellText, width, height) {
+						//console.log('createEditor');
+					},
+					initEditor: function (row, cellValue, editor, cellText, width, height) {
+						//console.log('initEditor');
+					}
+				}
+			]
+		});
+
+		alarmsFiltersGrid = $alarmsFiltersGrid.data('jqxWidget');
+
+
+		$alarmsFiltersGrid.on('rowClick', function (event) {
+			//// event args.
+			//var args = event.args;
+			//// row data.
+			//var row = args.row;
+			//// row key.
+			//var key = args.key;
+			//// data field
+			//var dataField = args.dataField;
+			//// original click event.
+			//var clickEvent = args.originalEvent;
+
+			//console.log('row click');
+			//console.log(event);
+
+			var args = event.args;
+
+			var rowData = args.row;
+
+			var originalEvent = args.originalEvent;
+
+			var target = originalEvent.target;
+
+			var rowId = args.key;
+
+			switch(args.dataField)
+			{
+				case 'PermissionView':
+					//console.log(target);
+					var checkBox = target.tagName == 'TD' ? target.firstChild : target;
+
+					checkBox.checked = !checkBox.checked;
+					rowData.PermissionView = checkBox.checked;
+					
+					break;
+
+			}
+
+			
+
+			//console.log(event.args);
+		});
+
+
+
+
+		alarmsFiltersGrid.customVal = function(data) {
+			
+			var row;
+
+			var newRows = [];
+			var actions;
+
+			var rows = this.getAllRows();
+
+			if(data !== undefined)
+			{
+				var permission;
+				var partialRowData;
+				var matchedPermission;
+
+				for(var x = 0; x < rows.length; x++) 
+				{
+					row = rows[x];
+					matchedPermission = null;
+					for(var y = 0; y < data.length; y++) 
+					{
+						permission = data[y];
+						
+						if(row.Id == permission.ElementId)
+						{
+							matchedPermission = permission;
+							break;
+						}
+					}
+
+					if(matchedPermission && matchedPermission.Actions.length > 0)
+					{
+						actions = matchedPermission.Actions;
+						partialRowData = {
+							PermissionView: actions && actions.indexOf(@((int)PermissionAction.View)) > -1
+						};
+					}
+					else
+					{
+						partialRowData = {
+							PermissionView: false,
+						};
+					}
+
+					if(partialRowData.PermissionView)
+						console.log('si hay match');
+					else
+						console.log('no hay match');
+
+					this.partialUpdateRow(row.uid, partialRowData);
+				}
+			}
+			else
+			{
+				for(var x = 0; x < rows.length; x++)
+				{
+					row = rows[x];
+
+					actions = [];
+
+
+					if(row.PermissionView)
+					{
+						actions.push(@((int)PermissionAction.View));
+					}
+
+					if(actions.length)
+					{
+						newRows.push({
+							ElementId: row.Id,
+							ElementDescription: row.Description,
+							Actions: actions
+						});
+					}
+				}
+
+				return newRows;
+			}
+		};
+
+
+
+		//alarmsFiltersGrid.expandAll();
+
+		form.addWidget(alarmsFiltersGrid);
+
+		this.grids.AlarmsFiltersPermissions = alarmsFiltersGrid;
+
+		layout.tabInitializers[2] = function(){
+			alarmsFiltersGrid.expandAll();	
+		};
+
+		
+
+		//console.log($alarmsFiltersGrid);
+
+	});
+
+	layout.onReset = function() {
+		this.grids.EntitiesPermissions.setLocalData(entitiesList);
+		this.grids.AlarmsFiltersPermissions.setLocalData(entitiesList);
+	};
+
+
+	layout.addGridInitializer2(function(){
+		var options = AppGrid2.getDefaultOptions();
+
+		var $grid = layout.container.find('#@(Model.FormId)_entitiesPermissions');
+
+
+
+		options.$element = $grid;
+		options.addToLayoutForm = true;
+		options.mode = 'edit';
+
+		options.dataFields = [
+			{ name: 'ElementId', type: 'number' },
+			{ name: 'ElementDescription',type:'string'},
+			{ name: 'PermissionCreate',type:'bool'},
+			{ name: 'PermissionEdit',type:'bool'},
+			{ name: 'PermissionDelete',type:'bool'},
+			{ name: 'PermissionView',type:'bool'}
+		];
+
+		options.columnGroups = [
+			{ text: 'Acciones / Permisos', align: 'center', name: 'actions' }
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'ElementId', width: '60px', editable: false },
+			{ text: 'Descripción', datafield: 'ElementDescription', width: '200px', editable: false },
+			{ text: 'Crear', datafield: 'PermissionCreate', width: '50px', columntype: 'checkbox', columngroup: 'actions' },
+			{ text: 'Editar', datafield: 'PermissionEdit', width: '50px', columntype: 'checkbox', columngroup: 'actions' },
+			{ text: 'Eliminar', datafield: 'PermissionDelete', width: '50px', columntype: 'checkbox', columngroup: 'actions' },
+			{ text: 'Ver', datafield: 'PermissionView', width: '50px', columntype: 'checkbox', columngroup: 'actions' },
+		];
+
+		options.onInit = function() {
+			this.setLocalData(entitiesList);
+		};
+
+		options.customVal = function(permissions) {
+
+			var newRows = [];
+			var row;
+			var newRow;
+			var actions;
+
+			if(permissions !== undefined)
+			{
+
+				rows = this.getboundrows();
+				
+				var permission;
+				var partialRowData;
+				var matchedPermission;
+
+				for(var x = 0; x < rows.length; x++) 
+				{
+					row = rows[x];
+					matchedPermission = null;
+					for(var y = 0; y < permissions.length; y++) 
+					{
+						permission = permissions[y];
+						if(row.ElementId == permission.ElementId)
+						{
+							matchedPermission = permission;
+							break;
+						}
+					}
+
+					if(matchedPermission && matchedPermission.Actions.length > 0)
+					{
+						actions = matchedPermission.Actions;
+						partialRowData = {
+							PermissionCreate: actions && actions.indexOf(@((int)PermissionAction.Create)) > -1,
+							PermissionEdit: actions && actions.indexOf(@((int)PermissionAction.Edit)) > -1,
+							PermissionDelete: actions && actions.indexOf(@((int)PermissionAction.Delete)) > -1,
+							PermissionView: actions && actions.indexOf(@((int)PermissionAction.View)) > -1
+						};
+						
+					}
+					else
+					{
+						partialRowData = {
+							PermissionCreate: false,
+							PermissionEdit: false,
+							PermissionDelete: false,
+							PermissionView: false,
+						};
+					}
+
+					this.partialupdaterow(x, partialRowData);
+					
+				}
+
+
+
+
+				@*for(var x = 0; x < value.length; x++)
+				{
+					row = value[x];
+					actions = [];
+
+					newRow = {
+						ElementId: row.ElementId,
+						ElementDescription: row.ElementDescription,
+						PermissionCreate: row.Actions && row.Actions.indexOf(@((int)PermissionAction.Create)) > -1,
+						PermissionEdit: row.Actions && row.Actions.indexOf(@((int)PermissionAction.Edit)) > -1,
+						PermissionDelete: row.Actions && row.Actions.indexOf(@((int)PermissionAction.Delete)) > -1,
+						PermissionView: row.Actions && row.Actions.indexOf(@((int)PermissionAction.View)) > -1
+					};
+
+					newRows.push(newRow);
+				}
+				this.refreshLocalData(newRows);*@
+			}
+			else
+			{
+				rows = this.getboundrows();
+				
+				for(var x = 0; x < rows.length; x++)
+				{
+					row = rows[x];
+					actions = [];
+
+					if(row.PermissionCreate)
+						actions.push(@((int)PermissionAction.Create));
+
+					if(row.PermissionEdit)
+						actions.push(@((int)PermissionAction.Edit));
+
+					if(row.PermissionDelete)
+						actions.push(@((int)PermissionAction.Delete));
+
+					if(row.PermissionView)
+						actions.push(@((int)PermissionAction.View));
+
+
+					if(actions.length)
+					{
+						newRow = {
+							ElementId: row.ElementId,
+							ElementDescription: row.ElementDescription,
+							Actions : actions
+						};
+
+						newRows.push(newRow);
+					}
+				}
+
+				return newRows;
+			}
+		};
+
+		return options;
+	});
+</script>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section3">
+
+</formsection>
+
+@section tabtitles{
+	<li>Objectos</li>
+	<li>Filtro: Alarmas</li>
+}
+
+@section tabs{
+	<div>
+		<div id="@(Model.FormId)_entitiesPermissions" field_name="EntitiesPermissions"></div>
+	</div>
+	<div>
+		<div id="@(Model.FormId)_alarmsFiltersPermissions" field_name="AlarmsFiltersPermissions"></div>
+	</div>
+}

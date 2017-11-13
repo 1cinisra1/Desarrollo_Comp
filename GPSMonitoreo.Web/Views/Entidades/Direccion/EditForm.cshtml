@@ -1,0 +1,429 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutForm
+@{
+	Layout = "~/Views/Shared/_AppLayoutTabbedForm.cshtml";
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+	function hideTabs() {
+		layout.tabs.hideAt(1);
+		layout.tabs.hideAt(2);
+		layout.tabs.hideAt(3);
+	};
+
+	function showTabs() {
+		layout.tabs.showAt(1);
+		layout.tabs.showAt(2);
+		layout.tabs.showAt(3);
+	};
+
+
+	layout.onEditStarted = function() {
+		var grids = layout.grids;
+		grids.telefonos.reload();
+		grids.contactos.reload();
+		grids.ubicaciones.reload();
+		showTabs();
+	};
+
+	layout.onSaved = function() {
+		showTabs();
+	};
+
+	layout.onEditNewStarted = function() {
+		hideTabs();
+	};
+
+	layout.onLayoutLoaded = function() {
+		hideTabs();
+	};
+
+
+	layout.addFormInitializer(function(form){
+		var $form = form.$form;
+		var f = form.formElement;
+		var $pais = $form.find('#form_entidades_direccion_edit_paises');
+		var $provincia = $form.find('#form_entidades_direccion_edit_provincias');
+		var $ciudad = $form.find('#form_entidades_direccion_edit_ciudades');
+		var $region = $form.find('#form_entidades_direccion_edit_region');
+
+
+		var $codpostal = $('#txt_codpostal');
+		var $calleprincipal = $('#txt_calleprincipal');
+		var $numeracion = $('#txt_numeracion');
+		var $transversal = $('#txt_transversal');
+		var $canton = $('#txt_canton');
+		var $ciudadela = $('#txt_ciudadela');
+		var $manzana = $('#txt_manzana');
+
+
+		//form.add(f.elements.entidad, 'jqxInput');
+
+		form.addFormElement(f.elements.entidad);
+
+	
+		form.add('#form_entidades_direccion_tipos', 'jqxListBox', {width: "100%", checkboxes: true, source: @Html.Raw(ViewData["tipos"])});
+
+		form.add($pais, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["paises"])});
+		form.add($region, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["regiones"])});
+		var provincia_lst = form.addSingle($provincia, 'jqxDropDownList', {placeHolder: ''});
+		var ciudad_lst = form.addSingle($ciudad, 'jqxDropDownList', {placeHolder: ''});
+
+		form.add([$codpostal, $calleprincipal, $numeracion, $transversal, $canton, $ciudadela, $manzana], 'jqxInput');
+
+		var cerca = form.addPicker('#form_entidades_direccion_edit_cerca', {}, function(){
+			App.geographics.geofences.windowSearch(function(item){
+				cerca.val({value: item.Id, label: item.Description});
+			}, {closeOnSelect: true});
+		});
+	
+
+		//Al hacer click sobre el país. Filtrar las provincias
+		$pais.on('change', function(evt){
+			provincia_lst.clear();
+			provincia_lst.setContent('');
+			//$provincia.clear('');
+			//$provincia.setContent('');
+			var paisID = evt.args.item.value;
+			if(!paisID) return;
+
+			Ajax.get('/localidades/paises/provincias/' + paisID, function(response){
+				$provincia.jqxDropDownList({source: response.records});
+				//provincia_lst.jqxDropDownList({source: response.records});
+			});
+		});
+
+
+		//Al hacer click sobre la provincia, filtrar las ciudades
+		$provincia.on('change', function(evt){
+			ciudad_lst.clear();
+			ciudad_lst.setContent('');
+			//$ciudad.clear();
+			//$ciudad.setContent('');
+			var provinciaID = evt.args.item.value;
+			if(!provinciaID) return;
+
+		
+
+			Ajax.get('/localidades/provincias/ciudades/' + provinciaID, function(response){
+				$ciudad.jqxDropDownList({source: response.records});
+				//ciudad_lst.jqxDropDownList({source: response.records});
+			});
+		});
+
+
+		//function windowSearch(grid){
+		//	App.geografico.cercas.windowSearch(function(item){
+		//		grid.addrow(null, {id: item.id, descripcion: item.descripcion});
+		//	});
+		//}
+	});
+
+	//TELEFONOS
+	layout.addGridInitializer(function(){
+		var options = AppGrid.getDefaultOptions();
+		
+		options.elementId		= '#@(Model.FormId)_telefonos';
+
+		options.showtoolbar		= true;
+		options.showReloadButton= true;
+		options.reloadMethod	= 	function(){
+			var grid = this;
+
+			App.get('/entidades/direccion/telefonos/' + layout.editingId, function(response){
+				grid.clearSelection();
+				grid.grid.refreshLocalData(response.records);
+			}, {async: false})
+
+		};
+
+		options.showAddButton	= true;
+		options.addMethod		= function(){
+			App.popupEdit2('/entidades/entidad/telefonoeditform/' + layout.form.formElement.elements.entidad.value + '/' + layout.editingId + '/0', {
+				onSaved		: function() {
+					layout.grids.telefonos.reload();
+				},
+				width		: 400,
+				height		: 350
+			});
+		};
+
+		options.showRowEditButton = true;
+		options.editRowMethod = function(id, row){
+			App.popupEdit2('/entidades/entidad/telefonoeditform/' + layout.form.formElement.elements.entidad.value + '/' + layout.editingId + '/0/' + id, {
+				onSaved		: function() {
+					layout.grids.telefonos.reload();
+				},
+				width		: 400,
+				height		: 350
+			});
+		};
+
+		options.datafields = [
+			{ name: 'id', type: 'number' },
+			{ name: 'tipo', type: 'string'},
+			{ name: 'codigo_pais', type: 'number' },
+			{ name: 'codigo_area', type: 'number'},
+			{ name: 'telefono', type: 'string'}
+
+		];
+
+		options.columns = [
+			{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+			{text: 'Tipo', datafield: 'tipo', width: '250px'},
+			{text: 'Cód Pais', datafield: 'codigo_pais', width: 70, cellsalign: 'left'},
+			{text: 'Cód Area', datafield: 'codigo_area', width: 70, cellsalign: 'left'},
+			{text: 'No. Teléfono', datafield: 'telefono', width: 150, cellsalign: 'left', columntype: 'textbox'}
+		];
+
+		
+		return options;
+	});
+
+
+	//CONTACTOS
+	layout.addGridInitializer(function(){
+		var options = AppGrid.getDefaultOptions();
+
+		options.elementId		= '#@(Model.FormId)_contactos';
+
+		options.customVal = function() {
+			return this.getselecteddatavalues('id');
+		};
+		
+		options.showtoolbar		= true;
+		//options.selectionmode = 'checkbox';
+		options.showReloadButton= true;
+		options.reloadMethod	= 	function(){
+			var grid = this;
+			App.get('/entidades/direccion/contactos/' + layout.form.formElement.elements.entidad.value + '/' + layout.editingId, function(response){
+				//grid.grid.clearselection();
+				grid.clearSelection();
+				grid.grid.refreshLocalData(response.records);
+				//var rows = grid.grid.getrows();
+				//var row;
+				//for(var x = 0; x < rows.length; x++)
+				//{
+				//	row = rows[x];
+				//	if(row.asignado)
+				//		grid.grid.selectrow(x);
+				//}
+
+
+			}, {async: false})
+		};
+
+
+		options.showAddButton	= true;
+
+		options.addMethod		= function(){
+			var entidadId = layout.form.formElement.elements.entidad.value;
+			
+			App.openWindowSearch('/entidades/entidad/contactoswindowsearch/' + entidadId, function(item){
+				//empresa.val({value: item.id, label: item.descripcion});
+				console.log(item);
+				App.get('/entidades/direccion/contactosadd/' + entidadId + '/' + layout.editingId + '/' + item.id, function(response) {
+					layout.grids.contactos.reload();
+				});
+			}, {closeOnSelect: true});
+		};
+
+		//options.showRowEditButton = true;
+		//options.editRowMethod = function(id, row){
+		//	App.popupEdit('/entidades/entidad/contactoform', id, {
+		//		loadUrl		: '/entidades/entidad/contactovalues',
+		//		extendUrl	: layout.editingId,
+		//		onSaved		: function() {
+		//			//$container.grids.contactos.reload();
+		//			layout.grids.contactos.reload();
+		//		},
+		//		width		: 700,
+		//		height		: 650
+		//	});
+		//};
+
+
+		options.datafields = [
+			{ name: 'id', type: 'number' },
+			{ name: 'persona_id', type: 'number'},
+			{ name: 'persona', type: 'string' },
+			{ name: 'cargo', type: 'string'},
+			{ name: 'asignado', type: 'bool' }
+		];
+
+		options.columns = [
+			{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+			{text: 'Cód. Pers.', datafield: 'persona_id', width: '60px'},
+			{text: 'Persona', datafield: 'persona', width: '250px'},
+			{text: 'Cargo', datafield: 'cargo', width: '200px'}
+		];
+
+		
+		return options;
+	});
+
+	//UBICACIONES
+	layout.addGridInitializer(function(){
+		var options = AppGrid.getDefaultOptions();
+		
+		options.elementId		= '#@(Model.FormId)_ubicaciones';
+
+
+		options.showtoolbar		= true;
+		options.showReloadButton= true;
+		options.reloadMethod	= 	function(){
+			var grid = this;
+
+			App.get('/entidades/direccion/ubicaciones/' + layout.editingId, function(response){
+				grid.clearSelection();
+				grid.grid.refreshLocalData(response.records);
+			}, {async: false})
+
+		};
+
+		options.showAddButton	= true;
+		options.addMethod = function(){
+			App.loadLayoutEdit('/entidades/ubicacion/editform/1/' + layout.editingId, null, {
+				tab_title: 'Edición ubicación'
+			}, {
+				initialValues : {entidad: layout.form.widgets.entidad.val(), direccion: layout.editingId, ubicacion: 0}
+			});
+		};
+
+		options.showRowEditButton = true;
+		options.editRowMethod = function(id, row){
+			App.loadLayoutEdit('/entidades/ubicacion/editform/1/' + layout.editingId, id, {
+				tab_title: 'Edición ubicación'
+			}, {
+				initialValues : {entidad: layout.form.widgets.entidad.val(), direccion: layout.editingId, ubicacion: 0}
+			});
+		};
+
+		options.datafields = [
+			{ name: 'id', type: 'number' },
+			{ name: 'descripcion',type:'string'},
+			{ name: 'tipos', type: 'string'},
+		];
+
+		options.columns = [
+			{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+			{text: 'Descripción', datafield: 'descripcion', width: '200px', columntype: 'textbox'},
+			{text: 'Tipos', datafield: 'tipos', width: '300px', columntype: 'textbox'}
+		];
+
+		return options;
+	});
+</script>
+
+<formsection form-manager="commonform" form-manager-section="section_top">
+	<input type="hidden" name="entidad" value="@ViewData["entidad_id"]"/>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr></tr>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Tipo</td>
+		<td colspan="4">
+			<div id="form_entidades_direccion_tipos" field_name="tipos"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>País: </td>
+		<td style="width:150px">
+			<div id="form_entidades_direccion_edit_paises" field_name="pais">
+				<div style="border:none;"></div>
+			</div>
+		</td>
+		<td></td>
+		<td>Región:</td>
+		<td style="width:150px">
+			<div id="form_entidades_direccion_edit_region" field_name="region">
+				<div style="border:none;"></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>Provincia: </td>
+		<td style="width:150px">
+			<div id="form_entidades_direccion_edit_provincias" field_name="provincia">
+				<div style="border:none;"></div>
+			</div>
+		</td>
+		<td></td>		
+		<td>Ciudad: </td>
+		<td style="width:150px">
+			<div id="form_entidades_direccion_edit_ciudades" field_name="ciudad">
+				<div style="border:none;"></div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>Cantón:</td>
+		<td style="width:150px">
+			<input type="text" name="canton" maxlength="100" id="txt_canton" />
+		</td>
+		<td></td>
+		<td>Ciudadela:</td>
+		<td style="width:150px">
+			<input type="text" name="ciudadela" maxlength="100" id="txt_ciudadela" />
+		</td>
+	</tr>
+	<tr>
+		<td>Calle Principal:</td>
+		<td colspan="4">
+			<input type="text" name="calle_principal" maxlength="100" id="txt_calleprincipal" />
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Calle Transversal:</td>
+		<td colspan="4">
+			<input type="text" name="calle_transversal" maxlength="100" id="txt_transversal" />
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>		
+		<td>Numeración:</td>
+		<td style="width:150px">
+			<input type="text" name="numeracion" maxlength="100" id="txt_numeracion" />
+		</td>
+		<td></td>
+		<td>Manzana:</td>
+		<td style="width:150px">
+			<input type="text" name="manzana" maxlength="100" id="txt_manzana" />
+		</td>
+	</tr>
+	<tr>
+		<td>Cód. Postal:</td>
+		<td style="width:150px">
+			<input type="text" name="cod_postal" maxlength="100" id="txt_codpostal" />
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Cerca</td>
+		<td colspan="4"><div id="form_entidades_direccion_edit_cerca" field_name="cerca"></div></td>
+	</tr>	
+</formsection>
+
+
+@section tabtitles{
+	<li>Telefonos</li>
+	<li>Contactos</li>
+	<li>Ubicaciones</li>
+}
+
+@section tabs{
+	<div><div id="@(Model.FormId)_telefonos" field_name="telefonos"></div></div>
+	<div><div id="@(Model.FormId)_contactos" field_name="contactos"></div></div>
+	<div><div id="@(Model.FormId)_ubicaciones" field_name="ubicaciones"></div></div>
+}

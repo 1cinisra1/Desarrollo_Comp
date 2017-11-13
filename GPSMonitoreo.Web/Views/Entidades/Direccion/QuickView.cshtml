@@ -1,0 +1,222 @@
+﻿@model GPSMonitoreo.Web.ViewModels.QuickView
+@{
+	Layout = "_QuickView";
+
+	var Details = (GPSMonitoreo.Web.ViewModels.Entidades.DireccionDetails)Model.Details;
+}
+
+@section details{
+	<table class="table_edit">
+		<tbody>
+			<tr>
+				<td style="width:120px;">Código Interno</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.id</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Código Auxiliar</td>
+				<td style="width:250px;">
+					<div class="input_data">&nbsp;</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Tipo</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.tipos</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">País</td>
+				<td style="width:250px;">
+					<div class="input_data">@Details.pais</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Región</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.region</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Provincia</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.provincia</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Ciudad</td>
+				<td style="width:250px;">
+					<div class="input_data">@Details.ciudad</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Cantón</td>
+				<td style="width:250px;">
+					<div class="input_data">@Details.canton</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Ciudadela</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.ciudadela</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Calle Principal</td>
+				<td style="width:250px;">
+					<div class="input_data">@Details.calle_principal</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Calle Transversal</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.calle_transversal</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Numeración</td>
+				<td style="width:250px;">
+					<div class="input_data">@Details.numeracion</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Manzana</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.manzana</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Cód. Postal</td>
+				<td colspan="4">
+					<div class="input_data">@Details.cod_postal</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Cerca</td>
+				<td colspan="4">
+					<div class="input_data">@Details.cerca</div>
+				</td>
+			</tr>
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="5">
+				@*<div id="quickview_direcciones_telefonos">*@
+				<div id="@(Model.ElementsIdPrefix)_telefonos">
+					<div>Teléfonos</div>
+					<div><div></div></div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="5">
+				@*<div id="quickview_direcciones_contactos">*@
+				<div id="@(Model.ElementsIdPrefix)_contactos">
+					<div>Contactos</div>
+					<div><div></div></div>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	<tbody>
+		<tr>
+			<td colspan="5">
+				@*<div id="quickview_direcciones_ubicaciones">*@
+				<div id="@(Model.ElementsIdPrefix)_ubicaciones">
+					<div>Ubicaciones</div>
+					<div><div></div></div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+}
+
+
+<script script-manager-add="quickView" script-manager-key="init">
+	var $telefonos = $("#@(Model.ElementsIdPrefix)_telefonos");
+	var $telefonos_grid = $telefonos.find('>div').last().find('> div');
+
+	var $ubicaciones = $("#@(Model.ElementsIdPrefix)_ubicaciones");
+	var $ubicaciones_grid = $ubicaciones.find('>div').last().find('> div');
+
+
+	var $contactos = $("#@(Model.ElementsIdPrefix)_contactos");
+	var $contactos_grid = $contactos.find('>div').last().find('> div');
+
+
+	$telefonos.jqxExpander({ width: '100%', expanded: false });
+	$ubicaciones.jqxExpander({ width: '100%', expanded: false });
+	$contactos.jqxExpander({ width: '100%', expanded: false });
+
+	var telefonos_grid_options = AppGrid.getDefaultOptions();
+	var ubicaciones_grid_options = AppGrid.getDefaultOptions();
+	var contactos_grid_options = AppGrid.getDefaultOptions();
+
+	telefonos_grid_options.$element = $telefonos_grid;
+	telefonos_grid_options.height = '150px';
+
+	ubicaciones_grid_options.$element = $ubicaciones_grid;
+	ubicaciones_grid_options.height = '150px';
+	ubicaciones_grid_options.showRowQuickViewButton = true;
+	ubicaciones_grid_options.rowQuickViewMethod = function(id){
+		App.quickView('/entidades/ubicacion/quickview/' + id);
+	};
+
+
+	contactos_grid_options.$element = $contactos_grid;
+	contactos_grid_options.height = '150px';
+
+
+	telefonos_grid_options.datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'tipo', type: 'string' },
+		{ name: 'codigo_pais', type: 'number' },
+		{ name: 'codigo_area', type: 'number' },
+		{ name: 'telefono', type: 'string' }
+	];
+
+	telefonos_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Tipo', datafield: 'tipo', width: '250px' },
+		{ text: 'Cód Pais', datafield: 'codigo_pais', width: 70, cellsalign: 'left' },
+		{ text: 'Cód Area', datafield: 'codigo_area', width: 70, cellsalign: 'left' },
+		{ text: 'No. Teléfono', datafield: 'telefono', width: 150, cellsalign: 'left', columntype: 'textbox' }
+	];
+
+
+
+	ubicaciones_grid_options.datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'descripcion', type: 'string' },
+		{ name: 'tipos', type: 'string' }
+	];
+
+	ubicaciones_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Descripción', datafield: 'descripcion', width: '250px' },
+		{ text: 'Tipos', datafield: 'tipos', width: '250px' }
+	];
+
+
+	contactos_grid_options.datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'apellidos', type: 'string' },
+		{ name: 'nombres', type: 'number' },
+		{ name: 'cargo', type: 'number' }
+	];
+
+	contactos_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Apellidos', datafield: 'apellidos', width: '250px' },
+		{ text: 'Nombres', datafield: 'nombres', width: '250px' },
+		{ text: 'Cargo', datafield: 'cargo', width: '150px' }
+	];
+
+
+	var telefonos_grid = new AppGrid(telefonos_grid_options);
+	var ubicaciones_grid = new AppGrid(ubicaciones_grid_options);
+	var contactos_grid = new AppGrid(contactos_grid_options);
+
+
+	telefonos_grid.setLocalData(@Html.Raw(Details.telefonos.ToJsonString()));
+	ubicaciones_grid.setLocalData(@Html.Raw(Details.ubicaciones.ToJsonString()));
+	contactos_grid.setLocalData(@Html.Raw(Details.contactos.ToJsonString()));
+</script>

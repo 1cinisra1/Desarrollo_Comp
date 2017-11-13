@@ -1,0 +1,167 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{
+	Layout = "~/Views/Shared/_TabbedLayoutForm.cshtml";
+}
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Entidad:</td>
+		<td style="width:50px">
+			<div id="form_entidades_direccion_search_entidad" field_name="entidad">
+				<div style="border: none;"></div>
+			</div>
+		</td>
+		<td></td>		
+		<td>Cerca: </td>
+		<td style="width:50px">
+			<div id="form_entidades_direccion_search_cercas" field_name="cercas">
+				<div style="border: none;"></div>
+			</div>
+		</td>		
+	</tr>
+	<tr>
+		 <td>País:</td>
+		 <td style="width:50px">
+			<div id="form_entidades_direccion_search_paises" field_name="paises">
+				<div style="border: none;"></div>
+			</div>
+		 </td>
+		<td></td>
+		 <td>Provincia:</td>
+		 <td style="width:50px">
+			<div id="form_entidades_direccion_search_provincias" field_name="provincias">
+				<div style="border: none;"></div>
+			</div>
+		 </td>		
+	</tr>
+	<tr>
+		<td>Ciudad:</td>
+		<td style="width:50px">
+			<div id="form_entidades_direccion_search_ciudades" field_name="ciudades">
+				<div style="border: none;"></div>
+			</div>
+		</td>
+		<td></td>
+		<td>Cód. Postal:</td>
+		<td style="width:50px"><input type="text" name="codpostal" maxlength="50" id="txt_codpostal" /></td>
+	</tr>
+	<tr>
+		<td>Calle Principal:</td>
+		<td style="width:100px"><input type="text" name="calleprincipal" maxlength="100" id="txt_calleprincipal" /></td>
+		<td></td>
+		<td>Numeración:</td>
+		<td style="width:50px"><input type="text" name="numeracion" maxlength="50" id="txt_numeracion" /></td>
+	</tr>
+	<tr>
+		<td>Calle Transversal:</td>
+		<td style="width:50px"><input type="text" name="transversal" maxlength="50" id="txt_transversal" /></td>
+		<td></td>
+		<td>Cantón:</td>
+		<td style="width:50px"><input type="text" name="canton" maxlength="50" id="txt_canton" /></td>
+	</tr>
+	<tr>
+		<td>Ciudadela:</td>
+		<td style="width:50px"><input type="text" name="ciudadela" maxlength="50" id="txt_ciudadela" /></td>
+		<td></td>
+		<td>Manzana:</td>
+		<td style="width:50px"><input type="text" name="manzana" maxlength="50" id="txt_manzana" /></td>
+	</tr>
+</formsection>
+
+
+@*SE DEBE DEFINIR UN SECTOR TAL Y COMO SE LO HA HECHO PARA EL SEARCHGRID DE ACÁ ABAJO PARA UN SEARCH GRID PARA LOS TABS... CASO ENTIDADES*@
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+	var $entidad = $form.find('#form_entidades_direccion_search_entidad');
+	var $pais = $form.find('#form_entidades_direccion_search_paises');
+	var $provincia = $form.find('#form_entidades_direccion_search_provincias');
+	var $ciudad = $form.find('#form_entidades_direccion_search_ciudades');
+	var $cerca = $form.find('#form_entidades_direccion_search_cercas');
+
+	var provincia_lst = form.addSingle('#form_entidades_direccion_search_provincias', 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["provincias"]) });
+	var ciudad_lst = form.addSingle('#form_entidades_direccion_search_ciudades', 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["provincias"]) });
+
+	var $codpostal = $('#txt_codpostal');
+	var $calleprincipal = $('#txt_calleprincipal');
+	var $numeracion = $('#txt_numeracion');
+	var $transversal = $('#txt_transversal');
+	var $canton = $('#txt_canton');
+	var $ciudadela = $('#txt_ciudadela');
+	var $manzana = $('#txt_manzana');
+
+	
+	
+	form.add($entidad, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["entidades"])});
+	form.add($pais, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["paises"])});
+	form.add($provincia, 'jqxDropDownList', {placeHolder: '', source:[]});
+	form.add($ciudad, 'jqxDropDownList', {placeHolder: '', source: []});
+	form.add($cerca, 'jqxDropDownList', {placeHolder: '', source: []});
+
+
+	form.add([$codpostal, $calleprincipal, $numeracion, $transversal, $canton, $ciudadela, $manzana], 'jqxInput');
+
+
+	//Al hacer click sobre el país. Filtrar las provincias
+	$pais.on('change', function(evt){
+		provincia_lst.clear();
+		provincia_lst.setContent('');		
+		var paisID = evt.args.item.value;
+		console.log('***paisID***' + paisID);
+		
+		//if(paisID){
+		if(typeof paisID !== 'undefined'){
+			console.log('Existe paisID');
+			Ajax.get('/entidades/entidad/provincias/' + paisID, function(response){
+
+				//Todos:
+				if(paisID != 0){
+					console.log('Seleccionado país Id: ' + paisID);
+					$provincia.jqxDropDownList({source: response.records});
+					//provincia_lst.jqxDropDownList({source: response.records});
+				}
+				else{
+					console.log('Seleccionado Todos los países');
+					$provincia.jqxDropDownList({source: []});
+					$ciudad.jqxDropDownList({source: []});
+				}
+			});
+		}
+		else{
+			console.log('No existe paisID');
+		}
+	});
+
+	//Al hacer click sobre la provincia, filtrar las ciudades
+	$provincia.on('change', function(evt){
+		ciudad_lst.clear();
+		ciudad_lst.setContent('');
+		//$ciudad.clear();
+		//$ciudad.setContent('');
+		var provinciaID = evt.args.item.value;
+		console.log('***provinciaID***' + provinciaID);
+		if(provinciaID){
+			Ajax.get('/entidades/entidad/ciudades/' + provinciaID, function(response){
+				
+				//Todos:
+				if(provinciaID != 0){
+					console.log('Provincia Id seleccionada: ' + provinciaID);
+					$ciudad.jqxDropDownList({source: response.records});
+					//ciudad_lst.jqxDropDownList({source: response.records});
+				}
+				else{
+					console.log('Seleccionado Todas las ciudades');
+					$ciudad.jqxDropDownList({source: []});			
+				}
+			
+			});
+		}
+		else{}
+	});
+
+	var edit = function(id)
+	{
+		App.equipos.entidades.edit(id);
+	};
+
+</script>
+

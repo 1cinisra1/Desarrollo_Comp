@@ -1,0 +1,170 @@
+﻿@model GPSMonitoreo.Web.ViewModels.QuickView
+@{
+	Layout = "_QuickView";
+
+	var Details = (GPSMonitoreo.Web.ViewModels.Equipos.EquipoDetails)Model.Details;
+}
+
+@section details{
+	<table class="table_edit">
+		<tbody>
+			<tr>
+				<td style="width:120px;">Código Interno</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.id</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Código Auxiliar</td>
+				<td style="width:250px;">
+					<div class="input_data">&nbsp;</div>
+				</td>
+			</tr>
+			<tr>
+				<td>Descripción</td>
+				<td>
+					<div class="input_data">@Details.descripcion</div>
+				</td>
+				<td>&nbsp;</td>
+				<td>Estado Operaci&oacute;n</td>
+				<td>
+					<div class="input_data">@Details.estado_opera</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:120px;">Grupo</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.grupo</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Categor&iacute;a</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.categoria</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="width:120px;">Placa</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.placa</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Marca</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.marca</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="width:120px;">A&ntilde;o Modelo</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.modelo_ano</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Modelo</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.modelo</div>
+				</td>
+			</tr>
+				
+			<tr>
+				<td style="width:120px;">Serial</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.serial</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:10px;">&nbsp;</td>
+			</tr>
+					
+		</tbody>
+		
+		<tbody>
+			<tr>
+				<td colspan="5">
+					<div id="quickview_equipos_capacidades">
+						<div>Capacidades</div>
+						<div><div></div></div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+}
+
+
+<script script-manager-add="quickView" script-manager-key="init">
+
+	var $relacion_capacidades = $("#quickview_equipos_capacidades");
+	var $relacion_capacidades_grid = $relacion_capacidades.find('>div').last().find('> div');
+	
+
+	$relacion_capacidades.jqxExpander({ width: '100%', expanded: false });
+	var relacion_capacidades_grid_options = AppGrid.getDefaultOptions();
+
+	relacion_capacidades_grid_options.$element = $relacion_capacidades_grid;
+	relacion_capacidades_grid_options.height = '150px';
+
+	relacion_capacidades_grid_options.datafields = [
+	{ name: 'categoria_producto', type: 'string' },
+	{ name: 'capacidad', type: 'string' },
+	{ name: 'unidad', type: 'string' },
+	{ name: 'valor', type: 'number' }
+	];
+	relacion_capacidades_grid_options.columns = [
+		{ text: 'Categoria Producto', datafield: 'categoria_producto', width: '250px' },
+		{ text: 'Capacidad', datafield: 'capacidad', width: '250px' },
+		{ text: 'Unidad', datafield: 'unidad', width: '150px', cellsalign: 'left' },
+		{ text: 'Valor', datafield: 'valor', width: 70, cellsalign: 'left' }
+	];
+
+	var relacion_capacidades_grid = new AppGrid(relacion_capacidades_grid_options);
+	relacion_capacidades_grid.setLocalData(@Html.Raw(Details.relacion_capacidades.ToJsonString()));
+
+
+	@*var $relacion_2 = $("#quickview_equipos_relacion_2");
+	var $relacion_2_grid = $relacion_2.find('>div').last().find('> div');
+
+	var $relacion_3 = $("#quickview_equipos_relacion_3");
+	var $relacion_3_grid = $relacion_3.find('>div').last().find('> div');
+
+	$relacion_2.jqxExpander({ width: '100%', expanded: false});
+	$relacion_3.jqxExpander({ width: '100%', expanded: false});
+
+	var relacion_2_grid_options = AppGrid.getDefaultOptions();
+	var relacion_3_grid_options = AppGrid.getDefaultOptions();
+
+
+	relacion_2_grid_options.$element = $relacion_2_grid;
+	relacion_2_grid_options.height = '150px';
+	relacion_2_grid_options.datafields = [
+	{ name: 'id', type: 'number' },
+	{ name: 'tipo', type: 'string' },
+	{ name: 'correo', type: 'string' }
+	];
+	relacion_2_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Tipo', datafield: 'tipo', width: '250px' },
+		{ text: 'Correo', datafield: 'correo', width: 70, cellsalign: 'left' }
+	];
+
+	relacion_3_grid_options.$element = $relacion_3_grid;
+	relacion_3_grid_options.height = '150px';
+	relacion_3_grid_options.datafields = [
+	{ name: 'id', type: 'number' },
+	{ name: 'tipo', type: 'string' },
+	{ name: 'correo', type: 'string' }
+	];
+	relacion_3_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Tipo', datafield: 'tipo', width: '250px' },
+		{ text: 'Correo', datafield: 'correo', width: 70, cellsalign: 'left' }
+	];
+	
+	var relacion_2_grid = new AppGrid(relacion_2_grid_options);
+	var relacion_3_grid = new AppGrid(relacion_3_grid_options);
+
+	relacion_2_grid.setLocalData(@Html.Raw(Details.relacion_2.ToJsonString()));
+	relacion_3_grid.setLocalData(@Html.Raw(Details.relacion_3.ToJsonString()));*@
+
+</script>

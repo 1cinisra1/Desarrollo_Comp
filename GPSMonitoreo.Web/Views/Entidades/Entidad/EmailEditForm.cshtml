@@ -1,0 +1,37 @@
+﻿@model GPSMonitoreo.Web.ViewModels.PopupEdit
+@{
+	Layout = "_PopupEdit";
+}
+
+<script script-manager-add="popupEdit" script-manager-key="form_init">
+
+
+	form.addFormElement($([f.elements.entidad]));
+	form.add([f.elements.email], 'jqxInput');
+	form.add('#@(Model.FormId)_tipo', 'jqxDropDownList', {source: @Html.Raw(ViewData["tipos"]), placeHolder: ''});
+	form.add('#@(Model.FormId)_propositos', 'jqxListBox', {checkboxes: true, source: @Html.Raw(ViewData["propositos"])});
+
+	var data = @Html.Raw(ViewData["data"]);
+
+	if(data)
+		form.fromJson(data);
+</script>
+
+<formsection form-manager="popupEditForm" form-manager-section="section_top">
+		<input type="hidden" name="entidad" value="@ViewData["entidadId"]" />
+</formsection>
+
+<formsection form-manager="popupEditForm" form-manager-section="section_fields">
+			<tr>
+				<td>Email</td>
+				<td><input type="text" name="email" /></td>
+			</tr>
+			<tr>
+				<td>Tipo</td>
+				<td><div id="@(Model.FormId)_tipo" field_name="tipo"></div></td>
+			</tr>
+			<tr>
+				<td>Propósitos</td>
+				<td><div id="@(Model.FormId)_propositos" field_name="propositos"></div></td>
+			</tr>
+</formsection>

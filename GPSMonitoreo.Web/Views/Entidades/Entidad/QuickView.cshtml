@@ -1,0 +1,289 @@
+﻿@model GPSMonitoreo.Web.ViewModels.QuickView
+@{
+	Layout = "_QuickView";
+
+	var Details = (GPSMonitoreo.Web.ViewModels.Entidades.EntidadDetails)Model.Details;
+}
+
+@section details{
+	<table class="table_edit">
+	<tbody>
+		<tr>
+			<td style="width:120px;">Código Interno</td>
+			<td style="width:250px; height:25px;">
+				<div class="input_data">@Details.id</div>
+			</td>
+			<td style="width:10px;">&nbsp;</td>
+			<td style="width:120px;">Código Auxiliar</td>
+			<td style="width:250px;">
+				<div class="input_data">&nbsp;</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:120px;">Categoría</td>
+			<td style="width:250px; height:25px;">
+				<div class="input_data">@Details.categoria</div>
+			</td>
+			<td style="width:10px;">&nbsp;</td>
+			<td style="width:120px;">Relación Empresa</td>
+			<td style="width:250px; height:25px;">
+				<div class="input_data">@Details.relacion_empresa</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Descripción</td>
+			<td>
+				<div class="input_data">@Details.descripcion</div>
+			</td>
+			<td>&nbsp;</td>
+			<td>Tipo</td>
+			<td>
+				<div class="input_data">@Details.tipo</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:120px;">Tipo Identificación</td>
+			<td style="width:250px; height:25px;">
+				<div class="input_data">@Details.tipo_identificacion</div>
+			</td>
+			<td style="width:10px;">&nbsp;</td>
+			<td style="width:120px;">Identificación</td>
+			<td style="width:250px; height:25px;">
+				<div class="input_data">@Details.identificacion</div>
+			</td>
+		</tr>
+		@*Cédula*@
+		@if (@Details.tipoId == 1)
+		{
+			<tr>
+				<td style="width:120px;">Nombres</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.nombres</div>
+				</td>
+				<td style="width:10px;">&nbsp;</td>
+				<td style="width:120px;">Apellidos</td>
+				<td style="width:250px; height:25px;">
+					<div class="input_data">@Details.apellidos</div>
+				</td>
+			</tr>
+		}
+		@*RUC*@
+		@if (Details.tipoId == 2)
+		{
+			<tr>
+				<td style="width:120px;">Razón Social</td>
+				<td colspan="4">
+					<div class="input_data">@Details.razon_social</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="5">
+				<div id="@(Model.ElementsIdPrefix)_direcciones">
+					<div>Direcciones</div>
+					<div><div></div></div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="5">
+				<div id="@(Model.ElementsIdPrefix)_telefonos">
+					<div>Teléfonos</div>
+					<div><div></div></div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="5">
+				<div id="@(Model.ElementsIdPrefix)_emails">
+					<div>Emails</div>
+					<div><div></div></div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="5">
+				@*EMPRESA Y PERSONA NATURAL*@
+				@if (@Details.tipo_id == 1 || Details.tipo_id == 2)
+				{
+					<div id="@(Model.ElementsIdPrefix)_contactos">
+						<div>Contactos</div>
+						<div><div></div></div>
+					</div>
+				}
+				@*PERSONA*@
+				@if (@Details.tipo_id == 4)
+				{
+					<div id="@(Model.ElementsIdPrefix)_contactos">
+						<div>Contacto de</div>
+						<div><div></div></div>
+					</div>
+				}						
+			</td>
+		</tr>
+	</tbody>
+</table>
+}
+
+<script script-manager-add="quickView" script-manager-key="init">
+
+	var $telefonos = $("#@(Model.ElementsIdPrefix)_telefonos");
+	var $telefonos_grid = $telefonos.find('>div').last().find('> div');
+
+	var $direcciones = $("#@(Model.ElementsIdPrefix)_direcciones");
+	var $direcciones_grid = $direcciones.find('>div').last().find('> div');
+
+	var $emails = $("#@(Model.ElementsIdPrefix)_emails");
+	var $emails_grid = $emails.find('>div').last().find('> div');
+
+	$telefonos.jqxExpander({ width: '100%', expanded: false});
+	$direcciones.jqxExpander({ width: '100%', expanded: false});
+	$emails.jqxExpander({ width: '100%', expanded: false});
+	
+	var telefonos_grid_options = AppGrid.getDefaultOptions();
+	var direcciones_grid_options = AppGrid.getDefaultOptions();
+	var emails_grid_options = AppGrid.getDefaultOptions();
+
+	telefonos_grid_options.$element = $telefonos_grid;
+	telefonos_grid_options.height = '150px';
+
+	direcciones_grid_options.$element = $direcciones_grid;
+	direcciones_grid_options.height = '150px';
+	direcciones_grid_options.showRowEditButton = true;
+	direcciones_grid_options.editRowMethod = function(id, row){
+		App.loadLayoutEdit('/entidades/direccion/editform/' + @(Details.id), id, {
+			tab_title: 'Edición dirección'
+		});
+		win.close();
+	};
+
+	direcciones_grid_options.showRowQuickViewButton = true;
+	direcciones_grid_options.rowQuickViewMethod = function (id) {
+		console.log(id);
+		App.quickView('/entidades/direccion/quickview/' + id);
+	};
+
+	emails_grid_options.$element = $emails_grid;
+	emails_grid_options.height = '150px';
+
+	telefonos_grid_options.datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'tipo', type: 'string' },
+		{ name: 'codigo_pais', type: 'number' },
+		{ name: 'codigo_area', type: 'number' },
+		{ name: 'telefono', type: 'string' }
+	];
+	telefonos_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Tipo', datafield: 'tipo', width: '150px' },
+		{ text: 'Cód Pais', datafield: 'codigo_pais', width: '60px', cellsalign: 'left' },
+		{ text: 'Cód Area', datafield: 'codigo_area', width: '60px', cellsalign: 'left' },
+		{ text: 'No. Teléfono', datafield: 'telefono', width: '150px', cellsalign: 'left', columntype: 'textbox' }
+	];
+
+	direcciones_grid_options.datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'tipos', type: 'string' },
+		{ name: 'descripcion', type: 'string' },
+		{ name: 'calle_principal', type: 'string' },
+		{ name: 'calle_transversal', type: 'string' },
+		{ name: 'numeracion', type: 'string' },
+		{ name: 'ciudadela', type: 'string' }
+	];
+	direcciones_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Tipos', datafield: 'tipos', width: '150px' },
+		{ text: 'Calle', datafield: 'calle_principal', width: '250px', cellsalign: 'left' },
+		{ text: 'Transversal', datafield: 'calle_transversal', width: '250px', cellsalign: 'left' },
+		{ text: 'Número', datafield: 'numeracion', width: '60px', cellsalign: 'left', columntype: 'textbox' },
+		{ text: 'Ciudadela', datafield: 'ciudadela', width: '150px', cellsalign: 'left', columntype: 'textbox' }
+	];
+
+	emails_grid_options.datafields = [
+		{ name: 'id', type: 'number' },
+		{ name: 'tipo', type: 'string' },
+		{ name: 'correo', type: 'string' }
+	];
+	emails_grid_options.columns = [
+		{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+		{ text: 'Tipo', datafield: 'tipo', width: '150px' },
+		{ text: 'Correo', datafield: 'correo', width: '200px', cellsalign: 'left' }
+	];
+
+
+	var $contactos = $("#@(Model.ElementsIdPrefix)_contactos");
+	var $contactos_grid = $contactos.find('>div').last().find('> div');
+	
+	var contactos_grid_options = AppGrid.getDefaultOptions();
+	$contactos.jqxExpander({width: '100%', expanded: false});
+	
+	contactos_grid_options.$element = $contactos_grid;
+	contactos_grid_options.height = '150px';
+	contactos_grid_options.showRowQuickViewButton = true;
+
+	if(@Details.tipo_id == '1' || @Details.tipo_id == '2') // EMPRESA Y PERSONA NATURAL
+	{
+		contactos_grid_options.rowQuickViewMethod = function (id, row) {
+			App.quickView('/entidades/entidad/quickview/' + row.personaId);
+		}
+
+		contactos_grid_options.datafields = [
+			{ name: 'id', type: 'number' },
+			{ name: 'personaId', type: 'number'},
+			{ name: 'apellidos', type: 'string' },
+			{ name: 'nombres', type: 'number' },
+			{ name: 'cargo', type: 'number' }
+		];
+		contactos_grid_options.columns = [
+			{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+			{ text: 'Cód. Pers.', datafield: 'personaId', width: '60px' },
+			{ text: 'Apellidos', datafield: 'apellidos', width: '250px' },
+			{ text: 'Nombres', datafield: 'nombres', width: '250px' },
+			{ text: 'Cargo', datafield: 'cargo', width: '150px' }
+		];		
+	}
+	else if(@Details.tipo_id == '4') // PERSONA (CONTACTO DE... EMPRESA (ENTIDAD) DE LA CUAL ESTA PERSONA ES CONTACTO)
+	{
+		contactos_grid_options.rowQuickViewMethod = function (id, row) {
+			//row.id es el id de la entidad
+			App.quickView('/entidades/entidad/quickview/' + row.id);
+		}
+
+		contactos_grid_options.datafields = [
+			{ name: 'id', type: 'number' },
+			{ name: 'descripcion', type: 'string' },
+			{ name: 'razon_social', type: 'number' }
+		];
+		contactos_grid_options.columns = [
+			{ text: 'Cód. Int.', datafield: 'id', width: '60px' },
+			{ text: 'Descripción', datafield: 'descripcion', width: '250px' },
+			{ text: 'Razón Social', datafield: 'razon_social', width: '250px' }
+		];
+	}
+
+	var telefonos_grid = new AppGrid(telefonos_grid_options);
+	var direcciones_grid = new AppGrid(direcciones_grid_options);
+	var emails_grid = new AppGrid(emails_grid_options);
+	var contactos_grid = new AppGrid(contactos_grid_options);
+
+	telefonos_grid.setLocalData(@Html.Raw(Details.telefonos.ToJsonString()));
+	direcciones_grid.setLocalData(@Html.Raw(Details.direcciones.ToJsonString()));
+	emails_grid.setLocalData(@Html.Raw(Details.emails.ToJsonString()));
+
+	if(@Details.tipo_id == '1' || @Details.tipo_id == '2') // EMPRESA Y PERSONA NATURAL
+	{
+		contactos_grid.setLocalData(@Html.Raw(Details.contactos.ToJsonString()));
+	}
+	else if(@Details.tipo_id == '4') // PERSONA
+	{
+		contactos_grid.setLocalData(@Html.Raw(Details.contactosde.ToJsonString()));
+	}
+</script>

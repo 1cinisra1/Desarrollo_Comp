@@ -1,0 +1,62 @@
+﻿@{
+	Layout = "_AppLayoutWindowSearch";
+
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	options.dataFields = [
+		{ name: 'Id', type: 'number' },
+		{ name: 'Description', type:' string' },
+		{ name: 'LastNames', type:' string' },
+		{ name: 'Names', type: 'string' },
+		{ name: 'IdentificationTypeDescription', type: 'string' },
+		{ name: 'Identification', type: 'string' }
+	];
+
+	options.columns = [
+		{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+		{ text: 'Descripción', datafield: 'Description', width: '150px' },
+		{ text: 'Apellidos', datafield: 'LastNames', width: '150px' },
+		{ text: 'Nombres', datafield: 'Names', width: '150px' },
+		{ text: 'Tipo Identificación', datafield: 'IdentificationTypeDescription', width: '80px' },
+		{ text: 'Identification', datafield: 'Identification', width: '100px'}
+	];
+
+	options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '70px',
+					widgetWidth	: '150px',
+					fieldName	: 'Description'
+				}),
+				new AppGridFilter({
+					label		: 'Nombres',
+					widgetName	: 'jqxInput',
+					labelWidth	: '70px',
+					widgetWidth	: '150px',
+					fieldName	: 'Names'
+				}),
+				new AppGridFilter({
+					label		: 'Apellidos',
+					widgetName	: 'jqxInput',
+					labelWidth	: '70px',
+					widgetWidth	: '150px',
+					fieldName	: 'LastNames'
+				})
+			],
+			[
+				new AppGridFilter({
+					label		: 'Identificación',
+					widgetName	: 'jqxInput',
+					labelWidth	: '70px',
+					widgetWidth	: '150px',
+					fieldName	: 'Identification'
+				})
+			]
+	];
+
+</script>

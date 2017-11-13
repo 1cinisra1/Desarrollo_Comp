@@ -1,0 +1,411 @@
+﻿
+/*
+	<webicon icon="flat:phone_android"></webicon>
+
+
+*/
+
+webicon
+{
+	display:inline-block;
+	width: 23px;
+	height: 23px;
+}
+
+webicon.menu 
+{
+	width: 16px;
+	height: 16px;
+}
+
+webicon.clickable
+{
+	cursor: pointer;
+}
+
+webicon.file-4
+{
+	background: url('/assets/icons/file-4.svg') 100% 100%;
+}
+
+webicon.eyedropper
+{
+	background: url('/assets/icons/eyedropper.svg') 100% 100%;
+}
+webicon.garbage
+{
+	background: url('/assets/icons/garbage.svg') 100% 100%;
+}
+
+webicon.garbage-1
+{
+	background: url('/assets/icons/garbage-1.svg') 100% 100%;
+}
+
+webicon.placeholder-29
+{
+	background: url('/assets/icons/placeholder-29.svg') 100% 100%;
+}
+
+webicon.down-arrow-3
+{
+	background: url('/assets/icons/down-arrow-3.svg') 100% 100%;
+}
+
+webicon.up-arrow-3
+{
+	background: url('/assets/icons/up-arrow-3.svg') 100% 100%;
+}
+
+webicon.binoculars
+{
+	background: url('/assets/icons/binoculars.svg') 100% 100%;
+}
+
+webicon.designerset_cursor
+{
+	background: url('/assets/icons/designerset/cursor.svg') 100% 100%;
+}
+
+webicon.designerset_circle
+{
+	background: url('/assets/icons/designerset/circle.svg') 100% 100% ;
+	background-size: cover;
+}
+
+webicon.designerset_polygon
+{
+	background: url('/assets/icons/designerset/polygon.svg') 100% 100%;
+	background-size: cover;
+}
+
+webicon.designerset_polyline
+{
+	background: url('/assets/icons/designerset/polyline.svg') 100% 100%;
+	background-size: cover;
+}
+
+webicon.designerset_square
+{
+	background: url('/assets/icons/designerset/square.svg') 100% 100%;
+	background-size: cover;
+}
+
+webicon.clipboard-33
+{
+	background: url('/assets/icons/clipboard-33.svg') 100% 100%;
+}
+
+webicon.arrows_repeat
+{
+	background: url('/assets/icons/arrows/repeat.svg') 100% 100%;
+}
+
+
+/*Home*/
+webicon.oliver_essential-collection_home
+{
+	background: url('/assets/icons/oliver/essential-collection/home.svg') 100% 100%;
+}
+/*
+	Reportes -> Alarmas y Logs,
+	Administración general -> Alarmas y Logs
+*/
+webicon.oliver_essential-collection_alarm-1
+{
+	background: url('/assets/icons/oliver/essential-collection/alarm-1.svg') 100% 100%;
+}
+/*
+	Entidades,
+	Administración General -> Entidades	
+*/
+webicon.oliver_essential-collection_id-card-1
+{
+	background: url('/assets/icons/oliver/essential-collection/id-card-1.svg') 100% 100%;
+}
+/*Entidades -> Entidad*/
+webicon.oliver_essential-collection_id-card-3
+{
+	background: url('/assets/icons/oliver/essential-collection/id-card-3.svg') 100% 100%;
+}
+/*Nuevo (para todos los niveles del menú)*/
+webicon.oliver_essential-collection_add-1
+{
+	background: url('/assets/icons/oliver/essential-collection/add-1.svg') 100% 100%;
+}
+/* Administración General -> Localidades -> Ciudades*/
+webicon.oliver_essential-collection_map
+{
+	background: url('/assets/icons/oliver/essential-collection/map.svg') 100% 100%;
+}
+/*
+	Geográfico,
+	Administración General -> Fases -> Geográfico,
+	Administración General -> Geográfico
+*/
+webicon.oliver_essential-collection_map-1
+{
+	background: url('/assets/icons/oliver/essential-collection/map-1.svg') 100% 100%;
+}
+/*Administración General -> Entidades -> Provincias*/
+webicon.oliver_essential-collection_map-2
+{
+	background: url('/assets/icons/oliver/essential-collection/map-2.svg') 100% 100%;
+}
+/*Geográfico -> Segmentos*/
+webicon.oliver_essential-collection_placeholder-1
+{
+	background: url('/assets/icons/oliver/essential-collection/placeholder-1.svg') 100% 100%;
+}
+/*
+	Geográfico -> Rutas,
+	Administración General -> Fases -> Operacion Ruta
+*/
+webicon.oliver_essential-collection_route
+{
+	background: url('/assets/icons/oliver/essential-collection/route.svg') 100% 100%;
+}
+/*Equipos -> GPS*/
+webicon.oliver_essential-collection_wifi
+{
+	background: url('/assets/icons/oliver/essential-collection/wifi.svg') 100% 100%;
+}
+/*Administración General*/
+webicon.oliver_essential-collection_settings-4
+{
+	background: url('/assets/icons/oliver/essential-collection/settings-4.svg') 100% 100%;
+}
+/*Administración General -> Alarmas y Logs -> Tipos Alarmas*/
+webicon.oliver_essential-collection_alarm
+{
+	background: url('/assets/icons/oliver/essential-collection/alarm.svg') 100% 100%;
+}
+/*Administración General -> Localidades */
+webicon.oliver_essential-collection_worldwide
+{
+	background: url('/assets/icons/oliver/essential-collection/worldwide.svg') 100% 100%;
+}
+/*Administración General -> Personas */
+webicon.oliver_essential-collection_users-1
+{
+	background: url('/assets/icons/oliver/essential-collection/users-1.svg') 100% 100%;
+}
+/*Administración General -> Entidades -> Cargos */
+webicon.oliver_essential-collection_user-6
+{
+	background: url('/assets/icons/oliver/essential-collection/user-6.svg') 100% 100%;
+}
+/*Administración General -> Localidades -> Países*/
+webicon.oliver_essential-collection_map-location
+{
+	background: url('/assets/icons/oliver/essential-collection/map-location.svg') 100% 100%;
+}
+/*Administración General -> Alarmas y Logs -> Permans*/
+webicon.oliver_essential-collection_stopwatch-1
+{
+	background: url('/assets/icons/oliver/essential-collection/stopwatch-1.svg') 100% 100%;
+}
+
+webicon.oliver_essential-collection_clock-1
+{
+	background: url('/assets/icons/oliver/essential-collection/clock-1.svg') 100% 100%;
+}
+
+
+/*Reportes*/
+webicon.oliver_business-collection_graph-1
+{
+	background: url('/assets/icons/oliver/business-collection/graph-1.svg') 100% 100%;
+}
+/*Productos*/
+webicon.oliver_business-collection_box-1
+{
+	background: url('/assets/icons/oliver/business-collection/box-1.svg') 100% 100%;
+}
+/*
+	Administración General -> Equipos -> Jerarquía Categorías,
+	Administración General -> Cercas -> Jerarquía Categorías,
+	Administración General -> Segmentos -> Jerarquía Categorías,
+	Administración General -> Tramos -> Jerarquía Categorías,
+	Administración General -> Rutas -> Jerarquía Categorías,
+	Administración General -> Marcas y Modelos -> Jerarquía Marcas,
+	Administración General -> Entidades -> Jerarquía Entidades,
+	Administración General -> Otros -> Jerarquía Unidades
+*/
+webicon.oliver_business-collection_diagram-1
+{
+	background: url('/assets/icons/oliver/business-collection/diagram-1.svg') 100% 100%;
+}
+/* Administración General -> Marcas y Modelos */
+webicon.oliver_business-collection_price-tag-1
+{
+	background: url('/assets/icons/oliver/business-collection/price-tag-1.svg') 100% 100%;
+}
+/* Administración General -> Marcas y Modelos -> Marcas*/
+webicon.oliver_business-collection_price-tag-7
+{
+	background: url('/assets/icons/oliver/business-collection/price-tag-7.svg') 100% 100%;
+}
+/* Administración General -> Marcas y Modelos -> Modelos*/
+webicon.oliver_business-collection_price-tag-9
+{
+	background: url('/assets/icons/oliver/business-collection/price-tag-9.svg') 100% 100%;
+}
+
+
+/*
+	Geográfico -> Cercas, 
+	Administración General -> Geográfico -> Cercas
+*/
+webicon.oliver_designer-set_distort-1
+{
+	background: url('/assets/icons/oliver/designer-set/distort-1.svg') 100% 100%;
+}
+/*Administración General -> Equipos -> Grupos*/
+webicon.oliver_designer-set_group
+{
+	background: url('/assets/icons/oliver/designer-set/group.svg') 100% 100%;
+}
+
+
+
+/*Equipos -> Equipo*/
+webicon.oliver_delivery_truck
+{
+	background: url('/assets/icons/oliver/delivery/truck.svg') 100% 100%;
+}
+/*Administración General -> Equipos -> Capacidades*/
+webicon.oliver_delivery_weight-scale
+{
+	background: url('/assets/icons/oliver/delivery/weight-scale.svg') 100% 100%;
+}
+
+
+/*
+	Productos -> Categorías,
+	Administración General -> Equipos -> Categorías,
+	Administración General -> Cercas -> Categorías,
+	Administración General -> Segmentos -> Categorías,
+	Administración General -> Tramos -> Categorías,
+	Administración General -> Rutas -> Categorías,
+	Administración General -> Marcas y Modelos -> Categorías Marcas,
+	Administración General -> Entidades -> Categorías	
+
+*/
+webicon.oliver_arrow-collection_multiply-3
+{
+	background: url('/assets/icons/oliver/arrow-collection/multiply-3.svg') 100% 100%;
+}
+/*Administración General -> Alarmas y Logs -> Niveles*/
+webicon.oliver_arrow-collection_transfer
+{
+	background: url('/assets/icons/oliver/arrow-collection/transfer.svg') 100% 100%;
+}
+/*Administración General -> Fases*/
+webicon.oliver_arrow-collection_fast-fwd
+{
+	background: url('/assets/icons/oliver/arrow-collection/fast-forward.svg') 100% 100%;
+}
+
+
+
+/*Geográfico -> Tramos*/
+webicon.oliver_pins-and-locations_route
+{
+	background: url('/assets/icons/oliver/pins-locations/route.svg') 100% 100%;
+}
+/*Administración General -> Entidades -> Direcciones Tipos*/
+webicon.oliver_pins-and-locations_map-10
+{
+	background: url('/assets/icons/oliver/pins-locations/map-10.svg') 100% 100%;
+}
+/*Administración General -> Entidades -> Ubicaciones Tipos*/
+webicon.oliver_pins-and-locations_pin-2
+{
+	background: url('/assets/icons/oliver/pins-locations/pin-2.svg') 100% 100%;
+}
+
+
+/*Búsqueda (para todos los niveles del menú)*/
+webicon.oliver_security_search
+{
+	background: url('/assets/icons/oliver/security/search.svg') 100% 100%;
+}
+
+
+/*
+	Administración General -> Alarmas y Logs -> Unidades,
+	Administración General -> Otros -> Unidades
+*/
+webicon.oliver_constructions_drawing
+{
+	background: url('/assets/icons/oliver/constructions/drawing.svg') 100% 100%;
+}
+/*Administración General -> Personas -> Profesiones*/
+webicon.oliver_constructions_engineer
+{
+	background: url('/assets/icons/oliver/constructions/engineer.svg') 100% 100%;
+}
+
+
+/*Administración General -> Alarmas y Logs -> Tipos Logs*/
+webicon.oliver_office-elements_notes
+{
+	background: url('/assets/icons/oliver/office-elements/notes.svg') 100% 100%;
+}
+/*Administración General -> Entidades -> Tipos*/
+webicon.oliver_office-elements_id-card
+{
+	background: url('/assets/icons/oliver/office-elements/id-card.svg') 100% 100%;
+}
+
+
+/*Administración General -> Viajes*/
+webicon.oliver_transport-collection_truck-2
+{
+	background: url('/assets/icons/oliver/transport-collection/truck-2.svg') 100% 100%;
+}
+/*
+	Equipos
+	Administración General -> Equipos
+*/
+webicon.oliver_transport-collection_crane-2
+{
+	background: url('/assets/icons/oliver/transport-collection/crane-2.svg') 100% 100%;
+}
+/* 
+	Administración General -> Equipos -> Estados Operativos
+*/
+webicon.oliver_transport-collection_car-repair-3
+{
+	background: url('/assets/icons/oliver/transport-collection/car-repair-3.svg') 100% 100%;
+}
+
+
+
+
+
+/*Administración General -> Entidades -> Relaciones con Empresa*/
+webicon.oliver_real-state-collection_cityscape
+{
+	background: url('/assets/icons/oliver/real-state-collection/cityscape.svg') 100% 100%;
+}
+
+
+/*Administración General -> Entidades -> Emails Propósito*/
+webicon.oliver_dialog-assets_mail-1
+{
+	background: url('/assets/icons/oliver/dialog-assets/mail-1.svg') 100% 100%;
+}
+
+
+/*Administración General -> Entidades -> Emails Tipo*/
+webicon.oliver_interaction-assets_mail-6
+{
+	background: url('/assets/icons/oliver/interaction-assets/mail-6.svg') 100% 100%;
+}
+/*Administración General -> Entidades -> Teléfonos Tipos*/
+webicon.oliver_interaction-assets_phone-call-9
+{
+	background: url('/assets/icons/oliver/interaction-assets/phone-call-9.svg') 100% 100%;
+}

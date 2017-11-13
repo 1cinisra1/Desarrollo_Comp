@@ -1,0 +1,119 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{ 
+
+	var urlArr = Context.Request.Path.Value.Split('/');
+	var postUrl = string.Join("/", urlArr.Take(urlArr.Length - (Model.UrlIndludesId ? 2 : 1))) + "/save";
+	IgnoreBody();
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel() { FormId = Model.FormId, Action = postUrl };
+
+
+}
+<div class="panel_input">
+	<div class="header">
+		@Model.Title
+	</div>
+	<div class="body">
+		<div>
+			<ul>
+				<li>Principal</li>
+				 @RenderSection("tabtitles", false)
+			</ul>
+			<div style="padding:5px">
+				@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.CommonCalendarioForm), new { model = formModel })
+				<br/><br/>
+			</div>
+			@RenderSection("tabs", false)
+		</div>
+	</div>
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+<script script-manager-render="tabbed_layout_form">
+App.hookTab('@Context.Request.Path.Value', function($container, tabIndex, tabs){
+
+
+	var tabInitializers = {};
+	var innerTabs;
+
+
+	//script-manager["manager:commoncalendarioform"]
+
+	var $button = $container.find('>div >div button');
+
+
+	form.$errorMessageContainer = $button.parent().find('.input_error');
+
+	$button.form = form;
+
+	$button.click(function () {
+
+		console.log('****************************************************************');
+		console.log(form.$form);
+		console.log('****************************************************************');
+		console.log(objCalendario);
+
+		var anioCalendario = form.addSingle('#form_txt_anio', 'jqxInput');
+		
+		var $cCalendario = $container.find('#form_c_calendario_operativo');
+		$cCalendario.css('display', 'none');
+		console.log($cCalendario);
+		var source_calendario ={
+			localdata: objCalendario.arregloMes,
+			datatype: "array"
+		};
+		var dataAdapter = new $.jqx.dataAdapter(source_calendario);
+		$cCalendario.jqxGrid({
+			source: dataAdapter
+
+		});
+		cCalendario = $cCalendario.data('jqxWidget');
+		form.addWidget(cCalendario);
+
+		//cCalendario = $cCalendario.data('jqxWidget');
+		//console.log(cCalendario);
+		//form.addWidget(cCalendario);
+
+		//if ($container.objCalendario === undefined)
+		//	$container.objCalendario = {};
+
+		//$container.objCalendario['calendario_operativo'] = objCalendario;
+		//$container.objCalendario = objCalendario;
+		//form.addWidget(objCalendario);
+
+		//
+		//console.log($cCalendario);
+		//form.addSingle($cCalendario, 'jqxInput', objCalendario);
+
+		//var cCalendario = $cCalendario.data('jqxWidget');
+
+		console.log('***********************************');
+		App.postFormJsonFromButton($button, function(response){
+			form.setWidgetValue('id', response.id);
+		}, null, {popupErrorMessage: true, resetFormErrors : true});
+	});
+
+	$button.jqxButton({template: 'info'});
+
+
+	innerTabs = $container.find('> div > div.body > div').jqxTabs({
+		width: '100%', height: '100%',
+		initTabContent: function (tab) {
+				if (tabInitializers[tab])
+					tabInitializers[tab](this);
+
+		}
+	}).data('jqxWidget');
+
+	$container.innerTabs = innerTabs;
+
+
+	window.$container = $container;
+
+
+});
+
+
+</script>

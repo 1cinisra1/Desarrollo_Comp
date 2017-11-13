@@ -1,0 +1,51 @@
+﻿@model GPSMonitoreo.Web.ViewModels.PopupEdit
+@{
+	Layout = "_PopupEdit";
+}
+<script script-manager-add="popupEdit" script-manager-key="form_init">
+	form.addFormElement([f.elements.persona]);
+	form.add([f.elements.funcion], 'jqxInput');
+	form.add('#@(Model.FormId)_observaciones', 'jqxTextArea');
+	form.add('#@(Model.FormId)_cargo', 'jqxDropDownList', {source: @Html.Raw(ViewData["cargos"]), placeHolder: ''});
+	form.add('#@(Model.FormId)_area', 'jqxDropDownList', {source: @Html.Raw(ViewData["areas"]), placeHolder: ''});
+
+
+	var empresa = form.addPicker('#@(Model.FormId)_empresa', {}, function(){
+		App.openWindowSearch('/entidades/entidad/empresaswindowsearch', function(item){
+			empresa.val({value: item.id, label: item.descripcion});
+		}, {closeOnSelect: true});
+	});
+
+	var data = @Html.Raw(ViewData["data"]);
+
+	if(data)
+		form.fromJson(data);
+</script>
+
+
+<formsection form-manager="popupEditForm" form-manager-section="section_top">
+	<input type="hidden" name="persona" value="@ViewData["personaId"]" />
+</formsection>
+
+<formsection form-manager="popupEditForm" form-manager-section="section_fields">
+	<tr>
+		<td>Empresa</td>
+		<td><div id="@(Model.FormId)_empresa" field_name="empresa"></div></td>
+	</tr>
+	<tr>
+		<td>Cargo</td>
+		<td><div id="@(Model.FormId)_cargo" field_name="cargo"></div></td>
+	</tr>
+	<tr>
+		<td>Area</td>
+		<td><div id="@(Model.FormId)_area" field_name="area"></div></td>
+	</tr>
+	<tr>
+		<td>Función</td>
+		<td><input type="text" name="funcion" /></td>
+	</tr>
+	<tr>
+		<td>Observaciones</td>
+		<td><div id="@(Model.FormId)_observaciones" field_name="observaciones" style="height:70px"></div></td>
+	</tr>
+</formsection>

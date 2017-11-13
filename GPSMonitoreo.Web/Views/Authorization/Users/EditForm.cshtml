@@ -1,0 +1,76 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedFreeForm.cshtml";
+
+	var roles = ViewData["roles"] as IEnumerable<CommonBaseSimpleListDto<Int16>>;
+
+	var rolesSource = roles.ToJqwidgets().AddBlankItem().ToJsonString();
+
+
+
+
+}
+<script script-manager-add="form" script-manager-key="form_init">
+
+	//layout.onSavedSetEditingId = false;
+
+	layout.addFormInitializer(function(form){
+		var f = form.formElement;
+
+		form.add([f.elements.Id, f.elements.Username, f.elements.Password], 'jqxInput');
+
+		form.add('#@(Model.FormId)_RoleId', 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(rolesSource)});
+
+		var entidad = form.addPicker('#@(Model.FormId)_EntityId', { descriptionKey: 'EntityDescription', useFormToJson: true }, function(){
+			App.entidades.entidad.windowSearch(function(item){
+				entidad.val({value: item.id, label: item.descripcion});
+			}, {closeOnSelect: true});
+		});
+	});
+</script>
+
+<formsection form-manager="form" form-manager-section="section_table">
+	<tr>
+		<td style="width:120px;">Código Interno</td>
+		<td style="width:200px;"><input type="text" readonly="readonly" name="Id" class="input_label_readonly" /></td>
+		<td style="width:10px;">&nbsp;</td>
+		<td style="width:120px;"></td>
+		<td style="width:150px;"></td>
+	</tr>
+	<tr>
+		<td>Usuario</td>
+		<td><input type="text" name="Username" maxlength="50"/></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Clave</td>
+		<td><input type="password" name="Password" maxlength="20"/></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Entidad</td>
+		<td><div id="@(Model.FormId)_EntityId" field_name="EntityId"></div></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Rol</td>
+		<td><div id="@(Model.FormId)_RoleId" field_name="RoleId"></div></td>
+	</tr>
+</formsection>
+@section tabtitles{
+				
+}
+
+@section tabs{
+
+}
+
+
+

@@ -1,0 +1,146 @@
+﻿@model GPSMonitoreo.Dtos.Base.Geofences.GeofenceDetailsDto
+
+@{
+
+}
+<table class="table_edit">
+	<tbody>
+		<tr>
+			<td style="width:120px;">Código Interno</td>
+			<td style="width:250px;"><div class="input_data">@Model.Id</div></td>
+			<td style="width:10px;">&nbsp;</td>
+			<td style="width:120px;">Código Auxiliar</td>
+			<td style="width:250px;"><div class="input_data">@Model.AuxiliaryId</div></td>
+		</tr>
+		<tr>
+			<td>Capa</td>
+			<td><div class="input_data">@Model.LayerDescription</div></td>
+			<td>&nbsp;</td>
+			<td>Categoria</td>
+			<td><div class="input_data">@Model.CategoryDescription</div></td>
+		</tr>
+		<tr>
+			<td>Descripción larga</td>
+			<td colspan="4"><div class="input_data">@Model.Description</div></td>
+		</tr>
+		<tr>
+			<td>Observaciones</td>
+			<td colspan="4"><div class="input_data">@Model.Notes</div></td>
+		</tr>
+		<tr>
+			<td>Activo</td>
+			<td colspan="4"><div class="input_data">@Model.StatusDescription</div></td>
+		</tr>
+		<tr>
+			<td>Region</td>
+			<td><div class="input_data">@Model.RegionDescription</div></td>
+		</tr>
+		<tr>
+			<td colspan="5">&nbsp;</td>
+		</tr>
+	</tbody>
+	<tbody class="tbody_group">
+		<tr>
+			<th colspan="5">DEFINICION CARRETERA</th>
+		</tr>
+		<tr>
+			<td>Trazado via</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.RoadShapeDescription)</div></td>
+			<td></td>
+			<td>Distancia (mts)</td>
+			<td><div class="input_data">@Model.Distance</div></td>
+			
+		</tr>
+		@if (@Model.RoadShapeId == 2)
+		{
+		<tr class="curvas_block">
+			<td>Tipo curva</td>
+			<td><div class="input_data">@Model.CurveTypeDescription</div></td>
+			<td></td>
+			<td>Cantidad curvas</td>
+			<td><div class="input_data">@Model.CurvesQty</div></td>
+		</tr>
+		<tr class="curvas_block">
+			<td>Grado curva</td>
+			<td><div class="input_data">@Model.CurveGradeDescription</div></td>
+			<td colspan="3"></td>
+		</tr>
+		}
+		<tr>
+			<td>Tipo calzada</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.RoadSurfaceDescription)</div></td>
+			<td></td>
+			<td>Estado calzada</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.RoadSurfaceStateDescription)</div></td>
+		</tr>
+		<tr>
+			<td>Carriles</td>
+			<td>
+				ida: <div class="input_data_inline" style="width:30px">@Model.RoadLanesGoing</div>
+				retorno: <div class="input_data_inline" style="width:30px">@Model.RoadLanesReturning</div>
+			</td>
+			<td></td>
+			<td>Nivel tráfico</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.RoadTrafficDescription)</div></td>
+		</tr>
+	</tbody>
+	<tbody class="tbody_group">
+		<tr>
+			<th colspan="5">PENDIENTE</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th style="text-align:center">IDA</th>
+			<th></th>
+			<th></th>
+			<th style="text-align:center">RETORNO</th>
+		</tr>
+		<tr>
+			<td>Tipo</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.HillGoingTypeDescription)</div></td>
+			<td></td>
+			<td>Tipo</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.HillReturningTypeDescription)</div></td>
+		</tr>
+		<tr>
+			<td>Grado</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.HillGoingGradeDescription)</div></td>
+			<td></td>
+			<td>Grado</td>
+			<td><div class="input_data">@Html.ValueOrSpace(Model.HillReturningGradeDescription)</div></td>
+		</tr>
+	</tbody>
+	<tbody class="tbody_group">
+		<tr>
+			<th colspan="5">LIMITES VELOCIDAD</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th style="text-align:center">IDA</th>
+			<th></th>
+			<th></th>
+			<th style="text-align:center">RETORNO</th>
+		</tr>
+		<tr>
+			<td>General MOP</td>
+			<td><div class="input_data">@Model.SpeedGoingMop</div></td>
+			<td></td>
+			<td>General MOP</td>
+			<td><div class="input_data">@Model.SpeedReturningMop</div></td>
+		</tr>
+		<tr>
+			<td>Restringida MOP</td>
+			<td><div class="input_data">@Model.SpeedGoingMopRest</div></td>
+			<td></td>
+			<td>Restringida MOP</td>
+			<td><div class="input_data">@Model.SpeedReturningMopRest</div></td>
+		</tr>
+		<tr>
+			<td>Restringida Empresa</td>
+			<td><div class="input_data">@Model.SpeedGoingCustomRest</div></td>
+			<td></td>
+			<td>Restringida Empresa</td>
+			<td><div class="input_data">@Model.SpeedReturningCustomRest</div></td>
+		</tr>
+	</tbody>
+</table>

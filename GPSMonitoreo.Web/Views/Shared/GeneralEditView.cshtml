@@ -1,0 +1,80 @@
+﻿@model GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel
+<script script-manager-add="commonform" script-manager-key="form_init">
+@if (Model.ForCats) {<text>
+	var $padre = $form.find('#@(Model.FormId)_padre');
+
+	var $padre_tree = $padre.children().jqxTree({width: '100%', height: '200px', source: @Html.Raw(ViewData["cats"])});
+	var padre_tree = $padre_tree.data('jqxWidget');
+	var padre = form.addDropDownButton($padre, {dropDownWidth : 300}, padre_tree);
+
+    $padre_tree.on('select', function (event) {
+		var args = event.args;
+		var item = padre_tree.getItem(args.element);
+		var dropDownContent = '<div style="position: relative; margin-left: 3px;">' + item.label + '</div>';
+		padre.setContent(dropDownContent);
+		padre.close();
+	});
+
+	form.add([f.elements.ordenador], 'jqxInput');
+</text>}
+</script>
+@if (Model.ForCats)
+{
+	<formsection form-manager="commonform" form-manager-section="section1">
+		<tr>
+			<td>Padre</td>
+			<td colspan="4"><div id="@(Model.FormId)_padre" field_name="padre"><div style="border: none;"></div></div></td>
+		</tr>
+		<tr>
+			<td>Ordenador</td>
+			<td><input type="text" name="ordenador" maxlength="5" /></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</formsection>
+}
+
+
+<div>
+	@Model.Title
+</div>
+<div>
+	@await Component.InvokeAsync(typeof(GPSMonitoreo.Web.ViewComponents.CommonForm), new { model = Model })
+	<div class="footer">
+		<button type="button">Guardar</button>
+		<div class="input_error"></div>
+	</div>
+</div>
+
+
+
+<script script-manager-render="general_edit_form">
+App.hookPopupEdit('@Context.Request.Path.Value', function($container, win){
+
+	//script-manager["manager:commonform"]
+
+	var $button = $container.find('button');
+
+
+	form.$errorMessageContainer = $button.parent().find('.input_error');
+
+	$button.form = form;
+
+	$button.click(function(){
+		App.postFormJsonFromButton($button, function(response){
+			form.setWidgetValue('id', response.id);
+		}, null, {popupErrorMessage: true, resetFormErrors : true});
+	});
+
+	$button.jqxButton({template: 'info'});
+});
+
+
+</script>
+
+
+
+
+
+

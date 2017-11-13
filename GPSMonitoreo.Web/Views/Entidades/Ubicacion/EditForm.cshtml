@@ -1,0 +1,206 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayoutForm
+@{
+
+	Layout = "~/Views/Shared/_AppLayoutTabbedForm.cshtml";
+
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+
+	function hideTabs() {
+		layout.tabs.hideAt(1);
+		layout.tabs.hideAt(2);
+	};
+
+	function showTabs() {
+		layout.tabs.showAt(1);
+		layout.tabs.showAt(2);
+	};
+
+
+	layout.onEditStarted = function() {
+		var grids = layout.grids;
+		grids.telefonos.reload();
+		grids.ubicaciones.reload();
+		showTabs();
+	};
+
+	layout.onSaved = function() {
+		showTabs();
+	};
+
+	layout.onEditNewStarted = function() {
+		hideTabs();
+	};
+
+	layout.onLayoutLoaded = function() {
+		hideTabs();
+	};
+
+	layout.addFormInitializer(function(form){
+		var f = form.formElement;
+		form.add('#@(Model.FormId)_tipos', 'jqxListBox', {width: "100%", checkboxes: true, source: @Html.Raw(ViewData["tipos"])});
+
+		form.addFormElement([f.elements.entidad, f.elements.direccion, f.elements.ubicacion]);
+
+		var cerca = form.addPicker('#@(Model.FormId)_cerca', {}, function(){
+			App.geographics.geofences.windowSearch(function(item){
+				cerca.val({value: item.Id, label: item.Description});
+			}, {closeOnSelect: true});
+		});
+	})
+
+
+	//TELEFONOS
+	layout.addGridInitializer(function(){
+		var options = AppGrid.getDefaultOptions();
+		
+		options.elementId		= '#@(Model.FormId)_telefonos';
+
+		options.showtoolbar		= true;
+		options.showReloadButton= true;
+		options.reloadMethod	= 	function(){
+			var grid = this;
+
+			App.get('/entidades/ubicacion/telefonos/' + layout.editingId, function(response){
+				grid.clearSelection();
+				grid.grid.refreshLocalData(response.records);
+			}, {async: false})
+
+		};
+
+		options.showAddButton	= true;
+		options.addMethod		= function(){
+			App.popupEdit2('/entidades/entidad/telefonoeditform/' + layout.form.formElement.elements.entidad.value + '/' + layout.form.formElement.elements.direccion.value + '/' + layout.editingId, {
+				onSaved		: function() {
+					layout.grids.telefonos.reload();
+				},
+				width		: 400,
+				height		: 350
+			});
+		};
+
+
+
+		options.showRowEditButton = true;
+		options.editRowMethod = function(id, row){
+			App.popupEdit2('/entidades/entidad/telefonoeditform/' + layout.form.formElement.elements.entidad.value + '/' + layout.form.formElement.elements.direccion.value + '/' + layout.editingId + '/' + id, {
+				onSaved		: function() {
+					layout.grids.telefonos.reload();
+				},
+				width		: 400,
+				height		: 350
+			});
+		};
+
+		options.datafields = [
+			{ name: 'id', type: 'number' },
+			{ name: 'tipo', type: 'string'},
+			{ name: 'codigo_pais', type: 'number' },
+			{ name: 'codigo_area', type: 'number'},
+			{ name: 'telefono', type: 'string'}
+
+		];
+
+		options.columns = [
+			{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+			{text: 'Tipo', datafield: 'tipo', width: '250px'},
+			{text: 'Cód Pais', datafield: 'codigo_pais', width: 70, cellsalign: 'left'},
+			{text: 'Cód Area', datafield: 'codigo_area', width: 70, cellsalign: 'left'},
+			{text: 'No. Teléfono', datafield: 'telefono', width: 150, cellsalign: 'left', columntype: 'textbox'}
+		];
+
+		
+		return options;
+	});
+
+
+	//UBICACIONES
+	layout.addGridInitializer(function(){
+		var options = AppGrid.getDefaultOptions();
+		
+		options.elementId		= '#@(Model.FormId)_ubicaciones';
+
+
+		options.showtoolbar		= true;
+		options.showReloadButton= true;
+		options.reloadMethod	= 	function(){
+			var grid = this;
+
+			App.get('/entidades/ubicacion/ubicaciones/' + layout.editingId, function(response){
+				grid.clearSelection();
+				grid.grid.refreshLocalData(response.records);
+			}, {async: false})
+
+		};
+
+		options.showAddButton	= true;
+		options.addMethod = function(id, row){
+			App.loadLayoutEdit('/entidades/ubicacion/editform/0/' + layout.editingId, null, {
+				tab_title: 'Edición ubicación'
+			}, {
+				initialValues : {entidad: layout.form.widgets.entidad.val(), direccion: layout.form.widgets.direccion.val(), ubicacion: layout.editingId}
+			});
+		};
+
+		options.showRowEditButton = true;
+		options.editRowMethod = function(id, row){
+			App.loadLayoutEdit('/entidades/ubicacion/editform/0/' + layout.editingId, id, {
+				tab_title: 'Edición ubicación'
+			}, {
+				initialValues : {entidad: layout.form.widgets.entidad.val(), direccion: layout.form.widgets.direccion.val(), ubicacion: layout.editingId}
+			});
+		};
+
+		options.datafields = [
+			{ name: 'id', type: 'number' },
+			{ name: 'descripcion',type:'string'},
+			{ name: 'tipos', type: 'string'},
+		];
+
+		options.columns = [
+			{text: 'Cód. Int.', datafield: 'id', width: '60px'},
+			{text: 'Descripción', datafield: 'descripcion', width: '200px', columntype: 'textbox'},
+			{text: 'Tipos', datafield: 'tipos', width: '300px', columntype: 'textbox'}
+		];
+
+		return options;
+	});
+
+
+</script>
+
+
+
+<formsection form-manager="commonform" form-manager-section="section_top">
+	<input type="hidden" name="entidad" value="@ViewData["entidad"]"/>
+	<input type="hidden" name="direccion" value="@ViewData["direccion"]"/>
+	<input type="hidden" name="ubicacion" value="@ViewData["ubicacion"]"/>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Tipo</td>
+		<td colspan="4">
+			<div id="@(Model.FormId)_tipos" field_name="tipos"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>Cerca</td>
+		<td colspan="4">
+			<div id="@(Model.FormId)_cerca" field_name="cerca"></div>
+		</td>
+	</tr>
+</formsection>
+
+
+@section tabtitles{
+	<li>Telefonos</li>
+	<li>Ubicaciones</li>
+}
+
+@section tabs{
+	<div><div id="@(Model.FormId)_telefonos" field_name="telefonos"></div></div>
+	<div><div id="@(Model.FormId)_ubicaciones" field_name="ubicaciones"></div></div>
+}

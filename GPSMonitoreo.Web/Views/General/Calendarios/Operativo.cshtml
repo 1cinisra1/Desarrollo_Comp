@@ -1,0 +1,77 @@
+﻿@model GPSMonitoreo.Web.ViewModels.TabbedLayoutForm
+@{
+
+	//Layout = "~/Views/Shared/_TabbedLayoutForm.cshtml";
+	Layout = "~/Views/Shared/_TabbedLayoutCalendarioForm.cshtml";
+	var viewComponentModel = new
+	{
+		model = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel()
+		{
+			Title = "Calendario Operativo Anual"
+			, FormId = Model.FormId
+			, FieldName = "calendario_operativo"
+		}
+	};
+}
+
+<script script-manager-add="commoncalendarioform">
+	
+	App.hookTab('@Context.Request.Path.Value', function($container, tabIndex, tabs){
+		//alert('B');
+		SemanaIteracion = 0;
+		var anioActual = @Html.Raw(ViewData["txt_anio"]);
+
+		var vdCalendario = @Html.Raw(ViewData["OBJ_CALENDARIO"]);
+
+		var c_tablas_meses = $("#c_tablas_meses");
+		c_tablas_meses.css('width', '95%');
+
+		var arregloArrayCalendario = ConvertirJsonArray(vdCalendario);
+		objCalendario = ConvertirObjetoJsonToJs(arregloArrayCalendario);
+		console.log(objCalendario);
+
+		SetearValoresIniciales();
+		GenerarTablaMeses(objCalendario, c_tablas_meses);
+
+		var anio_calendario = $("#form_txt_anio");
+		anio_calendario.val(anioActual);
+
+
+	});
+
+</script>
+
+<formsection form-manager="commoncalendarioform" form-manager-section="section1">
+	
+
+	<!--<input type="hidden" name="objCalendario" id="objCalendario" field_name="objCalendario" />-->	
+
+	<div class="report_tabbed">
+		<div id="form_c_calendario_operativo" field_name="calendario_operativo"></div>
+		<div class="cls_div_meses">
+			
+
+				<div id="c_tiempo_calendario" class="cls_generico">
+					<input id="form_txt_anio" field_name="txt_anio" disabled="disabled" size="4" style="text-align:center" value="1986" /> <br />
+				</div>
+
+				<div id="c_botones_masivos_estandares" class="cls_generico">
+
+					<a id="enlace_sabado" onclick="ActivarDesactivarMasivamente(this, 1)"><span id="span_sabado" class="cls_span_botones"></span></a>
+
+					<a id="enlace_domingo" onclick="ActivarDesactivarMasivamente(this, 2)"><span id="span_domingo" class="cls_span_botones"></span></a>
+
+				</div>
+
+				<div id="c_tablas_meses">
+
+				</div>
+
+
+		</div>
+
+	</div>
+
+
+</formsection>
+

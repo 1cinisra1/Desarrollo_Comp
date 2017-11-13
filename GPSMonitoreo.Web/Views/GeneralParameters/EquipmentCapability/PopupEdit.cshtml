@@ -1,0 +1,22 @@
+﻿@{
+	Layout = "_CommonPopupEdit";
+
+	var formModel = new GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel(this.ViewContext);
+	formModel.Title = "PARAMETROS::CAPACIDAD EQUIPOS";
+
+	formModel.ForCats = true;
+
+	ViewData["formModel"] = formModel;
+}
+<script script-manager-add="commonform" script-manager-key="form_init">
+	
+	//var $measureUnit = $form.find();
+
+	form.addTreeDropDown('#@(formModel.FormId)_MeasureUnitId', {}, @Html.Raw(ViewData["measureUnits"]));
+</script>
+<formsection form-manager="commonform" form-manager-section="section2">
+	<tr>
+		<td>Unidad / Medida</td>
+		<td colspan="4"><div id="@(formModel.FormId)_MeasureUnitId" field_name="MeasureUnitId"></div></td>
+	</tr>
+</formsection>

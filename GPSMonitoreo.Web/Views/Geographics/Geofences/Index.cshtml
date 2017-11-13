@@ -1,0 +1,241 @@
+﻿@{
+	Layout = "_AppLayoutSearchGrid";
+
+	var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutSearchGrid(this.ViewContext);
+
+	layoutModel.Title = "GEOGRAFICO::CERCAS";
+
+	ViewData["layoutModel"] = layoutModel;
+
+
+	var regions = ViewData["regions"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var regionsJson = regions.PrependBlankItem().ToJsonString();
+
+	var layers = ViewData["layers"] as List<CommonDbEntitySimpleListDto<byte>>;
+	var layersJson = layers.ToJsonString();
+
+	var filters = new List<object>()
+	{
+		new { value = "", label = "TODAS" },
+		new { value = "with", label = "ASSIGNADA" },
+		new { value = "without", label = "SIN ASIGNAR" }
+	};
+
+	var filtersJson = filters.ToJsonString();
+
+}
+
+<script script-manager-add="layout" script-manager-key="init">
+
+	layout.addGridInitializer(function() {
+
+		var options = AppGrid2.getDefaultOptions();
+		
+		options.searchUrl = '@layoutModel.PostUrl';
+		
+		options.showRowEditButton = true;
+		options.rowEditMethod = function(id) {
+			App.@(layoutModel.ControllerFolderName.ToLower()).@(layoutModel.ControllerName.ToLower()).edit(id);
+		};
+
+		options.showAddButton = true;
+		options.addMethod = function() {
+			App.@(layoutModel.ControllerFolderName.ToLower()).@(layoutModel.ControllerName.ToLower()).editNew();
+		};
+		
+
+		options.showRowQuickViewButton = true;
+		options.rowQuickViewMethod = function(id, row) {
+			App.quickView('/geographics/geofences/quickview/' + id);
+		}
+
+		function showCommonWidgetList(dataField, rows)
+		{
+			//var rowData = searchgrid.grid.getrowdata(rowIndex);
+			//var rows = rowData[dataField];
+			var row;
+
+			var html = '<table class="geographics-popup-table" style="width:100%">';
+			html += '<tr><th>Cód Int.</th><th>Cód Auxiliar.</th><th>Descripción</th></tr>';
+
+			for(var x = 0; x < rows.length; x++)
+			{
+				row = rows[x];
+				html += '<tr><td>' + row.Id + '</td><td>' + row.AuxiliaryId + '</td><td>' + row.Description + '</td></tr>';
+			}
+
+			html += '</table>';
+
+			var title = '';
+
+			switch(dataField)
+			{
+				case 'Routes':
+					title = 'LISTADO DE RUTAS';
+					break;
+
+				case 'Sections':
+					title = 'LISTADO DE TRAMOS';
+					break;
+
+				case 'Segments':
+					title = 'LISTADO DE SEGMENTOS';
+					break;
+
+			}
+
+			App.showInfo(title, html, {width: 500, height: 400});
+
+		};
+
+
+		function commonWidgetUpdate(target, rows, dataField) {
+			var description = '';
+			var linkText = '';
+
+			target._$link.unbind('click');
+
+			if(rows.length) 
+			{
+				for(var x = 0; x < rows.length; x++)
+				{
+					row = rows[x];
+
+					if(x)
+						description += ' || ';
+
+					description += row.Description;
+				}
+
+				linkText = 'lista (' + rows.length + ')';
+
+				target._$link.css('display', '');
+
+				target._$link.click(function() {
+					//alert(rows.length);
+					showCommonWidgetList(dataField, rows);
+				});
+			}
+			else
+			{
+				target._$link.css('display', 'none');
+			}
+
+			target._$descriptionContainer.html(description);
+			target._$link.html(linkText);
+		}
+
+		function commonCreateWidget(target, rows, rowIndex, dataField) {
+			var $target = $(target);
+
+			var $descriptionContainer = $('<div class="jqx-grid-cell-left-align" style="margin-top: 6px;"></div>');
+			var $linkContainer = $('<div class="grid_link_container"></div>');
+
+			var $link = $('<a href="#"></a>');
+
+			$linkContainer.append($link);
+
+			//html += '<div class="grid_link_container"><a href="#" onclick="cercasAbrirLista(\'' + titulo + '\', ' + rowIndex + ', \'' + dataField + '\');return false;">lista (' + rows.length + ')</a></div>';
+				
+
+			$target.append($descriptionContainer);
+			$target.append($linkContainer);
+
+			target._$descriptionContainer = $descriptionContainer;
+			target._$link = $link;
+
+
+			commonWidgetUpdate(target, rows, dataField);
+
+		};
+
+
+		options.dataFields = [
+			{ name: 'Id', type: 'number' },
+			{ name: 'AuxiliaryId', type: 'string' },
+			{ name: 'Description', type:' string' },
+			{ name: 'CategoryDescription', type: 'string' },
+			{ name: 'Routes' }
+		];
+
+		options.columns = [
+			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
+			{ text: 'Cód. Auxiliar.', datafield: 'AuxiliaryId', width: '90px' },
+			{ text: 'Descripción', datafield: 'Description', width: '250px' },
+			{ text: 'Categoria', datafield: 'CategoryDescription', width: '250px'},
+			{ text: 'Rutas', datafield: 'Routes', width: '200px', 
+				createwidget: function (row, column, value, htmlElement) {
+					commonCreateWidget(htmlElement, value, row, 'Routes');
+				},
+				initwidget: function (row, column, value, htmlElement) {
+					commonWidgetUpdate(htmlElement, value, 'Routes');
+				}
+			}
+
+		];
+
+		options.searchFilters = [
+			[
+				new AppGridFilter({
+					label		: 'Cód Auxiliar',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'AuxiliaryId'
+				}),
+				new AppGridFilter({
+					label		: 'Region',
+					widgetName	: 'jqxDropDownList',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'RegionId',
+					widgetOptions : { placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(regionsJson) }
+				}),
+				new AppGridFilter({
+					label		: 'Ruta',
+					widgetName	: 'jqxComboBox',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Routes',
+					widgetOptions : { placeHolder: '', source: @Html.Raw(filtersJson) }
+				}),
+				new AppGridFilter({
+					label		: 'Segmento',
+					widgetName	: 'jqxComboBox',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Segments',
+					widgetOptions : { placeHolder: '', source: @Html.Raw(filtersJson) }
+				})
+			],
+			[
+				new AppGridFilter({
+					label		: 'Descripción',
+					widgetName	: 'jqxInput',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Description'
+				}),
+				new AppGridFilter({
+					label		: 'Capa',
+					widgetName	: 'jqxDropDownList',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'LayerIds',
+					widgetOptions : { placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(layersJson), checkboxes: true }
+				}),
+				new AppGridFilter({
+					label		: 'Tramo',
+					widgetName	: 'jqxComboBox',
+					labelWidth	: '100px',
+					widgetWidth	: '200px',
+					fieldName	: 'Sections',
+					widgetOptions : { placeHolder: '', source: @Html.Raw(filtersJson) }
+				})
+			]
+		];
+
+		return options;
+	});
+
+</script>

@@ -1,0 +1,18 @@
+﻿@model GPSMonitoreo.Web.ViewModels.QuickView
+@{ 
+	IgnoreBody();
+}
+<div>
+	@Model.Title
+</div>
+<div>
+	@RenderSection("details", true)
+</div>
+
+
+
+<script script-manager-render="quickView">
+	App.hookQuickView('@Context.Request.Path.Value', function ($container, win) {
+	//script-manager["init"]
+});
+</script>

@@ -1,0 +1,224 @@
+﻿@using GPSMonitoreoServer.Reports.Enums
+@{
+
+	Layout = "_AppLayout";
+}
+<div>
+	<ul>
+		<li>Log</li>
+		<li>Mapa</li>
+	</ul>
+	<div style="position:relative;">
+		<div style="position:absolute;width:100%;height:100px">
+			<form id="form_eventoslog" style="padding: 5px" method="post">
+				<table>
+					<tr>
+						<td>Orden de viaje</td>
+						<td style="width:80px">
+							<input type="text" name="viaje" />
+						</td>
+						<td>Categoria</td>
+						<td style="width:200px">
+							<div id="form_eventoslog_categoria" field_name="categoria">
+								<div style="border: none;"></div>
+							</div>
+						</td>
+						<td></td>
+						<td style="width:200px"></td>
+					</tr>
+				</table>
+				<button type="button">Buscar</button>
+				<button type="button">ver en mapa</button>
+			</form>
+		</div>
+		<div style="position:absolute;width:100%;top:0;bottom:0;margin-top:100px">
+			<div id="form_eventoslog_grid"></div>
+		</div>
+	</div>
+	<div>
+		<div id="form_eventoslog_grid_map" style="width:100%;height:100%"></div>
+	</div>
+</div>
+<script script-manager-add="layout" script-manager-key="init">
+
+	var $body = layout.container.find('> div > div.body');
+	
+	var $tabs = $body.find('> div');
+
+
+	var appMap;
+
+	$tabs.jqxTabs({width: '100%', height: '100%', initTabContent: function (tab) {
+		if(tab == 1)
+			console.log(google.maps.event.trigger(appMap.map, 'resize'));
+	}});
+
+	var tabs = $tabs.data('jqxWidget');
+	
+
+	var $form = $body.find('#form_eventoslog').jqxForm();
+
+	var form = $form.instance;
+
+	
+
+	var $buttons = $form.find('button');
+
+	var $buttonSearch = $($buttons[0]);
+	var $buttonMap = $($buttons[1]);
+	var $grid = $body.find('#form_eventoslog_grid');
+	
+	var f = form.formElement;
+	
+	form.add([f.elements.viaje], 'jqxNumberInput', {decimalDigits: 0, digits: 10, inputMode: 'simple', spinButtons: false, textAlign: 'left'});
+	form.add('#form_eventoslog_categoria', 'jqxDropDownList', {placeHolder: ''});
+
+	$buttonSearch.jqxButton({template: 'info'});
+	$buttonMap.jqxButton({template: 'primary'});
+
+	var searchgrid = new SearchGrid();
+
+	searchgrid.form = form;
+
+
+	var datafields = [
+		{ name: 'evento', type: 'string' },
+		{ name: 'eventoEstado', type: 'string' },
+		{ name: 'fechahora', type: 'string' },
+		{ name: 'cerca', type: 'string' },
+		{ name: 'relDescripcion', type: 'string' },
+	];
+
+	var columns = [
+		{text: 'Fecha/Hora', datafield: 'fechahora', width: '150px'},
+		{text: 'Cerca', datafield: 'cerca', width: '250px'},
+		{text: 'Evento', datafield: 'evento', width: '150px'},
+		{text: 'Evento Estado', datafield: 'eventoEstado', width: '200px'},
+		{text: 'Relación Descripción', datafield: 'relDescripcion', width: '200px'}
+	];
+
+
+	var sourceGrid = {
+		//localdata: [],
+        datatype: 'json',
+		datafields: datafields,
+		url: '/simulacion/simulador/eventoslogsearch',
+		type: 'POST',
+		data: {},
+		beforeprocessing: function(data)
+		{
+			console.log(this);
+			searchgrid.adapter._source.data.recordcount = data.recordcount;
+			//ComprobantesRecibidos._searchadapter._source.data.recordcount = data.recordcount;
+			this.totalrecords = data.recordcount;
+		},
+		cache: false
+	};
+
+	var adapterSettings = {
+		contentType : 'application/json',
+		processData : function(data){
+		},
+		formatData : function(data)
+		{
+			return JSON.stringify(data);
+		},
+		autoBind : false
+	};
+
+	var rendergridrows = function (params) {
+		return params.data;
+	};
+
+
+	var dataAdapter = new $.jqx.dataAdapter(sourceGrid, adapterSettings);
+
+	searchgrid.adapter = dataAdapter;
+
+
+	var gridOptions = {
+		width: '100%',
+		height: '100%',
+		//source: dataAdapter,
+		columns: columns,
+		columnsresize: true,
+		columnsreorder: false,
+		sortable: false,
+		virtualmode: true,
+		pageable: true,
+		rendergridrows: rendergridrows
+	};
+
+	$grid.jqxGrid(gridOptions);
+
+	var grid = $grid.data('jqxWidget');
+
+	searchgrid.grid = grid;
+
+	//this.grid.host.jqxGrid('source', this.adapter);
+
+
+	$buttonSearch.click(function(){
+		//grid.host.jqxGrid('source', dataAdapter);
+		searchgrid.search();
+	});
+
+	var showEvent = function(record) {
+		var html = '<table style="width:300px">';
+		html += '<tr><td>Alarma</td><td>' + record.alarma + '</td></tr>';
+		html += '<tr><td>Cerca</td><td>' + record.cerca + '</td></tr>';
+		html += '<tr><td>Inicio</td><td>' + record.inicio + '</td></tr>';
+		html += '<tr><td>Fin</td><td>' + record.fin + '</td></tr>';
+		html += '</table>';
+		appMap.showInfoWindow(html, {lat: record.lat, lng: record.lng});
+	};
+
+	$buttonMap.click(function(){
+		return;
+		tabs.select(1);
+		App.get('/simulacion/simulador/alarmaslogmap', function(response) {
+			var records = response.records;
+			var record;
+			var markerOptions = {
+				icon: {
+					path: google.maps.SymbolPath.CIRCLE,
+					fillOpacity: 1,
+					fillColor: 'red',
+					strokeWeight: 0, 
+					scale: 10 //pixels
+				}
+			};
+
+			for(var x = 0; x < records.length; x++)
+			{
+				record = records[x];
+				console.log(record);
+				//markerOptions.position = {lat: record.lat, lng: record.lng};
+				markerOptions.position = new google.maps.LatLng(record.lat, record.lng);
+				appMap.addMarker(markerOptions, function(rec) {
+					return function() {
+						showAlarm(rec);
+					}
+					
+				}(record));
+
+
+
+			}
+		});
+	});
+
+
+	var $mapContainer = layout.container.find('#form_eventoslog_grid_map');
+
+	appMap = new AppMap({$mapContainer: $mapContainer});
+	//appMap = new AppMap({id: 'form_eventoslog_grid_map', $container: layout.container});
+	//appMap.initMapaCercas();
+	appMap.initMapaCercas();
+
+	//$container.appMap = appMap;
+
+	//console.log($grid);
+
+	//console.log(layout.container.find('> div > div.body'));
+</script>

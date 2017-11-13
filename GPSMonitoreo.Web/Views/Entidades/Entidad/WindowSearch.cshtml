@@ -1,0 +1,163 @@
+﻿@{
+	Layout = "WindowSearchLayout";
+}
+
+@section form{
+<form style="padding: 5px">
+	<table class="table_edit jqx-wide">
+		<tr>
+			<td>Identificación:</td>
+			<td style="width:150px"><input type="text" name="identificacion" maxlength="100" id="txt_identificacion" /></td>
+			<td>Tipo Identificación:</td>
+			<td style="width:200px">
+				<div id="form_entidades_search_tipo_identificacion" field_name="tipoidentificacion">
+					<div style="border: none;"></div>
+				</div>
+			</td>
+			<td>Nombres:</td>
+			<td style="width:150px"><input type="text" name="nombres" maxlength="100" id="txt_nombres" /></td>
+			<td>Apellidos:</td>
+			<td style="width:150px"><input type="text" name="apellidos" maxlength="100" id="txt_apellidos" /></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Razón Social:</td>
+			<td style="width:150px">
+				<input type="text" name="razonsocial" maxlength="100" id="txt_razonsocial" />
+			</td>
+			<td>Descripción:</td>
+			<td style="width:150px">
+				<input type="text" name="descripcion" maxlength="100" id="txt_descripcion" />
+			</td>
+			<td>Tipo entidad:</td>
+			<td style="width:200px">
+				<div id="form_entidades_search_tipo_entidad" field_name="tipoentidad">
+					<div style="border: none;"></div>
+				</div>
+			</td>
+			<td>Categoría:</td>
+			<td style="width:200px">
+				<div id="form_entidades_search_categoria" field_name="categoria">
+					<div style="border:none;"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<button type="button">Buscar</button>
+</form>
+}
+<script script-manager-add="windowsearch" script-manager-key="form_init">
+	form.add('input:text', 'jqxInput');
+
+	var $tipo_ident = $form.find('#form_entidades_search_tipo_identificacion');
+	var $tipo_entidad = $form.find('#form_entidades_search_tipo_entidad');
+	
+	var $categoria = $form.find('#form_entidades_search_categoria');
+	var $categoria_tree = $categoria.find('> div').jqxTree({width: '100%', height: '200px', checkboxes: true, source: @Html.Raw(ViewData["categoriaentidad"])});
+	var categoria_tree = $categoria_tree.data('jqxWidget');
+	var categoria = form.addDropDownButton($categoria, { width: '100%', dropDownWidth : 300}, categoria_tree);
+
+	var $nombres = $('#txt_nombres');
+	var $apellidos = $('#txt_apellidos');
+	var $descripcion = $('#txt_descripcion');
+	var $razonsocial = $('#txt_razonsocial');
+	var $identificacion = $('#txt_identificacion');
+
+
+	$categoria_tree.on('checkChange', function (event) {
+		var args = event.args;
+		var items = categoria_tree.getCheckedItems();
+
+		var str = '';
+
+		if(items.length == 0)
+			str = '';
+		else if(items.length == 1)
+			str = items[0].label;
+		else
+			str = 'Items seleccionados: (' + items.length + ')';
+
+		categoria.setContent('<div style="position: relative; margin-left: 3px;">' + str + '</div>');
+
+	});
+
+	form.add([$nombres, $apellidos, $descripcion, $razonsocial, $identificacion], 'jqxInput');
+	
+
+	/*VALIDACIONES DE UI: */
+
+	$tipo_entidad.on('change', function(){
+			
+		console.log($tipo_entidad.val());
+		var tipo = $tipo_entidad.val();
+		console.log(tipo);
+
+		switch(tipo){
+				
+			case '0': //todos
+				console.log('Todos');
+
+				$nombres.jqxInput({disabled: false});
+				$nombres.val('');
+
+				$apellidos.jqxInput({disabled: false});
+				$apellidos.val('');
+					
+				$descripcion.jqxInput({disabled: false});
+				$descripcion.val('');
+
+				$razonsocial.jqxInput({disabled: false});
+				$razonsocial.val('');					
+					
+				break;
+				
+			case '1': //juridico
+				console.log('Jurídico');
+					
+				$('#txt_razonsocial').jqxInput({disabled: false});
+										
+				$nombres.val('');
+				$nombres.jqxInput({disabled: true});
+					
+				$apellidos.val('');
+				$apellidos.jqxInput({disabled: true});
+					
+				$descripcion.val('');
+				$descripcion.jqxInput({disabled: true});					
+				break;
+
+			case '2': //natural
+			case '4': //persona
+			case '5': //empleado
+				console.log('Persona, Empleado, Persona Natural');
+					
+				$nombres.jqxInput({disabled: false});
+				$apellidos.jqxInput({disabled: false});
+										
+				$razonsocial.jqxInput({disabled: true});
+				$razonsocial.val('');
+
+				$descripcion.jqxInput({disabled: true});
+				$descripcion.val('');
+
+				break;
+
+			case '3': //lugar
+				$descripcion.jqxInput({disabled: false});
+					
+				$nombres.jqxInput({disabled: true});
+				$nombres.val('');
+
+				$apellidos.jqxInput({disabled: true});
+				$apellidos.val('');
+
+				$razonsocial.jqxInput({disabled: true});
+				$razonsocial.val('');
+				break;
+		}
+	});
+
+	form.add($tipo_ident, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["tipoidentificacion"])});
+	form.add($tipo_entidad, 'jqxDropDownList', {placeHolder: '', source: @Html.Raw(ViewData["tipoentidad"])});
+
+</script>

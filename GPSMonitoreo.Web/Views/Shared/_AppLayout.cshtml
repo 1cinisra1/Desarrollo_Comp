@@ -1,0 +1,21 @@
+﻿@model GPSMonitoreo.Web.ViewModels.AppLayout
+@{
+
+}
+<div class="layout">
+	<div class="header">
+		@Model.Title
+	</div>
+	<div class="body">
+		@RenderBody()
+	</div>
+</div>
+<script script-manager-render="layout">
+App.hookLayout('@Context.Request.Path.Value', function(layout){
+
+	//script-manager["init"]
+
+});
+
+
+</script>

@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<script>
+App.hookTab('@Context.Request.Path.Value', function($container, tabIndex, tabs){
+	var appMap = new AppMap({id: 'map_cercas', $container : $container});
+	appMap.initMapaCercas({initEditMenu: true});
+
+	$container.appMap = appMap;
+});
+</script>
+<div id="map_cercas" class="map_cerca" style="z-index:4"></div>
+<div id="map_cercas_flightPathMenu" class="googlemaps_flightpathmenu">
+	<div class="view">Ver detalle</div>
+	<div class="delete_vertex">Eliminar vértice</div>
+	<div class="edit">Editar</div>
+	<div class="save">Guardar</div>
+</div>

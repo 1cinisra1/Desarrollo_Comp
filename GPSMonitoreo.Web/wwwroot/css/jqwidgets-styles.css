@@ -1,0 +1,45 @@
+﻿
+
+#windowError .jqx-window-header
+{
+	background-color: red;
+	color:white;
+	font-weight: bold;
+}
+
+#windowError
+{
+	border-color: red;
+}
+
+#windowError .jqx-icon-close
+{
+	background-image: url('/assets/jqwidgets4.5.2/styles/images/close_white.png');
+}
+
+
+
+#windowWarning .jqx-window-header
+{
+	background-color: orange;
+	color:white;
+	font-weight: bold;
+}
+
+#windowWarning
+{
+	border-color: orange;
+}
+
+#windowWarning .jqx-icon-close
+{
+	background-image: url('/assets/jqwidgets4.5.2/styles/images/close_white.png');
+}
+
+
+
+
+.jqx-grid-no-selection-background .jqx-grid-cell-selected-metro
+{
+	background-color: unset;
+}
