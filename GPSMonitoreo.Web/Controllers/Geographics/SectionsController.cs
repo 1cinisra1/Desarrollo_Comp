@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//modificacion local Israel
+
 
 using GPSMonitoreo.Services;
 using MVCHelpers.ActionResults;
