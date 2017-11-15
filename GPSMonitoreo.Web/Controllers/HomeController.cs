@@ -197,7 +197,7 @@ namespace GPSMonitoreo.Web.Controllers
 									items: new List<MenuItem>
 									{
 										new MenuItem(
-											"Nueva cerca",
+											"Nueva cerca2",
 											onClick: "App.geographics.geofences.editNew()",
 											icon: "<webicon class=\"oliver_essential-collection_add-1\" style=\"margin-right:5px\"></webicon>",
 											roles: new Role[] { Role.SuperAdmin },

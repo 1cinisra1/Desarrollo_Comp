@@ -24,7 +24,7 @@ namespace GPSMonitoreo.Web.Controllers.Localidades
 		public IActionResult Index()
 		{
 			int fieldindex = 0;
-
+            //
 			var grid = new jqxGrid();
 
 			grid.AddColumn("Código interno", "150px", "id", "string", fieldindex++.ToString());
