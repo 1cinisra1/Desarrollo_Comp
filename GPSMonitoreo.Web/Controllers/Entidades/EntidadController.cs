@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +11,7 @@ using GPSMonitoreo.Web.Extensions.JqwidgetsExtensions;
 using MVCHelpers.Extensions;
 using GPSMonitoreo.Web.PostModels.Entidades;
 using MVCHelpers.ActionResults;
+
 
 using GPSMonitoreo.Web.ViewComponents.jqxGrid;
 using GPSMonitoreo.Data.Models;
