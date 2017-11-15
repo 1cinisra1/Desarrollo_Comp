@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 using GPSMonitoreo.Services;
 using MVCHelpers.ActionResults;
 using GPSMonitoreo.Web.ViewComponents.jqxGrid;
