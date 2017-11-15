@@ -11,7 +11,7 @@ using GPSMonitoreo.Web.Extensions.JqwidgetsExtensions;
 using MVCHelpers.Extensions;
 using GPSMonitoreo.Web.PostModels.Entidades;
 using MVCHelpers.ActionResults;
-
+//cambio hecho en master a israel
 using GPSMonitoreo.Web.ViewComponents.jqxGrid;
 using GPSMonitoreo.Data.Models;
 using System.Data.Entity;
