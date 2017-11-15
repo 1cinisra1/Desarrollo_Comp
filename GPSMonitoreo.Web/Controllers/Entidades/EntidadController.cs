@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,11 +12,12 @@ using MVCHelpers.Extensions;
 using GPSMonitoreo.Web.PostModels.Entidades;
 using MVCHelpers.ActionResults;
 
+
 using GPSMonitoreo.Web.ViewComponents.jqxGrid;
 using GPSMonitoreo.Data.Models;
 using System.Data.Entity;
 using Newtonsoft.Json.Linq;
-
+// trying FETCH option in GIT
 namespace GPSMonitoreo.Web.Controllers.Entidades
 {
     public class EntidadController : BaseController
