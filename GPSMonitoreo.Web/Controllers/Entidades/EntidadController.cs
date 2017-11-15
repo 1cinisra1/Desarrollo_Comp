@@ -81,7 +81,7 @@ namespace GPSMonitoreo.Web.Controllers.Entidades
 			ViewData["relaciones"] = DBContext.ENTIDADES_RELS.OrderBy(item => item.DESCRIPCION_LARGA).ToJqwidgets().ToJsonString();
 			ViewData["telefono_tipos"] = DBContext.TELEFONO_TIPOS.OrderBy(item => item.DESCRIPCION_LARGA).ToJqwidgets().ToJsonString();
 
-			//Componentes del tab de calendarios:
+			
 			
 			
 
