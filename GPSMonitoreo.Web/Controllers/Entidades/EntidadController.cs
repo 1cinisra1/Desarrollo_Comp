@@ -16,7 +16,7 @@ using GPSMonitoreo.Web.ViewComponents.jqxGrid;
 using GPSMonitoreo.Data.Models;
 using System.Data.Entity;
 using Newtonsoft.Json.Linq;
-
+// trying FETCH option in GIT
 namespace GPSMonitoreo.Web.Controllers.Entidades
 {
     public class EntidadController : BaseController
