@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +11,7 @@ using GPSMonitoreo.Web.Extensions.JqwidgetsExtensions;
 using MVCHelpers.Extensions;
 using GPSMonitoreo.Web.PostModels.Entidades;
 using MVCHelpers.ActionResults;
-
-//modificacion local Israel
-//modificacion origin Israel
+//cambio hecho en master a israel
 using GPSMonitoreo.Web.ViewComponents.jqxGrid;
 using GPSMonitoreo.Data.Models;
 using System.Data.Entity;
@@ -83,12 +81,12 @@ namespace GPSMonitoreo.Web.Controllers.Entidades
 			ViewData["relaciones"] = DBContext.ENTIDADES_RELS.OrderBy(item => item.DESCRIPCION_LARGA).ToJqwidgets().ToJsonString();
 			ViewData["telefono_tipos"] = DBContext.TELEFONO_TIPOS.OrderBy(item => item.DESCRIPCION_LARGA).ToJqwidgets().ToJsonString();
 
+			
+			
+			
 
-            //Componentes del tab de calendarios:
-
-
-
-            var query = DBContext.ENTIDADES_DIRS;
+			
+			var query = DBContext.ENTIDADES_DIRS;
 			query.Where(item => item.ENTIDAD_ID == 0);
 								
 			ViewData["direcciones"] = query.Select(item => new
