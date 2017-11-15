@@ -13,7 +13,7 @@ using GPSMonitoreo.Web.PostModels.Entidades;
 using MVCHelpers.ActionResults;
 
 //modificacion local Israel
-modificacion local Israel
+//modificacion origin Israel
 using GPSMonitoreo.Web.ViewComponents.jqxGrid;
 using GPSMonitoreo.Data.Models;
 using System.Data.Entity;
