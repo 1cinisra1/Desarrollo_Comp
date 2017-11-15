@@ -81,12 +81,12 @@ namespace GPSMonitoreo.Web.Controllers.Entidades
 			ViewData["relaciones"] = DBContext.ENTIDADES_RELS.OrderBy(item => item.DESCRIPCION_LARGA).ToJqwidgets().ToJsonString();
 			ViewData["telefono_tipos"] = DBContext.TELEFONO_TIPOS.OrderBy(item => item.DESCRIPCION_LARGA).ToJqwidgets().ToJsonString();
 
-			
-			
-			
 
-			
-			var query = DBContext.ENTIDADES_DIRS;
+            //Componentes del tab de calendarios:
+
+
+
+            var query = DBContext.ENTIDADES_DIRS;
 			query.Where(item => item.ENTIDAD_ID == 0);
 								
 			ViewData["direcciones"] = query.Select(item => new
