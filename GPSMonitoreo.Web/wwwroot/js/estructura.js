@@ -299,11 +299,12 @@ function CommonStructureController(parent, controllerName, controllerSetting) {
 		}
 	}
 
-
+	
 	if(controllerSetting.editPopup)
 	{
 		if(!controllerSetting.actions || controllerSetting.actions.create !== false)
 		{
+		   
 			this.editNew = function(options, popupOptions) {
 				App.popupEdit2(this.getUrl('popupedit', options), popupOptions);
 			};
@@ -508,6 +509,15 @@ App.equipments = new CommonStructure3('/equipments', 'Equipos', {
 	equipment : { tabTitle: 'Equipos' }
 
 });
+
+
+
+App.tecnicos = new CommonStructure3('/tecnicos', 'Tecnicos', {
+
+    tecnico: { tabTitle: 'Tecnicos' }
+
+});
+
 
 App.productos = {
 	productos: new CommonStructure(App.geografico, '/productos/productos', 'Productos/Productos')

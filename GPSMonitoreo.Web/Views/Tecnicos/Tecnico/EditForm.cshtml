@@ -1,0 +1,95 @@
+﻿
+@{
+    Layout = "_AppLayoutTabbedForm3";
+
+    var layoutModel = new GPSMonitoreo.Web.ViewModels.AppLayoutForm(this.ViewContext);
+
+    layoutModel.Title = "TECNICOS::TECNICO";
+
+    ViewData["layoutModel"] = layoutModel;
+
+}
+
+<script script-manager-add="commonform" script-manager-key="form_init">
+
+
+</script>
+
+
+<formsection form-manager="commonform" form-manager-section="section0">
+  
+  
+       <fieldset style="width:200px" >
+           <legend>Tipo de Servicio</legend>
+
+           <div id="@(layoutModel.FormId)_jqxRadioButton" field_name="2">
+                Contacto
+           </div>
+           <div id="@(layoutModel.FormId)_jqxRadioButton2" field_name="1">
+               Garantia
+           </div>
+           <div id="@(layoutModel.FormId)_jqxRadioButton3" field_name="3">
+               Ocacional
+           </div>
+       </fieldset>
+  
+  
+        <fieldset style="width:200px">
+            <legend>Cliente</legend>
+
+            <div id="@(layoutModel.FormId)_jqxRadioButton" field_name="2">
+                Contacto
+            </div>
+            <div id="@(layoutModel.FormId)_jqxRadioButton2" field_name="1">
+                Garantia
+            </div>
+            <div id="@(layoutModel.FormId)_jqxRadioButton3" field_name="3">
+                Ocacional
+            </div>
+        </fieldset>
+  
+      
+   
+
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section1">
+        <tr>
+            <td>Código Alterno</td>
+            <td><input name="AlternateId" maxlength="10" /></td>
+        </tr>
+</formsection>
+
+
+<formsection form-manager="commonform" form-manager-section="section2">
+    <tr>
+        <td>prueba1</td>
+        <td colspan="4"><input type="text" name="DescriptionLong2"  maxlength="52" /></td>
+    </tr>
+
+    <tr>
+        <td>prueba2</td>
+        <td colspan="4"><input type="text" name="AlternateId2" /></td>
+    </tr>
+</formsection>
+
+
+@section tabtitles{
+  
+       <li>Cliente</li>
+}
+
+@*@section tabtitles2{
+
+    <li>prueba</li>
+}*@
+
+
+@section tabs{
+    <div><div field_name="1"></div></div>
+}
+
+
+@*@section tabs2{
+    <div><div field_name="2"></div></div>
+}*@

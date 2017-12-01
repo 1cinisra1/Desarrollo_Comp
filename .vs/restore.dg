@@ -1,0 +1,11 @@
+#:C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Web\GPSMonitoreo.Web.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Web\GPSMonitoreo.Web.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Core\GPSMonitoreo.Core.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Web\GPSMonitoreo.Web.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Libraries\GPSMonitoreo.Libraries.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Web\GPSMonitoreo.Web.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\GPSMonitoreo.Services.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Web\GPSMonitoreo.Web.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\MVCHelpers\MVCHelpers.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Web\GPSMonitoreo.Web.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Data\GPSMonitoreo.Data.csproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Core\GPSMonitoreo.Core.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Libraries\GPSMonitoreo.Libraries.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\GPSMonitoreo.Services.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Data\GPSMonitoreo.Data.csproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Services\GPSMonitoreo.Services.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Dtos\GPSMonitoreo.Dtos.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Dtos\GPSMonitoreo.Dtos.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Core\GPSMonitoreo.Core.xproj
+C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Dtos\GPSMonitoreo.Dtos.xproj|C:\Users\vicente.pinargote\Source\Repos\Desarrollo_Comp\GPSMonitoreo.Data\GPSMonitoreo.Data.csproj

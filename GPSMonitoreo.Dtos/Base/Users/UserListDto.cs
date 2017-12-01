@@ -9,7 +9,9 @@ namespace GPSMonitoreo.Dtos.Base.Users
     {
 		public string Username { get; set; }
 
-		public string EntityDescription { get; set; }
+        //public string password { get; set; }
+
+        public string EntityDescription { get; set; }
 
 		public string RoleDescription { get; set; }
 

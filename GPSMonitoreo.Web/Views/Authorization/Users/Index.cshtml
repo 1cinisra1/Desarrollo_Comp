@@ -13,7 +13,8 @@
 
 		options.dataFields = [
 			{ name: 'Id', type: 'number' },
-			{ name: 'Username', type: 'text'},
+			{ name: 'Username', type: 'text' },
+            //{ name: 'password', type: 'text' },
 			{ name: 'EntityDescription', type: 'text'},
 			{ name: 'RoleDescription', type: 'text'}
 		];
@@ -21,6 +22,7 @@
 		options.columns = [
 			{ text: 'Cód. Int.', datafield: 'Id', width: '60px' },
 			{ text: 'Usuario', datafield: 'Username', width: '200px' },
+           // { text: 'Clave', datafield: 'password', width: '80px' },
 			{ text: 'Entidad', datafield: 'EntityDescription', width: '200px' },
 			{ text: 'Rol', datafield: 'RoleDescription', width: '200px' }
 		];

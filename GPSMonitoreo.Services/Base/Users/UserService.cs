@@ -189,7 +189,8 @@ namespace GPSMonitoreo.Services.Base.Users
 			{
 				Id = x.ID,
 				Username = x.USUARIO,
-				EntityDescription = x.ENTIDAD.DESCRIPCION_LARGA,
+               // password = x.CLAVE,
+                EntityDescription = x.ENTIDAD.DESCRIPCION_LARGA,
 				RoleDescription = x.ROLE.DESCRIPCION_LARGA
 			}).ToListAsync();
 

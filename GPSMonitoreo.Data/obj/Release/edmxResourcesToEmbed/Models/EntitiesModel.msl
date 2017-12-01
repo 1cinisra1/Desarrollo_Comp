@@ -1,0 +1,1524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EntitiesModelStoreContainer" CdmEntityContainer="EntitiesContext">
+    <EntitySetMapping Name="CERCAS_CAPAS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_CAPAS">
+        <MappingFragment StoreEntitySet="CERCAS_CAPAS">
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_CATS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_CATS">
+        <MappingFragment StoreEntitySet="CERCAS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="CAPA_ID" ColumnName="CAPA_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REGIONES">
+      <EntityTypeMapping TypeName="EntitiesModel.REGIONES">
+        <MappingFragment StoreEntitySet="REGIONES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_CALZADAS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_CALZADAS">
+        <MappingFragment StoreEntitySet="CERCAS_CALZADAS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_CURVAS_GRADO">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_CURVAS_GRADO">
+        <MappingFragment StoreEntitySet="CERCAS_CURVAS_GRADO">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_CURVAS_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_CURVAS_TIPOS">
+        <MappingFragment StoreEntitySet="CERCAS_CURVAS_TIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_TRAZADO_VIA">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_TRAZADO_VIA">
+        <MappingFragment StoreEntitySet="CERCAS_TRAZADO_VIA">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_CALZADAS_ESTADOS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_CALZADAS_ESTADOS">
+        <MappingFragment StoreEntitySet="CERCAS_CALZADAS_ESTADOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_PENDIENTES">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_PENDIENTES">
+        <MappingFragment StoreEntitySet="CERCAS_PENDIENTES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_PENDIENTES_GRADO">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_PENDIENTES_GRADO">
+        <MappingFragment StoreEntitySet="CERCAS_PENDIENTES_GRADO">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_TRAFICO">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_TRAFICO">
+        <MappingFragment StoreEntitySet="CERCAS_TRAFICO">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_FORMAS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_FORMAS">
+        <MappingFragment StoreEntitySet="CERCAS_FORMAS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS">
+        <MappingFragment StoreEntitySet="CERCAS">
+          <ScalarProperty Name="AUXILIAR_ID" ColumnName="AUXILIAR_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="CERCA_ENRUTA_ID" ColumnName="CERCA_ENRUTA_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="VERTICE2_LNG" ColumnName="VERTICE2_LNG" />
+          <ScalarProperty Name="VERTICE1_LNG" ColumnName="VERTICE1_LNG" />
+          <ScalarProperty Name="LNG" ColumnName="LNG" />
+          <ScalarProperty Name="RADIO" ColumnName="RADIO" />
+          <ScalarProperty Name="LAT" ColumnName="LAT" />
+          <ScalarProperty Name="VERTICE2_LAT" ColumnName="VERTICE2_LAT" />
+          <ScalarProperty Name="VERTICE1_LAT" ColumnName="VERTICE1_LAT" />
+          <ScalarProperty Name="FORMA_ID" ColumnName="FORMA_ID" />
+          <ScalarProperty Name="REGION_ID" ColumnName="REGION_ID" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="CAPA_ID" ColumnName="CAPA_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_PUNTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_PUNTOS">
+        <MappingFragment StoreEntitySet="CERCAS_PUNTOS">
+          <ScalarProperty Name="LNG" ColumnName="LNG" />
+          <ScalarProperty Name="LAT" ColumnName="LAT" />
+          <ScalarProperty Name="NO" ColumnName="NO" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CERCAS_ENRUTA">
+      <EntityTypeMapping TypeName="EntitiesModel.CERCAS_ENRUTA">
+        <MappingFragment StoreEntitySet="CERCAS_ENRUTA">
+          <ScalarProperty Name="TIEMPO_OPTIMO" ColumnName="TIEMPO_OPTIMO" />
+          <ScalarProperty Name="VELOCIDAD_OPTIMA" ColumnName="VELOCIDAD_OPTIMA" />
+          <ScalarProperty Name="DISTANCIA" ColumnName="DISTANCIA" />
+          <ScalarProperty Name="CURVA_CANTIDAD" ColumnName="CURVA_CANTIDAD" />
+          <ScalarProperty Name="VELOCIDAD_RETORNO_EMPREST" ColumnName="VELOCIDAD_RETORNO_EMPREST" />
+          <ScalarProperty Name="VELOCIDAD_RETORNO_MOPREST" ColumnName="VELOCIDAD_RETORNO_MOPREST" />
+          <ScalarProperty Name="VELOCIDAD_RETORNO_MOP" ColumnName="VELOCIDAD_RETORNO_MOP" />
+          <ScalarProperty Name="VELOCIDAD_IDA_EMPREST" ColumnName="VELOCIDAD_IDA_EMPREST" />
+          <ScalarProperty Name="VELOCIDAD_IDA_MOPREST" ColumnName="VELOCIDAD_IDA_MOPREST" />
+          <ScalarProperty Name="VELOCIDAD_IDA_MOP" ColumnName="VELOCIDAD_IDA_MOP" />
+          <ScalarProperty Name="PENDIENTE_RETORNO_GRADO_ID" ColumnName="PENDIENTE_RETORNO_GRADO_ID" />
+          <ScalarProperty Name="PENDIENTE_RETORNO_ID" ColumnName="PENDIENTE_RETORNO_ID" />
+          <ScalarProperty Name="PENDIENTE_IDA_GRADO_ID" ColumnName="PENDIENTE_IDA_GRADO_ID" />
+          <ScalarProperty Name="PENDIENTE_IDA_ID" ColumnName="PENDIENTE_IDA_ID" />
+          <ScalarProperty Name="TRAFICO_ID" ColumnName="TRAFICO_ID" />
+          <ScalarProperty Name="CARRILES_RETORNO" ColumnName="CARRILES_RETORNO" />
+          <ScalarProperty Name="CARRILES_IDA" ColumnName="CARRILES_IDA" />
+          <ScalarProperty Name="CALZADA_ESTADO_ID" ColumnName="CALZADA_ESTADO_ID" />
+          <ScalarProperty Name="CALZADA_TIPO_ID" ColumnName="CALZADA_TIPO_ID" />
+          <ScalarProperty Name="CURVA_GRADO_ID" ColumnName="CURVA_GRADO_ID" />
+          <ScalarProperty Name="CURVA_TIPO_ID" ColumnName="CURVA_TIPO_ID" />
+          <ScalarProperty Name="TRAZADO_ID" ColumnName="TRAZADO_ID" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEGMENTOS">
+      <EntityTypeMapping TypeName="IsTypeOf(EntitiesModel.SEGMENTOS)">
+        <MappingFragment StoreEntitySet="SEGMENTOS">
+          <ScalarProperty Name="AUXILIAR_ID" ColumnName="AUXILIAR_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEGMENTOS_CATS">
+      <EntityTypeMapping TypeName="IsTypeOf(EntitiesModel.SEGMENTOS_CATS)">
+        <MappingFragment StoreEntitySet="SEGMENTOS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRAMOS">
+      <EntityTypeMapping TypeName="EntitiesModel.TRAMOS">
+        <MappingFragment StoreEntitySet="TRAMOS">
+          <ScalarProperty Name="AUXILIAR_ID" ColumnName="AUXILIAR_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRAMOS_CATS">
+      <EntityTypeMapping TypeName="EntitiesModel.TRAMOS_CATS">
+        <MappingFragment StoreEntitySet="TRAMOS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRAMOS_SEGMENTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.TRAMOS_SEGMENTOS">
+        <MappingFragment StoreEntitySet="TRAMOS_SEGMENTOS">
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="SEGMENTO_ID" ColumnName="SEGMENTO_ID" />
+          <ScalarProperty Name="TRAMO_ID" ColumnName="TRAMO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RUTAS">
+      <EntityTypeMapping TypeName="EntitiesModel.RUTAS">
+        <MappingFragment StoreEntitySet="RUTAS">
+          <ScalarProperty Name="AUXILIAR_ID" ColumnName="AUXILIAR_ID" />
+          <ScalarProperty Name="ES_RETORNO" ColumnName="ES_RETORNO" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="DISTANCIA_CURVAS" ColumnName="DISTANCIA_CURVAS" />
+          <ScalarProperty Name="DISTANCIA" ColumnName="DISTANCIA" />
+          <ScalarProperty Name="FRENTE_ID" ColumnName="FRENTE_ID" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RUTAS_CATS">
+      <EntityTypeMapping TypeName="EntitiesModel.RUTAS_CATS">
+        <MappingFragment StoreEntitySet="RUTAS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RUTAS_TRAMOS">
+      <EntityTypeMapping TypeName="EntitiesModel.RUTAS_TRAMOS">
+        <MappingFragment StoreEntitySet="RUTAS_TRAMOS">
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="TRAMO_ID" ColumnName="TRAMO_ID" />
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SEGMENTOS_CERCAS">
+      <EntityTypeMapping TypeName="EntitiesModel.SEGMENTOS_CERCAS">
+        <MappingFragment StoreEntitySet="SEGMENTOS_CERCAS">
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+          <ScalarProperty Name="SEGMENTO_ID" ColumnName="SEGMENTO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EQUIPOS_GRUPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.EQUIPOS_GRUPOS">
+        <MappingFragment StoreEntitySet="EQUIPOS_GRUPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EQUIPOS_CATS">
+      <EntityTypeMapping TypeName="EntitiesModel.EQUIPOS_CATS">
+        <MappingFragment StoreEntitySet="EQUIPOS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EQUIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.EQUIPOS">
+        <MappingFragment StoreEntitySet="EQUIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="MODELO_ID" ColumnName="MODELO_ID" />
+          <ScalarProperty Name="SERIAL" ColumnName="SERIAL" />
+          <ScalarProperty Name="MARCA_ID" ColumnName="MARCA_ID" />
+          <ScalarProperty Name="ALTERNO_ID" ColumnName="ALTERNO_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="MODELO_ANO" ColumnName="MODELO_ANO" />
+          <ScalarProperty Name="PLACA" ColumnName="PLACA" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="GRUPO_ID" ColumnName="GRUPO_ID" />
+          <ScalarProperty Name="ESTADO_OPERA_ID" ColumnName="ESTADO_OPERA_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS">
+      <EntityTypeMapping TypeName="EntitiesModel.GPS">
+        <MappingFragment StoreEntitySet="GPS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="EQUIPO_ID" ColumnName="EQUIPO_ID" />
+          <ScalarProperty Name="MODELO_ID" ColumnName="MODELO_ID" />
+          <ScalarProperty Name="MARCA_ID" ColumnName="MARCA_ID" />
+          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EQUIPOS_ESTADOS_OPERA">
+      <EntityTypeMapping TypeName="EntitiesModel.EQUIPOS_ESTADOS_OPERA">
+        <MappingFragment StoreEntitySet="EQUIPOS_ESTADOS_OPERA">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CATS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CATS">
+        <MappingFragment StoreEntitySet="ENTIDADES_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_IDENT_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_IDENT_TIPOS">
+        <MappingFragment StoreEntitySet="ENTIDADES_IDENT_TIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_RELS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_RELS">
+        <MappingFragment StoreEntitySet="ENTIDADES_RELS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_TIPOS">
+        <MappingFragment StoreEntitySet="ENTIDADES_TIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMAIL_PROPS">
+      <EntityTypeMapping TypeName="EntitiesModel.EMAIL_PROPS">
+        <MappingFragment StoreEntitySet="EMAIL_PROPS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMAIL_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.EMAIL_TIPOS">
+        <MappingFragment StoreEntitySet="EMAIL_TIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERSONA_PROFESIONES">
+      <EntityTypeMapping TypeName="EntitiesModel.PERSONA_PROFESIONES">
+        <MappingFragment StoreEntitySet="PERSONA_PROFESIONES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERSONA_SALUDOS">
+      <EntityTypeMapping TypeName="EntitiesModel.PERSONA_SALUDOS">
+        <MappingFragment StoreEntitySet="PERSONA_SALUDOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TELEFONO_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.TELEFONO_TIPOS">
+        <MappingFragment StoreEntitySet="TELEFONO_TIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UNIDADES">
+      <EntityTypeMapping TypeName="EntitiesModel.UNIDADES">
+        <MappingFragment StoreEntitySet="UNIDADES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CIUDADES">
+      <EntityTypeMapping TypeName="EntitiesModel.CIUDADES">
+        <MappingFragment StoreEntitySet="CIUDADES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="PROVINCIA_ID" ColumnName="PROVINCIA_ID" />
+          <ScalarProperty Name="PAIS_ID" ColumnName="PAIS_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_DIRS_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_DIRS_TIPOS">
+        <MappingFragment StoreEntitySet="ENTIDADES_DIRS_TIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PAISES">
+      <EntityTypeMapping TypeName="EntitiesModel.PAISES">
+        <MappingFragment StoreEntitySet="PAISES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROVINCIAS">
+      <EntityTypeMapping TypeName="EntitiesModel.PROVINCIAS">
+        <MappingFragment StoreEntitySet="PROVINCIAS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="PAIS_ID" ColumnName="PAIS_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTOS_CATS">
+      <EntityTypeMapping TypeName="EntitiesModel.PRODUCTOS_CATS">
+        <MappingFragment StoreEntitySet="PRODUCTOS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_NIVELES">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_NIVELES">
+        <MappingFragment StoreEntitySet="ALARMAS_NIVELES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_PERMANS">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_PERMANS">
+        <MappingFragment StoreEntitySet="ALARMAS_PERMANS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_PERMANS_RESETS">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_PERMANS_RESETS">
+        <MappingFragment StoreEntitySet="ALARMAS_PERMANS_RESETS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_UNIDADES">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_UNIDADES">
+        <MappingFragment StoreEntitySet="ALARMAS_UNIDADES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RUTAS_OPERAS">
+      <EntityTypeMapping TypeName="EntitiesModel.RUTAS_OPERAS">
+        <MappingFragment StoreEntitySet="RUTAS_OPERAS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EQUIPOS_CAPS">
+      <EntityTypeMapping TypeName="EntitiesModel.EQUIPOS_CAPS">
+        <MappingFragment StoreEntitySet="EQUIPOS_CAPS">
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="UNIDAD_ID" ColumnName="UNIDAD_ID" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EQUIPOS_CAPS_REL">
+      <EntityTypeMapping TypeName="EntitiesModel.EQUIPOS_CAPS_REL">
+        <MappingFragment StoreEntitySet="EQUIPOS_CAPS_REL">
+          <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+          <ScalarProperty Name="CAPACIDAD_ID" ColumnName="CAPACIDAD_ID" />
+          <ScalarProperty Name="PRODUCTO_CATEGORIA_ID" ColumnName="PRODUCTO_CATEGORIA_ID" />
+          <ScalarProperty Name="EQUIPO_ID" ColumnName="EQUIPO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES">
+        <MappingFragment StoreEntitySet="ENTIDADES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ALTERNO_ID" ColumnName="ALTERNO_ID" />
+          <ScalarProperty Name="CLASIFICADOR" ColumnName="CLASIFICADOR" />
+          <ScalarProperty Name="IDENTIFICACION" ColumnName="IDENTIFICACION" />
+          <ScalarProperty Name="IDENT_TIPO_ID" ColumnName="IDENT_TIPO_ID" />
+          <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+          <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+          <ScalarProperty Name="RAZON_SOCIAL" ColumnName="RAZON_SOCIAL" />
+          <ScalarProperty Name="TIPO_ID" ColumnName="TIPO_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CATS_REL">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CATS_REL">
+        <MappingFragment StoreEntitySet="ENTIDADES_CATS_REL">
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_RELS_REL">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_RELS_REL">
+        <MappingFragment StoreEntitySet="ENTIDADES_RELS_REL">
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="RELACION_ID" ColumnName="RELACION_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS">
+        <MappingFragment StoreEntitySet="ALARMAS">
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="REGISTRA_INTERVALOS" ColumnName="REGISTRA_INTERVALOS" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="UNIDAD_ID" ColumnName="UNIDAD_ID" />
+          <ScalarProperty Name="MEDICION_TIEMPO" ColumnName="MEDICION_TIEMPO" />
+          <ScalarProperty Name="PERMANENCIA_RESETEO_EVENTO_ID" ColumnName="PERMANENCIA_RESETEO_EVENTO_ID" />
+          <ScalarProperty Name="PERMANENCIA_RESETEO_ID" ColumnName="PERMANENCIA_RESETEO_ID" />
+          <ScalarProperty Name="PERMANENCIA_ID" ColumnName="PERMANENCIA_ID" />
+          <ScalarProperty Name="FUENTE_ID" ColumnName="FUENTE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_CATS">
+      <EntityTypeMapping TypeName="IsTypeOf(EntitiesModel.ALARMAS_CATS)">
+        <MappingFragment StoreEntitySet="ALARMAS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_DIRS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_DIRS">
+        <MappingFragment StoreEntitySet="ENTIDADES_DIRS">
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="MANZANA" ColumnName="MANZANA" />
+          <ScalarProperty Name="CIUDADELA" ColumnName="CIUDADELA" />
+          <ScalarProperty Name="CANTON" ColumnName="CANTON" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+          <ScalarProperty Name="CALLE_TRANSVERSAL" ColumnName="CALLE_TRANSVERSAL" />
+          <ScalarProperty Name="NUMERACION" ColumnName="NUMERACION" />
+          <ScalarProperty Name="CALLE_PRINCIPAL" ColumnName="CALLE_PRINCIPAL" />
+          <ScalarProperty Name="CODIGOPOSTAL" ColumnName="CODIGOPOSTAL" />
+          <ScalarProperty Name="CIUDAD_ID" ColumnName="CIUDAD_ID" />
+          <ScalarProperty Name="PROVINCIA_ID" ColumnName="PROVINCIA_ID" />
+          <ScalarProperty Name="REGION_ID" ColumnName="REGION_ID" />
+          <ScalarProperty Name="PAIS_ID" ColumnName="PAIS_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_NIVELES_REL">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_NIVELES_REL">
+        <MappingFragment StoreEntitySet="ALARMAS_NIVELES_REL">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="NIVEL_ID" ColumnName="NIVEL_ID" />
+          <ScalarProperty Name="ALARMA_ID" ColumnName="ALARMA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MARCAS">
+      <EntityTypeMapping TypeName="EntitiesModel.MARCAS">
+        <MappingFragment StoreEntitySet="MARCAS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MARCAS_CATS">
+      <EntityTypeMapping TypeName="EntitiesModel.MARCAS_CATS">
+        <MappingFragment StoreEntitySet="MARCAS_CATS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ORDENADOR" ColumnName="ORDENADOR" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MODELOS">
+      <EntityTypeMapping TypeName="EntitiesModel.MODELOS">
+        <MappingFragment StoreEntitySet="MODELOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="MARCA_ID" ColumnName="MARCA_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_DIRS_TIPOS_REL">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_DIRS_TIPOS_REL">
+        <MappingFragment StoreEntitySet="ENTIDADES_DIRS_TIPOS_REL">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="TIPO_ID" ColumnName="TIPO_ID" />
+          <ScalarProperty Name="DIRECCION_ID" ColumnName="DIRECCION_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_AREAS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_AREAS">
+        <MappingFragment StoreEntitySet="ENTIDADES_AREAS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CTOS">
+        <MappingFragment StoreEntitySet="ENTIDADES_CTOS">
+          <ScalarProperty Name="PERSONA_ID" ColumnName="PERSONA_ID" />
+          <ScalarProperty Name="EMPRESA_ID" ColumnName="EMPRESA_ID" />
+          <ScalarProperty Name="FUNCION" ColumnName="FUNCION" />
+          <ScalarProperty Name="AREA_ID" ColumnName="AREA_ID" />
+          <ScalarProperty Name="CARGO_ID" ColumnName="CARGO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_TELFS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_TELFS">
+        <MappingFragment StoreEntitySet="ENTIDADES_TELFS">
+          <ScalarProperty Name="UBICACION_ID" ColumnName="UBICACION_ID" />
+          <ScalarProperty Name="DIRECCION_ID" ColumnName="DIRECCION_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CODIGO_AREA" ColumnName="CODIGO_AREA" />
+          <ScalarProperty Name="CODIGO_PAIS" ColumnName="CODIGO_PAIS" />
+          <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+          <ScalarProperty Name="TIPO_ID" ColumnName="TIPO_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CARGOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CARGOS">
+        <MappingFragment StoreEntitySet="ENTIDADES_CARGOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_DIRS_CTOS_REL">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_DIRS_CTOS_REL">
+        <MappingFragment StoreEntitySet="ENTIDADES_DIRS_CTOS_REL">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="CONTACTO_ID" ColumnName="CONTACTO_ID" />
+          <ScalarProperty Name="DIRECCION_ID" ColumnName="DIRECCION_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_PERSONA">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_PERSONA">
+        <MappingFragment StoreEntitySet="ENTIDADES_PERSONA">
+          <ScalarProperty Name="PROFESION_ID" ColumnName="PROFESION_ID" />
+          <ScalarProperty Name="SALUDO_ID" ColumnName="SALUDO_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_EMAILS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_EMAILS">
+        <MappingFragment StoreEntitySet="ENTIDADES_EMAILS">
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="TIPO_ID" ColumnName="TIPO_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_EMAILS_PROPS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_EMAILS_PROPS">
+        <MappingFragment StoreEntitySet="ENTIDADES_EMAILS_PROPS">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="PROPOSITO_ID" ColumnName="PROPOSITO_ID" />
+          <ScalarProperty Name="EMAIL_ID" ColumnName="EMAIL_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_DIRS_UBICAS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_DIRS_UBICAS">
+        <MappingFragment StoreEntitySet="ENTIDADES_DIRS_UBICAS">
+          <ScalarProperty Name="UBICACION_ID" ColumnName="UBICACION_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="DIRECCION_ID" ColumnName="DIRECCION_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_DIRS_UBICAS_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_DIRS_UBICAS_TIPOS">
+        <MappingFragment StoreEntitySet="ENTIDADES_DIRS_UBICAS_TIPOS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_DIRS_UBICAS_TIPOSREL">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_DIRS_UBICAS_TIPOSREL">
+        <MappingFragment StoreEntitySet="ENTIDADES_DIRS_UBICAS_TIPOSREL">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="TIPO_ID" ColumnName="TIPO_ID" />
+          <ScalarProperty Name="UBICACION_ID" ColumnName="UBICACION_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIAS_TIPOS">
+      <EntityTypeMapping TypeName="EntitiesModel.DIAS_TIPOS">
+        <MappingFragment StoreEntitySet="DIAS_TIPOS">
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CALENDS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CALENDS">
+        <MappingFragment StoreEntitySet="ENTIDADES_CALENDS">
+          <ScalarProperty Name="DIRECCION_ID" ColumnName="DIRECCION_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ANO" ColumnName="ANO" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CALENDS_DIA_HRS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CALENDS_DIA_HRS">
+        <MappingFragment StoreEntitySet="ENTIDADES_CALENDS_DIA_HRS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="HASTA" ColumnName="HASTA" />
+          <ScalarProperty Name="DESDE" ColumnName="DESDE" />
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="DIA_ID" ColumnName="DIA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CALENDS_DIAS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CALENDS_DIAS">
+        <MappingFragment StoreEntitySet="ENTIDADES_CALENDS_DIAS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="TIPO_ID" ColumnName="TIPO_ID" />
+          <ScalarProperty Name="DIA" ColumnName="DIA" />
+          <ScalarProperty Name="MES" ColumnName="MES" />
+          <ScalarProperty Name="CALENDARIO_ID" ColumnName="CALENDARIO_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_CALENDS_HRS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_CALENDS_HRS">
+        <MappingFragment StoreEntitySet="ENTIDADES_CALENDS_HRS">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="HASTA" ColumnName="HASTA" />
+          <ScalarProperty Name="DESDE" ColumnName="DESDE" />
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="DIATIPO_ID" ColumnName="DIATIPO_ID" />
+          <ScalarProperty Name="CALENDARIO_ID" ColumnName="CALENDARIO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EVENTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.EVENTOS">
+        <MappingFragment StoreEntitySet="EVENTOS">
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS_MONI_ESTADO">
+      <EntityTypeMapping TypeName="EntitiesModel.GPS_MONI_ESTADO">
+        <MappingFragment StoreEntitySet="GPS_MONI_ESTADO">
+          <ScalarProperty Name="RUTA_INDICE" ColumnName="RUTA_INDICE" />
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+          <ScalarProperty Name="FECHAHORA_IDLING" ColumnName="FECHAHORA_IDLING" />
+          <ScalarProperty Name="REPORTE_ID" ColumnName="REPORTE_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+          <ScalarProperty Name="GPS_ID" ColumnName="GPS_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS_REPORTES">
+      <EntityTypeMapping TypeName="EntitiesModel.GPS_REPORTES">
+        <MappingFragment StoreEntitySet="GPS_REPORTES">
+          <ScalarProperty Name="CONDUCTOR_ID" ColumnName="CONDUCTOR_ID" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+          <ScalarProperty Name="SEGMENTO_ID" ColumnName="SEGMENTO_ID" />
+          <ScalarProperty Name="TRAMO_ID" ColumnName="TRAMO_ID" />
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+          <ScalarProperty Name="VIAJE_RUTA_ID" ColumnName="VIAJE_RUTA_ID" />
+          <ScalarProperty Name="GPS_ID" ColumnName="GPS_ID" />
+          <ScalarProperty Name="REGISTRO_FECHAHORA" ColumnName="REGISTRO_FECHAHORA" />
+          <ScalarProperty Name="ENVIO_FECHAHORA" ColumnName="ENVIO_FECHAHORA" />
+          <ScalarProperty Name="MOVIMIENTO_ESTADO" ColumnName="MOVIMIENTO_ESTADO" />
+          <ScalarProperty Name="ARRANQUE_ESTADO" ColumnName="ARRANQUE_ESTADO" />
+          <ScalarProperty Name="VELOCIDAD" ColumnName="VELOCIDAD" />
+          <ScalarProperty Name="ALTURA" ColumnName="ALTURA" />
+          <ScalarProperty Name="LNG" ColumnName="LNG" />
+          <ScalarProperty Name="LAT" ColumnName="LAT" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VW_ALARMAS_LOG">
+      <EntityTypeMapping TypeName="EntitiesModel.VW_ALARMAS_LOG">
+        <MappingFragment StoreEntitySet="VW_ALARMAS_LOG">
+          <ScalarProperty Name="CONDUCTOR" ColumnName="CONDUCTOR" />
+          <ScalarProperty Name="CONDUCTOR_ID" ColumnName="CONDUCTOR_ID" />
+          <ScalarProperty Name="CERCA_AUXILIAR_ID" ColumnName="CERCA_AUXILIAR_ID" />
+          <ScalarProperty Name="SEGMENTO_AUXILIAR_ID" ColumnName="SEGMENTO_AUXILIAR_ID" />
+          <ScalarProperty Name="TRAMO_AUXILIAR_ID" ColumnName="TRAMO_AUXILIAR_ID" />
+          <ScalarProperty Name="RUTA_AUXILIAR_ID" ColumnName="RUTA_AUXILIAR_ID" />
+          <ScalarProperty Name="ALARMA_CATEGORIA_ID" ColumnName="ALARMA_CATEGORIA_ID" />
+          <ScalarProperty Name="ALARMA_ID" ColumnName="ALARMA_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+          <ScalarProperty Name="VALOR_EFECTIVO" ColumnName="VALOR_EFECTIVO" />
+          <ScalarProperty Name="VALOR_STANDARD" ColumnName="VALOR_STANDARD" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DURACION" ColumnName="DURACION" />
+          <ScalarProperty Name="FIN" ColumnName="FIN" />
+          <ScalarProperty Name="INICIO" ColumnName="INICIO" />
+          <ScalarProperty Name="CERCA" ColumnName="CERCA" />
+          <ScalarProperty Name="ALARMA" ColumnName="ALARMA" />
+          <ScalarProperty Name="CATEGORIA_ORDENADOR" ColumnName="CATEGORIA_ORDENADOR" />
+          <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS_ALARMAS">
+      <EntityTypeMapping TypeName="EntitiesModel.GPS_ALARMAS">
+        <MappingFragment StoreEntitySet="GPS_ALARMAS">
+          <ScalarProperty Name="VALOR_MAXIMO" ColumnName="VALOR_MAXIMO" />
+          <ScalarProperty Name="VALOR_EFECTIVO" ColumnName="VALOR_EFECTIVO" />
+          <ScalarProperty Name="VALOR_STANDARD" ColumnName="VALOR_STANDARD" />
+          <ScalarProperty Name="DURACION" ColumnName="DURACION" />
+          <ScalarProperty Name="FECHAHORA_FIN" ColumnName="FECHAHORA_FIN" />
+          <ScalarProperty Name="FECHAHORA_INICIO" ColumnName="FECHAHORA_INICIO" />
+          <ScalarProperty Name="ALARMA_ID" ColumnName="ALARMA_ID" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+          <ScalarProperty Name="EQUIPO_ID" ColumnName="EQUIPO_ID" />
+          <ScalarProperty Name="GPS_ID" ColumnName="GPS_ID" />
+          <ScalarProperty Name="REPORTE_FIN_ID" ColumnName="REPORTE_FIN_ID" />
+          <ScalarProperty Name="REPORTE_ID" ColumnName="REPORTE_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS_EVENTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.GPS_EVENTOS">
+        <MappingFragment StoreEntitySet="GPS_EVENTOS">
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+          <ScalarProperty Name="REL_ID" ColumnName="REL_ID" />
+          <ScalarProperty Name="DURACION" ColumnName="DURACION" />
+          <ScalarProperty Name="GPS_EVENTO_ID" ColumnName="GPS_EVENTO_ID" />
+          <ScalarProperty Name="FECHAHORA" ColumnName="FECHAHORA" />
+          <ScalarProperty Name="REPORTE_ID" ColumnName="REPORTE_ID" />
+          <ScalarProperty Name="CERCA_ID" ColumnName="CERCA_ID" />
+          <ScalarProperty Name="EVENTO_ESTADO" ColumnName="EVENTO_ESTADO" />
+          <ScalarProperty Name="EVENTO_ID" ColumnName="EVENTO_ID" />
+          <ScalarProperty Name="EQUIPO_ID" ColumnName="EQUIPO_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+          <ScalarProperty Name="GPS_ID" ColumnName="GPS_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RUTAS_FASES">
+      <EntityTypeMapping TypeName="EntitiesModel.RUTAS_FASES">
+        <MappingFragment StoreEntitySet="RUTAS_FASES">
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.PRODUCTOS">
+        <MappingFragment StoreEntitySet="PRODUCTOS">
+          <ScalarProperty Name="ALTERNO_ID" ColumnName="ALTERNO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="PESO_ESPECIFICO" ColumnName="PESO_ESPECIFICO" />
+          <ScalarProperty Name="CATEGORIA_ID" ColumnName="CATEGORIA_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FRENTES">
+      <EntityTypeMapping TypeName="EntitiesModel.FRENTES">
+        <MappingFragment StoreEntitySet="FRENTES">
+          <ScalarProperty Name="ALTERNO_ID" ColumnName="ALTERNO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="PADRE_ID" ColumnName="PADRE_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIAJES_ESTADO">
+      <EntityTypeMapping TypeName="EntitiesModel.VIAJES_ESTADO">
+        <MappingFragment StoreEntitySet="VIAJES_ESTADO">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIAJES">
+      <EntityTypeMapping TypeName="EntitiesModel.VIAJES">
+        <MappingFragment StoreEntitySet="VIAJES">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="PRODUCTO_ID" ColumnName="PRODUCTO_ID" />
+          <ScalarProperty Name="INICIO" ColumnName="INICIO" />
+          <ScalarProperty Name="ALTERNO_ID" ColumnName="ALTERNO_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="FRENTE_ID" ColumnName="FRENTE_ID" />
+          <ScalarProperty Name="ORDEN_TRANSPORTE" ColumnName="ORDEN_TRANSPORTE" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIAJES_CONDUCTORES">
+      <EntityTypeMapping TypeName="EntitiesModel.VIAJES_CONDUCTORES">
+        <MappingFragment StoreEntitySet="VIAJES_CONDUCTORES">
+          <ScalarProperty Name="HASTAPUNTO" ColumnName="HASTAPUNTO" />
+          <ScalarProperty Name="DESDEPUNTO" ColumnName="DESDEPUNTO" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIAJES_RUTAS">
+      <EntityTypeMapping TypeName="EntitiesModel.VIAJES_RUTAS">
+        <MappingFragment StoreEntitySet="VIAJES_RUTAS">
+          <ScalarProperty Name="FIN" ColumnName="FIN" />
+          <ScalarProperty Name="INICIO" ColumnName="INICIO" />
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="VIAJES_EQUIPOS" TypeName="EntitiesModel.VIAJES_EQUIPOS" StoreEntitySet="VIAJES_EQUIPOS">
+      <EndProperty Name="EQUIPOS">
+        <ScalarProperty Name="ID" ColumnName="EQUIPO_ID" />
+      </EndProperty>
+      <EndProperty Name="VIAJES">
+        <ScalarProperty Name="ID" ColumnName="VIAJE_ID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="RUTAS_FASES_REL">
+      <EntityTypeMapping TypeName="EntitiesModel.RUTAS_FASES_REL">
+        <MappingFragment StoreEntitySet="RUTAS_FASES_REL">
+          <ScalarProperty Name="FASE_ID" ColumnName="FASE_ID" />
+          <ScalarProperty Name="REL_ID" ColumnName="REL_ID" />
+          <ScalarProperty Name="TIPO_ID" ColumnName="TIPO_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GPS_ALARMAS_OCURRS">
+      <EntityTypeMapping TypeName="EntitiesModel.GPS_ALARMAS_OCURRS">
+        <MappingFragment StoreEntitySet="GPS_ALARMAS_OCURRS">
+          <ScalarProperty Name="OCURRENCIAS" ColumnName="OCURRENCIAS" />
+          <ScalarProperty Name="ALARMA_ID" ColumnName="ALARMA_ID" />
+          <ScalarProperty Name="NIVEL_REL_ID" ColumnName="NIVEL_REL_ID" />
+          <ScalarProperty Name="NIVEL" ColumnName="NIVEL" />
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+          <ScalarProperty Name="EQUIPO_ID" ColumnName="EQUIPO_ID" />
+          <ScalarProperty Name="GPS_ID" ColumnName="GPS_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VW_ALARMAS_SUMARIO">
+      <EntityTypeMapping TypeName="EntitiesModel.VW_ALARMAS_SUMARIO">
+        <MappingFragment StoreEntitySet="VW_ALARMAS_SUMARIO">
+          <ScalarProperty Name="ALARMA_ID" ColumnName="ALARMA_ID" />
+          <ScalarProperty Name="OCURRENCIAS" ColumnName="OCURRENCIAS" />
+          <ScalarProperty Name="ALARMA" ColumnName="ALARMA" />
+          <ScalarProperty Name="CATEGORIA_ORDENADOR" ColumnName="CATEGORIA_ORDENADOR" />
+          <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+          <ScalarProperty Name="NIVEL" ColumnName="NIVEL" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIOS">
+      <EntityTypeMapping TypeName="EntitiesModel.USUARIOS">
+        <MappingFragment StoreEntitySet="USUARIOS">
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+          <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIAJES_CONTACTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.VIAJES_CONTACTOS">
+        <MappingFragment StoreEntitySet="VIAJES_CONTACTOS">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="CONTACTO_ID" ColumnName="CONTACTO_ID" />
+          <ScalarProperty Name="VIAJE_ID" ColumnName="VIAJE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRAYECTOS">
+      <EntityTypeMapping TypeName="EntitiesModel.TRAYECTOS">
+        <MappingFragment StoreEntitySet="TRAYECTOS">
+          <ScalarProperty Name="ALTERNO_ID" ColumnName="ALTERNO_ID" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TRAYECTOS_RUTAS">
+      <EntityTypeMapping TypeName="EntitiesModel.TRAYECTOS_RUTAS">
+        <MappingFragment StoreEntitySet="TRAYECTOS_RUTAS">
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+          <ScalarProperty Name="TRAYECTO_ID" ColumnName="TRAYECTO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROLES">
+      <EntityTypeMapping TypeName="EntitiesModel.ROLES">
+        <MappingFragment StoreEntitySet="ROLES">
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROLES_PERMISOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ROLES_PERMISOS">
+        <MappingFragment StoreEntitySet="ROLES_PERMISOS">
+          <ScalarProperty Name="ACCION_ID" ColumnName="ACCION_ID" />
+          <ScalarProperty Name="PERMISO_TIPO_ID" ColumnName="PERMISO_TIPO_ID" />
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="ELEMENTO_ID" ColumnName="ELEMENTO_ID" />
+          <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERMISOS_REQUERIDOS">
+      <EntityTypeMapping TypeName="EntitiesModel.PERMISOS_REQUERIDOS">
+        <MappingFragment StoreEntitySet="PERMISOS_REQUERIDOS">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="ELEMENTO_ID" ColumnName="ELEMENTO_ID" />
+          <ScalarProperty Name="ELEMENTO_TIPO_ID" ColumnName="ELEMENTO_TIPO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERMISOS_REQUERIDOS_ACCS">
+      <EntityTypeMapping TypeName="EntitiesModel.PERMISOS_REQUERIDOS_ACCS">
+        <MappingFragment StoreEntitySet="PERMISOS_REQUERIDOS_ACCS">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="ACCION_ID" ColumnName="ACCION_ID" />
+          <ScalarProperty Name="ELEMENTO_ID" ColumnName="ELEMENTO_ID" />
+          <ScalarProperty Name="ELEMENTO_TIPO_ID" ColumnName="ELEMENTO_TIPO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PERMISOS_REQUERIDOS_ROLES">
+      <EntityTypeMapping TypeName="EntitiesModel.PERMISOS_REQUERIDOS_ROLES">
+        <MappingFragment StoreEntitySet="PERMISOS_REQUERIDOS_ROLES">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="ROL_ID" ColumnName="ROL_ID" />
+          <ScalarProperty Name="ELEMENTO_ID" ColumnName="ELEMENTO_ID" />
+          <ScalarProperty Name="ELEMENTO_TIPO_ID" ColumnName="ELEMENTO_TIPO_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_NOTIF_ALARMAS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_NOTIF_ALARMAS">
+        <MappingFragment StoreEntitySet="ENTIDADES_NOTIF_ALARMAS">
+          <ScalarProperty Name="ALARMAS_ROL_ID" ColumnName="ALARMAS_ROL_ID" />
+          <ScalarProperty Name="PERSONA_ID" ColumnName="PERSONA_ID" />
+          <ScalarProperty Name="ENTIDAD_ID" ColumnName="ENTIDAD_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_NOTIF_ALARMAS_DIRS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_NOTIF_ALARMAS_DIRS">
+        <MappingFragment StoreEntitySet="ENTIDADES_NOTIF_ALARMAS_DIRS">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="DIRECCION_ID" ColumnName="DIRECCION_ID" />
+          <ScalarProperty Name="ALARMAS_NOTIF_ID" ColumnName="ALARMAS_NOTIF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ENTIDADES_NOTIF_ALARMAS_EMS">
+      <EntityTypeMapping TypeName="EntitiesModel.ENTIDADES_NOTIF_ALARMAS_EMS">
+        <MappingFragment StoreEntitySet="ENTIDADES_NOTIF_ALARMAS_EMS">
+          <ScalarProperty Name="DUMMY" ColumnName="DUMMY" />
+          <ScalarProperty Name="EMAIL_ID" ColumnName="EMAIL_ID" />
+          <ScalarProperty Name="ALARMAS_NOTIF_ID" ColumnName="ALARMAS_NOTIF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_GRADOS">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_GRADOS">
+        <MappingFragment StoreEntitySet="ALARMAS_GRADOS">
+          <ScalarProperty Name="PARPADEANTE" ColumnName="PARPADEANTE" />
+          <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_VELOCIDAD">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_VELOCIDAD">
+        <MappingFragment StoreEntitySet="ALARMAS_VELOCIDAD">
+          <ScalarProperty Name="LIMITE_TOLERANCIA" ColumnName="LIMITE_TOLERANCIA" />
+          <ScalarProperty Name="LIMITE_AUDIBLE" ColumnName="LIMITE_AUDIBLE" />
+          <ScalarProperty Name="LIMITE_ESTANDAR" ColumnName="LIMITE_ESTANDAR" />
+          <ScalarProperty Name="LIMITE_MOPREST" ColumnName="LIMITE_MOPREST" />
+          <ScalarProperty Name="LIMITE_MOP" ColumnName="LIMITE_MOP" />
+          <ScalarProperty Name="ESTADO_ID" ColumnName="ESTADO_ID" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="ABREVIACION" ColumnName="ABREVIACION" />
+          <ScalarProperty Name="DESCRIPCION_CORTA" ColumnName="DESCRIPCION_CORTA" />
+          <ScalarProperty Name="DESCRIPCION_MED" ColumnName="DESCRIPCION_MED" />
+          <ScalarProperty Name="DESCRIPCION_LARGA" ColumnName="DESCRIPCION_LARGA" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_VELOCIDAD_RANG">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_VELOCIDAD_RANG">
+        <MappingFragment StoreEntitySet="ALARMAS_VELOCIDAD_RANG">
+          <ScalarProperty Name="VELOCIDAD_HASTA" ColumnName="VELOCIDAD_HASTA" />
+          <ScalarProperty Name="VELOCIDAD_DESDE" ColumnName="VELOCIDAD_DESDE" />
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="MODO" ColumnName="MODO" />
+          <ScalarProperty Name="ALARMA_VELOCIDAD_ID" ColumnName="ALARMA_VELOCIDAD_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALARMAS_VELOCIDAD_RANG_TIEM">
+      <EntityTypeMapping TypeName="EntitiesModel.ALARMAS_VELOCIDAD_RANG_TIEM">
+        <MappingFragment StoreEntitySet="ALARMAS_VELOCIDAD_RANG_TIEM">
+          <ScalarProperty Name="PARPADEANTE" ColumnName="PARPADEANTE" />
+          <ScalarProperty Name="AUDIBLE" ColumnName="AUDIBLE" />
+          <ScalarProperty Name="GRADO_ID" ColumnName="GRADO_ID" />
+          <ScalarProperty Name="PUNTOS" ColumnName="PUNTOS" />
+          <ScalarProperty Name="TIEMPO_HASTA" ColumnName="TIEMPO_HASTA" />
+          <ScalarProperty Name="TIEMPO_DESDE" ColumnName="TIEMPO_DESDE" />
+          <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
+          <ScalarProperty Name="RANGO_ORDEN" ColumnName="RANGO_ORDEN" />
+          <ScalarProperty Name="RANGO_MODO" ColumnName="RANGO_MODO" />
+          <ScalarProperty Name="ALARMA_VELOCIDAD_ID" ColumnName="ALARMA_VELOCIDAD_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

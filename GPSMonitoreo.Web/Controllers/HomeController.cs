@@ -169,7 +169,8 @@ namespace GPSMonitoreo.Web.Controllers
 								new MenuItem(
 									"Nuevo equipo",
 									icon: "<webicon class=\"oliver_essential-collection_add-1\" style=\"margin-right:5px\"></webicon>",
-									onClick: "App.equipments.equipment.editNew()",
+                                    onClick: "App.equipments.equipment.editNew()",
+                                   
 									roles: new Role[] { Role.SuperAdmin },
 									permissions: new RequiredPermission[] { new RequiredPermission(PermissionElementType.Entity, (int)Entity.Equipment, PermissionAction.Create) }
 								),
@@ -794,8 +795,26 @@ namespace GPSMonitoreo.Web.Controllers
 									}
 								)
 							}
-						)
-					}
+						),
+                        new MenuItem(
+                                    "Tecnicos",
+                                    icon: "<webicon class=\"oliver_pins-and-locations_route\" style=\"margin-right:5px\"></webicon>",
+                                    roles: new Role[] { Role.SuperAdmin },
+                                    permissions: new RequiredPermission[] { new RequiredPermission(PermissionElementType.Entity, (int)Entity.RouteSection) },
+                                    items: new List<MenuItem>
+                                    {
+                                        new MenuItem(
+                                            "Nuevo Apertura Caso",
+                                            onClick: "App.tecnicos.tecnico.editNew()",
+                                           //onClick: "App.equipments.equipment.editNew()",
+                                            icon: "<webicon class=\"oliver_essential-collection_add-1\" style=\"margin-right:5px\"></webicon>",
+                                            roles: new Role[] { Role.SuperAdmin },
+                                            permissions: new RequiredPermission[] { new RequiredPermission(PermissionElementType.Entity, (int)Entity.RouteSection, PermissionAction.Create) }
+                                        )
+                                       
+                                    }
+                                )
+                    }
 				)
 			);
 

@@ -4,15 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
-using GPSMonitoreo.Services.Base.Users;
-using MVCHelpers.ActionResults;
 using System.Security.Claims;
-using GPSMonitoreo.Web.Authorization;
-using GPSMonitoreo.Core.Enums;
 using Microsoft.AspNetCore.Http.Authentication;
-
-using Serilog;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,7 +13,7 @@ namespace GPSMonitoreo.Web.Controllers
 {
 
 
-	[Authorize]
+    [Authorize]
 	public class AccountController : BaseController
     {
         // GET: /<controller>/
@@ -60,7 +53,7 @@ namespace GPSMonitoreo.Web.Controllers
 				var claims = new List<Claim>();
 
 
-				claims.Add(new Claim("name", "Fabian"));
+				claims.Add(new Claim("name", userEntity.USUARIO));
 				//claims.Add(new Claim("role", Role.SuperAdmin.ToString("D"), ClaimValueTypes.Integer));
 				claims.Add(new Claim("role", userEntity.ROL_ID.ToString(), ClaimValueTypes.Integer));
 

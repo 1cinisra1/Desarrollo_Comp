@@ -14,8 +14,8 @@ namespace GPSMonitoreo.Web.Classes
 		public string Url;
 		public string OnClick;
 		public bool Expanded;
-
-		public MenuItem(string title, string url = null, string onClick = null, string icon = null, bool expanded = false, List<MenuItem> items = null,  Role[] roles = null, RequiredPermission[] permissions = null)
+       
+        public MenuItem(string title, string url = null, string onClick = null, string icon = null, bool expanded = false, List<MenuItem> items = null,  Role[] roles = null, RequiredPermission[] permissions = null)
 		{
 			Title = title;
 			Url = url;
@@ -25,7 +25,10 @@ namespace GPSMonitoreo.Web.Classes
 			Items = items;
 			RequiredRoles = roles;
 			RequiredPermissions = permissions;
+          
 		}
+
+
 
 		public MenuItem AddItem(MenuItem item)
 		{

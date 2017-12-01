@@ -18,11 +18,83 @@
 
 }
 
+
+
+<formsection form-manager="commonform" form-manager-section="section1">
+	<tr>
+		<td>Código Alterno</td>
+		<td><input name="AlternateId" maxlength="10"  /></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Grupo</td>
+		<td>
+			<div id="@(layoutModel.FormId)_GroupId" field_name="GroupId"></div>
+		</td>
+		<td></td>
+		<td>Categoria</td>
+		<td>
+			<div id="@(layoutModel.FormId)_CategoryId" field_name="CategoryId"><div style="border: none;"></div></div>
+		</td>
+	</tr>
+</formsection>
+
+<formsection form-manager="commonform" form-manager-section="section2">
+	
+	<tr>
+		<td>Estado Operación</td>
+		<td>
+			<div id="@(layoutModel.FormId)_OperationalStatusId" field_name="OperationalStatusId"></div>
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Marca</td>
+		<td><div id="@(layoutModel.FormId)_BrandId" field_name="BrandId"></div></td>
+		<td></td>
+		<td>Modelo</td>
+		<td><div id="@(layoutModel.FormId)_ModelId" field_name="ModelId"></div></td>
+	</tr>
+	<tr>
+		<td>A&ntilde;o</td>
+		<td><input name="ManufactureYear" /></td>
+		<td></td>
+		<td>Placa</td>
+		<td><input name="Plate" maxlength="10"  /></td>
+	</tr>
+	<tr>
+		<td>No. Serie</td>
+		<td><input name="SerialNumber" maxlength="30"   /></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	
+	
+</formsection>
+
+
+@section tabtitles{
+	<li>Capacidades</li>
+}
+
+
+
+@section tabs{
+	<div><div id="@(layoutModel.FormId)_Capabilities" field_name="Capabilities"></div></div>
+}
+
+
+
 <script script-manager-add="commonform" script-manager-key="form_init">
 	layout.addFormInitializer(function(form){
-
+	 
 		var f = form.formElement;
-		
+
 		var $form = form.$form;
 
 		var $grid = this.container.find('#@(layoutModel.FormId)_Capabilities');
@@ -33,10 +105,10 @@
 	    var $brand = $form.find('#@(layoutModel.FormId)_BrandId');
 	   form.add($brand, 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(brandsJson)});
 
-		
+
 		var model = form.addSingle('#@(layoutModel.FormId)_ModelId', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description'});
 
-		
+
 		form.add('#@(layoutModel.FormId)_OperationalStatusId', 'jqxDropDownList', {placeHolder: '', valueMember: 'Id', displayMember: 'Description', source: @Html.Raw(operationStatusJson)});
 
 		var category = form.addTreeDropDown('#@(layoutModel.FormId)_CategoryId', {}, @Html.Raw(ViewData["categories"]));
@@ -47,7 +119,7 @@
 			model.setContent('');
 			var brandId = evt.args.item.value;
 			var variabw244 = 'Elige algo pujed';
-			if(!brandId) 
+			if(!brandId)
 			    return ;
 
 			Ajax.get('/equipments/equipment/models/' + brandId, function(response){
@@ -100,10 +172,10 @@
 
 		}
 
-		
+
 		var productCategory;
 		var capability;
-		
+
 
 		var grid;
 
@@ -175,7 +247,7 @@
 				}
 			},
 			{ text: 'Unidad', datafield: 'MeasureUnitDescription', width: 200, cellsalign: 'left', columntype: 'textbox', editable: false },
-			{ text: 'Valor', datafield: 'Value', width: 70, cellsalign: 'left', columntype: 'numberinput', 
+			{ text: 'Valor', datafield: 'Value', width: 70, cellsalign: 'left', columntype: 'numberinput',
 				createeditor : function (row, cellvalue, editor) {
 					editor.jqxNumberInput({ decimalDigits: 2, digits: 6, spinButtons: false, min: 0});
 				}
@@ -189,7 +261,7 @@
 				var rows = this.source.records;
 				var row;
 				var newRows = [];
-				
+
 				for(var x = 0; x < rows.length; x++)
 				{
 					row = rows[x];
@@ -208,69 +280,3 @@
 		form.addWidget(grid);
 	});
 </script>
-
-<formsection form-manager="commonform" form-manager-section="section1">
-	<tr>
-		<td>Código Alterno</td>
-		<td><input name="AlternateId" maxlength="10"  /></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Grupo</td>
-		<td>
-			<div id="@(layoutModel.FormId)_GroupId" field_name="GroupId"></div>
-		</td>
-		<td></td>
-		<td>Categoria</td>
-		<td>
-			<div id="@(layoutModel.FormId)_CategoryId" field_name="CategoryId"><div style="border: none;"></div></div>
-		</td>
-	</tr>
-</formsection>
-
-<formsection form-manager="commonform" form-manager-section="section2">
-	
-	<tr>
-		<td>Estado Operación</td>
-		<td>
-			<div id="@(layoutModel.FormId)_OperationalStatusId" field_name="OperationalStatusId"></div>
-		</td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Marca</td>
-		<td><div id="@(layoutModel.FormId)_BrandId" field_name="BrandId"></div></td>
-		<td></td>
-		<td>Modelo</td>
-		<td><div id="@(layoutModel.FormId)_ModelId" field_name="ModelId"></div></td>
-	</tr>
-	<tr>
-		<td>A&ntilde;o</td>
-		<td><input name="ManufactureYear" /></td>
-		<td></td>
-		<td>Placa</td>
-		<td><input name="Plate" maxlength="10"  /></td>
-	</tr>
-	<tr>
-		<td>No. Serie</td>
-		<td><input name="SerialNumber" maxlength="30"   /></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	
-	
-</formsection>
-
-
-@section tabtitles{
-	<li>Capacidades</li>
-}
-
-@section tabs{
-	<div><div id="@(layoutModel.FormId)_Capabilities" field_name="Capabilities"></div></div>
-}

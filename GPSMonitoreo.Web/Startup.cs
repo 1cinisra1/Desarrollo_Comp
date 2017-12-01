@@ -448,12 +448,19 @@ namespace GPSMonitoreo.Web
                     template: "equipos/{controller}/{action=Index}/{id?}"
                 );
 
-				routes.MapRoute(
-					name: "equipments",
-					template: "equipments/{controller}/{action=Index}/{id?}"
-				);
+                routes.MapRoute(
+                    name: "equipments",
+                    template: "equipments/{controller}/{action=Index}/{id?}"
+                );
 
-				routes.MapRoute(
+
+                routes.MapRoute(
+                    name: "tecnicos",
+                 
+                    template: "tecnicos/{controller}/{action=EditForm}/{id?}"
+                );
+
+                routes.MapRoute(
 					name: "productos",
 					template: "productos/{controller}/{action=Index}/{id?}"
 				);

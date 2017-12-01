@@ -18,9 +18,12 @@ layout.addFormInitializer(function(form){
 </text>
 }
 	var f = form.$form[0];
-	form.add([f.elements.Id, f.elements.AuxiliaryId, f.elements.DescriptionLong, f.elements.DescriptionMedium, f.elements.DescriptionShort, f.elements.Abbreviation], 'jqxInput');
+	form.add([f.elements.Id,f.elements.AuxiliaryId, f.elements.DescriptionLong, f.elements.DescriptionMedium, f.elements.DescriptionShort, f.elements.Abbreviation], 'jqxInput');
 	form.add('#@(formModel.FormId)_notes', 'jqxTextArea');
-	form.add('#@(formModel.FormId)_status', 'jqxCheckBox');
+    form.add('#@(formModel.FormId)_status', 'jqxCheckBox');
+    form.add('#@(formModel.FormId)_jqxRadioButton', 'jqxRadioButton');
+    form.add('#@(formModel.FormId)_jqxRadioButton2', 'jqxRadioButton');
+    form.add('#@(formModel.FormId)_jqxRadioButton3', 'jqxRadioButton');
 @if (!formModel.ForPopupEdit) { <text>
 });
 </text>}
@@ -32,8 +35,12 @@ layout.addFormInitializer(function(form){
 
 <form method="post" action="@formModel.Action" id="@formModel.FormId" form-manager="commonform">
 	<formsection form-manager="commonform" form-manager-rendersection="section_top"></formsection>
+  
 	<table class="table_edit jqx-wide">
+
+        <formsection form-manager="commonform" form-manager-rendersection="section0"></formsection>
 		<tbody>
+
 			<tr>
 				<td style="width:120px;">Código Interno</td>
 				<td style="width:150px;"><input type="text" readonly="readonly" name="Id" class="input_label_readonly" /></td>
@@ -58,7 +65,7 @@ layout.addFormInitializer(function(form){
 			</tr>
 			<tr>
 				<td>Descripción larga</td>
-				<td colspan="4"><input type="text" name="DescriptionLong" maxlength="52" /></td>
+				<td colspan="4"><input type="text" name="DescriptionLong" maxlength="51" /></td>
 			</tr>
 			<tr>
 				<td>Descripción mediana</td>
