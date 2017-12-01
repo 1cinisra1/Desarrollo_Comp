@@ -2,7 +2,6 @@
 	var formModel = (Model ?? ViewData["formModel"]) as GPSMonitoreo.Web.ViewComponents.Models.CommonFormModel;
 }
 
-
 <script script-manager-add="commonform">
 @if (formModel.ForPopupEdit)
 {<text>
@@ -21,9 +20,16 @@ layout.addFormInitializer(function(form){
 	form.add([f.elements.Id,f.elements.AuxiliaryId, f.elements.DescriptionLong, f.elements.DescriptionMedium, f.elements.DescriptionShort, f.elements.Abbreviation], 'jqxInput');
 	form.add('#@(formModel.FormId)_notes', 'jqxTextArea');
     form.add('#@(formModel.FormId)_status', 'jqxCheckBox');
-    form.add('#@(formModel.FormId)_jqxRadioButton', 'jqxRadioButton');
-    form.add('#@(formModel.FormId)_jqxRadioButton2', 'jqxRadioButton');
-    form.add('#@(formModel.FormId)_jqxRadioButton3', 'jqxRadioButton');
+
+    form.add('#@(formModel.FormId)_jqxRadioButton', 'jqxRadioButton', { groupName: 'Panel1' });
+    form.add('#@(formModel.FormId)_jqxRadioButton2', 'jqxRadioButton', { groupName: 'Panel1' });
+    form.add('#@(formModel.FormId)_jqxRadioButton3', 'jqxRadioButton', { groupName: 'Panel1' });
+    form.add('#@(formModel.FormId)_jqxRadioButton4', 'jqxRadioButton', { groupName: 'Panel2' });
+    form.add('#@(formModel.FormId)_jqxRadioButton5', 'jqxRadioButton', { groupName: 'Panel2' });
+    
+
+  
+
 @if (!formModel.ForPopupEdit) { <text>
 });
 </text>}
@@ -39,6 +45,8 @@ layout.addFormInitializer(function(form){
 	<table class="table_edit jqx-wide">
 
         <formsection form-manager="commonform" form-manager-rendersection="section0"></formsection>
+        <formsection form-manager="commonform" form-manager-rendersection="section6"></formsection>
+
 		<tbody>
 
 			<tr>
