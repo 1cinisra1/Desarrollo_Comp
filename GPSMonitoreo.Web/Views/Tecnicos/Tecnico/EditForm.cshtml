@@ -10,23 +10,22 @@
 
 }
 
-@*si se puede*@
+
+
 <script script-manager-add="commonform" script-manager-key="form_init">
     layout.addFormInitializer(function(form){
         var f = form.$form[0];
-       
-        form.add([f.Alterno, f.Prueba1, f.Prueba2], 'jqxInput');
+
+        form.add([f.Alterno], 'jqxInput');
+      
     });
 
-
-   
 </script>
 
 
 <formsection form-manager="commonform" form-manager-section="section0">
-  
-  <div id="GroupBoxServiceType" style="font-family: Verdana Arial; font-size: 12px; width: 400px;">
-      <fieldset style="width:200px">
+  <div style="width:40%">
+      <fieldset style="width:35%; float:left">
           <legend>Tipo de Servicio</legend>
 
           <div id="@(layoutModel.FormId)_jqxRadioButton" field_name="2">
@@ -39,31 +38,32 @@
               Ocacional
           </div>
       </fieldset>
+
+      <fieldset style="width:35%; float:right">
+          <legend>Cliente</legend>
+
+          <div id="@(layoutModel.FormId)_jqxRadioButton4" field_name="4">
+              Nuevo
+          </div>
+          <div id="@(layoutModel.FormId)_jqxRadioButton5" field_name="5">
+              Existente
+          </div>
+
+      </fieldset>
   </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+   
 </formsection>
 
 
 
 <formsection form-manager="commonform" form-manager-section="section6">
-
-    <div id="GroupBoxClients" style="font-family: Verdana Arial; font-size: 12px; width: 400px;">
-        <fieldset style="width:200px">
-            <legend>Cliente</legend>
-
-            <div id="@(layoutModel.FormId)_jqxRadioButton4" field_name="4">
-                Nuevo
-            </div>
-            <div id="@(layoutModel.FormId)_jqxRadioButton5" field_name="5">
-                Existente
-            </div>
-            
-        </fieldset>
-    </div>
-
-
-
-
-
+   
 </formsection>
 <formsection form-manager="commonform" form-manager-section="section1">
         <tr>
@@ -75,14 +75,26 @@
 
 <formsection form-manager="commonform" form-manager-section="section2">
     <tr>
-        <td>prueba1</td>
-        <td colspan="4"><input type="text" name="Prueba1"  maxlength="52" /></td>
+        <td>Agente</td>
+        <td>
+             <input  type="text" readonly="readonly" name="Ids" class="input_label_readonly" />
+        </td>
+        @*<td>
+            <input type="text" readonly="readonly" name="row" class="input_label_readonly" />
+        </td>*@
+       
+    </tr>
+    
+    
+    @*<tr>
+        <td>Sucursal</td>
+        <td colspan="4"><div id="@(layoutModel.FormId)_sucur" field_name="Agente" ></div></td>
     </tr>
 
     <tr>
-        <td>prueba2</td>
-        <td colspan="4"><input type="text" name="Prueba2" /></td>
-    </tr>
+        <td>Prioriodad</td>
+        <td colspan="4"><div id="@(layoutModel.FormId)_priori" field_name="Agente" ></div></td>
+    </tr>*@
 </formsection>
 
 
@@ -105,3 +117,4 @@
 @*@section tabs2{
     <div><div field_name="2"></div></div>
 }*@
+

@@ -26,9 +26,9 @@ layout.addFormInitializer(function(form){
     form.add('#@(formModel.FormId)_jqxRadioButton3', 'jqxRadioButton', { groupName: 'Panel1' });
     form.add('#@(formModel.FormId)_jqxRadioButton4', 'jqxRadioButton', { groupName: 'Panel2' });
     form.add('#@(formModel.FormId)_jqxRadioButton5', 'jqxRadioButton', { groupName: 'Panel2' });
-    
 
-  
+
+
 
 @if (!formModel.ForPopupEdit) { <text>
 });
@@ -41,11 +41,13 @@ layout.addFormInitializer(function(form){
 
 <form method="post" action="@formModel.Action" id="@formModel.FormId" form-manager="commonform">
 	<formsection form-manager="commonform" form-manager-rendersection="section_top"></formsection>
-  
+    <formsection form-manager="commonform" form-manager-rendersection="section0"></formsection>
+    
+    <formsection form-manager="commonform" form-manager-rendersection="section6"></formsection>
+   
 	<table class="table_edit jqx-wide">
 
-        <formsection form-manager="commonform" form-manager-rendersection="section0"></formsection>
-        <formsection form-manager="commonform" form-manager-rendersection="section6"></formsection>
+       
 
 		<tbody>
 
@@ -66,7 +68,7 @@ layout.addFormInitializer(function(form){
 			</tr>
 			<tr>
 				<td>Usuario creación</td>
-				<td><span class="input_label_readonly">jjjj</span></td>
+				<td><span class="input_label_readonly">Ptorres</span></td>
 				<td></td>
 				<td>Usuario modificación</td>
 				<td><div class="input_label_readonly">xxx</div></td>
