@@ -21,11 +21,6 @@ layout.addFormInitializer(function(form){
 	form.add('#@(formModel.FormId)_notes', 'jqxTextArea');
     form.add('#@(formModel.FormId)_status', 'jqxCheckBox');
 
-    form.add('#@(formModel.FormId)_jqxRadioButton', 'jqxRadioButton', { groupName: 'Panel1' });
-    form.add('#@(formModel.FormId)_jqxRadioButton2', 'jqxRadioButton', { groupName: 'Panel1' });
-    form.add('#@(formModel.FormId)_jqxRadioButton3', 'jqxRadioButton', { groupName: 'Panel1' });
-    form.add('#@(formModel.FormId)_jqxRadioButton4', 'jqxRadioButton', { groupName: 'Panel2' });
-    form.add('#@(formModel.FormId)_jqxRadioButton5', 'jqxRadioButton', { groupName: 'Panel2' });
 
 
 
@@ -97,12 +92,14 @@ layout.addFormInitializer(function(form){
 				<td>Activo</td>
 				<td colspan="4"><div id="@(formModel.FormId)_status" field_name="StatusId" class="jqx-checkbox-nomargin"></div></td>
 			</tr>
-			<formsection form-manager="commonform" form-manager-rendersection="section2"></formsection>
+			
 			<tr>
 				<td colspan="5">&nbsp;</td>
 			</tr>
 		</tbody>
-		<formsection form-manager="commonform" form-manager-rendersection="section3"></formsection>
+        
 	</table>
+    <formsection form-manager="commonform" form-manager-rendersection="section2"></formsection>
+    <formsection form-manager="commonform" form-manager-rendersection="section3"></formsection>
 	<formsection form-manager="commonform" form-manager-rendersection="section4"></formsection>
 </form>
