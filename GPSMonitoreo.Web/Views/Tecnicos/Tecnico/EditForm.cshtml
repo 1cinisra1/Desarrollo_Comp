@@ -7,7 +7,7 @@
     layoutModel.Title = "TECNICOS::TECNICO";
 
     ViewData["layoutModel"] = layoutModel;
-
+    
 }
 
 
@@ -17,13 +17,56 @@
         var f = form.$form[0];
 
         form.add(f.elements.Alterno, 'jqxInput');
-        form.add(f.elements.Ids, 'jqxInput',{ height: 10,width: 25});
+       // form.add(f.elements.Ids, 'jqxInput', { height: 23, width: 35 });
+       
 
         form.add('#@(layoutModel.FormId)_jqxRadioButton', 'jqxRadioButton', { groupName: 'Panel1' });
         form.add('#@(layoutModel.FormId)_jqxRadioButton2', 'jqxRadioButton', { groupName: 'Panel1' });
         form.add('#@(layoutModel.FormId)_jqxRadioButton3', 'jqxRadioButton', { groupName: 'Panel1' });
         form.add('#@(layoutModel.FormId)_jqxRadioButton4', 'jqxRadioButton', { groupName: 'Panel2' });
         form.add('#@(layoutModel.FormId)_jqxRadioButton5', 'jqxRadioButton', { groupName: 'Panel2' });
+
+        debugger;
+        var ruta = form.addPicker('#@(layoutModel.FormId)_name', {}, function(){
+            App.geographics.routes.windowSearch(function(item){
+                ruta.val({ value: item.Id, label: item.Description });
+
+            }, {closeOnSelect: true});
+        });
+
+
+        name.onChange = function() {
+            cargarRuta(name.val());
+
+        };
+
+
+
+        function cargarRuta(ruta){
+            if(ruta){
+
+                App.get('/geografico/rutas/rutafases/' + rutaId + '/' + entidadId, function(response){
+                    grid.base.source._source.localdata = response.records;
+
+                    grid.base.host.jqxTreeGrid('updateBoundData');
+
+                    var item = grid.getRows()[0];
+
+                    grid.base.host.jqxTreeGrid('beginUpdate');
+
+                    updateFaseApplicable(item, item.fase);
+
+                    grid.base.host.jqxTreeGrid('endUpdate');
+                });
+
+
+
+            }else{
+            }
+        }
+
+
+
     });
 
 </script>
@@ -61,7 +104,6 @@
 
                 </td>
             </tr>
-       
           
         </table>
 
@@ -87,24 +129,18 @@
 
 <formsection form-manager="commonform" form-manager-section="section2">
     <div>
-        <table>
-
-            <tr>
-                <td style="width:120px">Agente</td>
-                <td ><input type="text" readonly="readonly" name="Ids" class="input_label_readonly" /></td>
-            </tr>
+        <table class="table_edit jqx-wide">
+            <tbody>
+                <tr>
+                    <td style="width:120px">Agente</td>
+                    <td style="width:450px;"><div id="@(layoutModel.FormId)_name" field_name="nombre"></div></td>
+                </tr>
+            </tbody>
+           
         </table>
    </div>
 
-            @*<tr>
-                    <td>Sucursal</td>
-                    <td colspan="4"><div id="@(layoutModel.FormId)_sucur" field_name="Agente" ></div></td>
-                </tr>
-
-                <tr>
-                    <td>Prioriodad</td>
-                    <td colspan="4"><div id="@(layoutModel.FormId)_priori" field_name="Agente" ></div></td>
-                </tr>*@
+        
 </formsection>
 
 
