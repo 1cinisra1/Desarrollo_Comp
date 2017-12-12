@@ -26,7 +26,7 @@
         form.add('#@(layoutModel.FormId)_jqxRadioButton4', 'jqxRadioButton', { groupName: 'Panel2' });
         form.add('#@(layoutModel.FormId)_jqxRadioButton5', 'jqxRadioButton', { groupName: 'Panel2' });
 
-        debugger;
+        
         var ruta = form.addPicker('#@(layoutModel.FormId)_name', {}, function(){
             App.geographics.routes.windowSearch(function(item){
                 ruta.val({ value: item.Id, label: item.Description });
